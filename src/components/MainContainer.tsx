@@ -30,7 +30,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
       <Navbar />
       <SocialIcons />
       {/* Persist children (WebGL) across resize to prevent unmounting */}
-      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: -1 }}>
+      <div className="canvas-wrapper">
         {children}
       </div>
       <main>
