@@ -57,8 +57,8 @@ const SocialIcons = () => {
 
   return (
     <div className="icons-section">
-      <div className="social-icons" data-cursor="icons" id="social">
-        <span>
+      <div className="social-icons" id="social">
+        <span data-cursor="icons">
           <a
             href="https://github.com/riteshpp05"
             target="_blank"
@@ -67,7 +67,7 @@ const SocialIcons = () => {
             <FaGithub />
           </a>
         </span>
-        <span>
+        <span data-cursor="icons">
           <a
             href="https://www.linkedin.com/in/riteshpatil-32946b26b"
             target="_blank"
@@ -76,7 +76,7 @@ const SocialIcons = () => {
             <FaLinkedinIn />
           </a>
         </span>
-        <span>
+        <span data-cursor="icons">
           <a
             href="mailto:riteshpatil702811@gmail.com"
             target="_blank"
@@ -85,7 +85,7 @@ const SocialIcons = () => {
             <MdEmail />
           </a>
         </span>
-        <span>
+        <span data-cursor="icons">
           <a
             href="tel:+917028111146"
             target="_blank"
