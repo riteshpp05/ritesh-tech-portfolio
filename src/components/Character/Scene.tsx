@@ -126,6 +126,8 @@ const Scene = () => {
       const animate = () => {
         requestAnimationFrame(animate);
         
+        const delta = clock.getDelta();
+
         // Skip heavy WebGL renders and matrix calculations if out of view
         if (!isVisible) return;
 
@@ -140,7 +142,6 @@ const Scene = () => {
           );
           light.setPointLight(screenLight);
         }
-        const delta = clock.getDelta();
         if (mixer) {
           mixer.update(delta);
         }
