@@ -34,7 +34,7 @@
   --accentColor: var(--accent-cyan);
   --backgroundColor: var(--bg-primary);
   --vh: 100vh;
-  --vh: 100svh;
+  --vh: 100dvh;
 }
 
 h1,
@@ -46,9 +46,6 @@ h6 {
   font-family: "Geist", sans-serif;
 }
 
-body {
-  overflow: hidden;
-}
 
 a {
   color: inherit;
@@ -100,7 +97,8 @@ body {
 
 .container1 {
   width: var(--cWidth);
-  height: var(--vh);
+  min-height: var(--vh);
+  height: auto;
   margin: auto;
   position: relative;
 }
@@ -156,4 +154,25 @@ section,
 [id="contact"],
 [id="career"] {
   scroll-margin-top: 100px;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    max-width: 100%;
+  }
+  .main-body {
+    max-width: 100%;
+  }
+  .techstack {
+    height: auto;
+    min-height: 500px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .techstack h2 {
+    font-size: 24px;
+    top: 60px;
+  }
 }

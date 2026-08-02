@@ -1,7 +1,7 @@
 .loading-screen {
   position: fixed;
-  width: 100vw;
-  height: var(--vh);
+  width: 100%;
+  height: 100dvh;
   /* background-image: linear-gradient(#cbb1ff, #d8c4ff); */
   background-color: #e0f2f1;
   z-index: 999999999;
@@ -68,7 +68,7 @@
   transform: scale(1);
   min-width: calc(100vw + 5000px);
   border-radius: 5000px;
-  min-height: calc(100vh + 500px);
+  min-height: calc(100dvh + 500px);
   box-shadow: none;
 }
 
@@ -427,5 +427,26 @@
 
   .loader-title {
     font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .loading-marquee-track {
+    font-size: 36px;
+  }
+  .loading-marquee-track span {
+    padding: 0px 25px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .loading-button {
+    padding: 14px 30px;
+    font-size: 15px;
+  }
+  .loading-marquee-track {
+    font-size: 24px;
+  }
+  .loading-marquee-track span {
+    padding: 0px 15px;
   }
 }

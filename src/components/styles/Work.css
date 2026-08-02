@@ -298,3 +298,39 @@
     max-height: 250px;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .work-link {
+    opacity: 1;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .work-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .carousel-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .carousel-number h3 {
+    font-size: 28px;
+  }
+  .carousel-details h4 {
+    font-size: 18px;
+  }
+  .carousel-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+  .carousel-controls {
+    gap: 20px;
+  }
+  .carousel-slide {
+    padding: 20px 0;
+  }
+  .work-image img {
+    max-height: 200px;
+  }
+}

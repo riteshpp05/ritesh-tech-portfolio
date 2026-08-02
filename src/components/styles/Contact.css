@@ -120,3 +120,23 @@ a.contact-social:hover {
     width: calc(100% - 25px);
   }
 }
+
+@media only screen and (max-width: 480px) {
+  .contact-section h3 {
+    font-size: 28px;
+  }
+  .contact-flex {
+    gap: 25px;
+  }
+  .contact-container {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  a.contact-social {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 0;
+    min-height: 44px;
+  }
+}

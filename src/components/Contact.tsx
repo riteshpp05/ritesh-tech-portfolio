@@ -59,8 +59,6 @@ const Contact = () => {
             </a>
             <a
               href="tel:+917028111146"
-              target="_blank"
-              rel="noreferrer"
               data-cursor="disable"
               className="contact-social"
             >
