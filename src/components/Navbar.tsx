@@ -1,50 +1,28 @@
 import { useEffect } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
-import { gsap } from "gsap";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
 import "./styles/Navbar.css";
-
-gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
-export let smoother: ScrollSmoother;
 
 const Navbar = () => {
   useEffect(() => {
-    smoother = ScrollSmoother.create({
-      wrapper: "#smooth-wrapper",
-      content: "#smooth-content",
-      smooth: 2,
-      speed: 1.3,
-      effects: true,
-      autoResize: true,
-      ignoreMobileResize: true,
-      normalizeScroll: true,
-    });
-
-    smoother.scrollTop(0);
-    smoother.paused(true);
-
     let links = document.querySelectorAll(".header ul a");
     links.forEach((elem) => {
       let element = elem as HTMLAnchorElement;
       element.addEventListener("click", (e) => {
-        if (window.innerWidth > 1024) {
+        const targetId = element.getAttribute("href")?.substring(1);
+        const target = document.getElementById(targetId || "");
+        if (target) {
           e.preventDefault();
-          let elem = e.currentTarget as HTMLAnchorElement;
-          let section = elem.getAttribute("data-href");
-          smoother.scrollTo(section, true, "top top");
+          target.scrollIntoView({ behavior: "smooth" });
         }
       });
     });
-    window.addEventListener("resize", () => {
-      ScrollSmoother.refresh(true);
-    });
   }, []);
+
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
-          <img src="/assets/logo-r.png" alt="Ritesh Patil Logo" style={{ height: '40px', objectFit: 'contain' }} />
+        <a href="/#" className="navbar-title" data-cursor="disable" style={{ display: 'flex', alignItems: 'center' }}>
+          <img src="/logo.png" alt="Ritesh Patil Logo" style={{ height: '40px', width: 'auto', objectFit: 'contain' }} />
         </a>
         <a
           href="https://www.linkedin.com/in/riteshpatil-32946b26b"
@@ -59,11 +37,6 @@ const Navbar = () => {
           <li>
             <a data-href="#about" href="#about">
               <HoverLinks text="ABOUT" />
-            </a>
-          </li>
-          <li>
-            <a href="/Ritesh_Patil.pdf" target="_blank" rel="noreferrer">
-              <HoverLinks text="RESUME" />
             </a>
           </li>
           <li>
