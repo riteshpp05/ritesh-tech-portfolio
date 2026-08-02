@@ -98,16 +98,37 @@ const Scene = () => {
         });
       };
 
-      document.addEventListener("mousemove", (event) => {
-        onMouseMove(event);
-      });
+      // --- Resize Listener Fix ---
+      const onResize = () => handleResize(renderer, camera, canvasDiv, character!);
+      window.addEventListener("resize", onResize);
+      
+      // --- Event Listeners Fix ---
       const landingDiv = document.getElementById("landingDiv");
+      document.addEventListener("mousemove", onMouseMove);
+      
       if (landingDiv) {
         landingDiv.addEventListener("touchstart", onTouchStart);
         landingDiv.addEventListener("touchend", onTouchEnd);
       }
+
+      // --- Intersection Observer for WebGL Culling ---
+      let isVisible = true;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0 });
+
+      if (canvasDiv.current) {
+        observer.observe(canvasDiv.current);
+      }
+
       const animate = () => {
         requestAnimationFrame(animate);
+        
+        // Skip heavy WebGL renders and matrix calculations if out of view
+        if (!isVisible) return;
+
         if (headBone) {
           handleHeadRotation(
             headBone,
@@ -126,18 +147,19 @@ const Scene = () => {
         renderer.render(scene, camera);
       };
       animate();
+      
       return () => {
         clearTimeout(debounce);
+        observer.disconnect();
         scene.clear();
         renderer.dispose();
-        window.removeEventListener("resize", () =>
-          handleResize(renderer, camera, canvasDiv, character!)
-        );
+        window.removeEventListener("resize", onResize);
+        
         if (canvasDiv.current) {
           canvasDiv.current.removeChild(renderer.domElement);
         }
+        document.removeEventListener("mousemove", onMouseMove);
         if (landingDiv) {
-          document.removeEventListener("mousemove", onMouseMove);
           landingDiv.removeEventListener("touchstart", onTouchStart);
           landingDiv.removeEventListener("touchend", onTouchEnd);
         }
