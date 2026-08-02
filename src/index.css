@@ -148,3 +148,12 @@ body {
     font-size: 40px;
   }
 }
+
+/* Fix for section headers clipping under the fixed Navbar */
+section,
+[id="about"],
+[id="work"],
+[id="contact"],
+[id="career"] {
+  scroll-margin-top: 100px;
+}

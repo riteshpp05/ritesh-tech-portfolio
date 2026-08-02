@@ -18,6 +18,9 @@ const Cursor = () => {
     const onMouseMove = (e: MouseEvent) => {
       mousePos.x = e.clientX;
       mousePos.y = e.clientY;
+      if (!cursor.classList.contains("cursor-active")) {
+        cursor.classList.add("cursor-active");
+      }
     };
     document.addEventListener("mousemove", onMouseMove);
 

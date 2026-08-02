@@ -114,12 +114,16 @@
   align-items: center;
 }
 
-/* ── Navigation Arrows ── */
+/* ── Controls Footer ── */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
 .carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #eae5ec;
@@ -142,20 +146,11 @@
   box-shadow: 0 0 20px rgba(94, 234, 212, 0.15);
 }
 
-.carousel-arrow-left {
-  left: -70px;
-}
-
-.carousel-arrow-right {
-  right: -70px;
-}
-
 /* ── Dot Indicators ── */
 .carousel-dots {
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin-top: 35px;
 }
 
 .carousel-dot {
@@ -234,16 +229,6 @@
 }
 
 /* ── Responsive ── */
-@media only screen and (max-width: 1600px) {
-  .carousel-arrow-left {
-    left: -60px;
-  }
-
-  .carousel-arrow-right {
-    right: -60px;
-  }
-}
-
 @media only screen and (max-width: 1400px) {
   .work-section h2 {
     font-size: 50px;
@@ -259,14 +244,6 @@
 
   .carousel-content {
     gap: 40px;
-  }
-
-  .carousel-arrow-left {
-    left: 10px;
-  }
-
-  .carousel-arrow-right {
-    right: 10px;
   }
 }
 
@@ -288,14 +265,6 @@
     width: 40px;
     height: 40px;
     font-size: 18px;
-  }
-
-  .carousel-arrow-left {
-    left: 10px;
-  }
-
-  .carousel-arrow-right {
-    right: 10px;
   }
 }
 
