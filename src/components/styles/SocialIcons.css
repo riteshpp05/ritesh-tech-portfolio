@@ -99,3 +99,22 @@ div.resume-button span {
     margin-top: -1.5px;
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .resume-button {
+    transform: none;
+    position: fixed;
+    bottom: 20px;
+    right: 15px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: normal;
+    background: rgba(5, 8, 16, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #ccc;
+    z-index: 999;
+  }
+}

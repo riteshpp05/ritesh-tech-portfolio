@@ -103,11 +103,30 @@
 }
 @media screen and (max-width: 479px) {
   .header ul {
-    column-gap: 12px;
-    font-size: 13px;
+    column-gap: 10px;
+    font-size: 11px;
   }
   .header ul li a {
     padding: 10px 8px;
     min-height: 44px;
+  }
+  .navbar-title img {
+    height: 32px !important;
+  }
+}
+
+@media screen and (max-width: 359px) {
+  .header {
+    padding: 12px 10px;
+  }
+  .header ul {
+    column-gap: 6px;
+    font-size: 11px;
+  }
+  .header ul li a {
+    padding: 8px 4px;
+  }
+  .navbar-title img {
+    height: 30px !important;
   }
 }

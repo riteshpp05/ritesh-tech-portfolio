@@ -139,4 +139,10 @@ a.contact-social:hover {
     padding: 8px 0;
     min-height: 44px;
   }
+  .contact-flex p {
+    word-break: break-word;
+  }
+  .contact-box h2 {
+    font-size: 16px;
+  }
 }

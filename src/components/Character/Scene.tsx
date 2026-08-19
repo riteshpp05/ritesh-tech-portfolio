@@ -53,8 +53,10 @@ const Scene = () => {
       let progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
+      let isMounted = true;
+
       loadCharacter().then((gltf) => {
-        if (gltf) {
+        if (gltf && isMounted) {
           const animations = setAnimations(gltf);
           hoverDivRef.current && animations.hover(gltf, hoverDivRef.current);
           mixer = animations.mixer;
@@ -123,8 +125,9 @@ const Scene = () => {
         observer.observe(canvasDiv.current);
       }
 
+      let animationFrameId: number;
       const animate = () => {
-        requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate);
         
         const delta = clock.getDelta();
 
@@ -150,6 +153,8 @@ const Scene = () => {
       animate();
       
       return () => {
+        isMounted = false;
+        cancelAnimationFrame(animationFrameId);
         clearTimeout(debounce);
         observer.disconnect();
         scene.clear();

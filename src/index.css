@@ -173,20 +173,32 @@ section,
   .main-body {
     max-width: 100%;
   }
+  main {
+    position: relative;
+    z-index: 1;
+  }
   .techstack {
     height: auto;
     min-height: 500px;
-    margin-top: 30px;
+    margin-top: 80px;
     margin-bottom: 0px;
   }
   .canvas-wrapper {
     position: absolute;
     height: 100dvh;
+    z-index: -1;
+  }
+  .tech-canvas {
+    min-height: 400px;
+    max-height: 500px;
   }
 }
 @media screen and (max-width: 480px) {
   .techstack h2 {
     font-size: 24px;
     top: 60px;
+  }
+  .techstack {
+    min-height: 350px;
   }
 }

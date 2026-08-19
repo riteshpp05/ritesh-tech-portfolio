@@ -393,10 +393,16 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .whatIDO {
+    background-color: var(--backgroundColor);
+  }
   .what-box:last-child,
   .what-box-in {
     height: auto;
     min-height: 400px;
+  }
+  .what-box-in {
+    display: flex;
   }
   .what-border2 svg {
     height: 100%;
@@ -414,6 +420,18 @@
   }
   .what-content {
     padding: 20px 15px;
+  }
+  .what-noTouch:hover,
+  .what-content-active {
+    padding: 15px;
+  }
+  .what-noTouch:hover ~ .what-content,
+  .what-box-in:hover .what-noTouch:not(:hover),
+  .what-content.what-sibling {
+    padding: 8px 15px;
+  }
+  .what-content h3 {
+    font-size: 20px;
   }
   .what-tags {
     font-size: 12px;

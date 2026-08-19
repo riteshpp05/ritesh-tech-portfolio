@@ -397,6 +397,9 @@ h2.landing-info-h2 {
 }
 
 @media screen and (max-width: 767px) {
+  .landing-section {
+    overflow-x: hidden;
+  }
   .landing-circle1 {
     width: 150px;
     height: 150px;
@@ -426,11 +429,32 @@ h2.landing-info-h2 {
     margin-left: 0;
     margin-top: 0;
     flex-wrap: wrap;
+    line-height: 24px;
   }
   .landing-intro h2 {
     font-size: 16px;
   }
   .landing-info h3 {
     font-size: 16px;
+  }
+  .landing-info {
+    width: 100%;
+    text-align: center;
+    right: auto;
+    left: 0;
+    transform: none;
+    padding: 0 15px;
+    box-sizing: border-box;
+    bottom: 60px;
+  }
+  .landing-info-h2::after {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .landing-intro h1 {
+    font-size: 24px;
+    line-height: 26px;
   }
 }
