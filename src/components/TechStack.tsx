@@ -149,7 +149,7 @@ function createCanvasTexture(tech: TechDef): THREE.CanvasTexture {
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
 const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-const scaleMultiplier = isMobile ? 1 : 1;
+const scaleMultiplier = isMobile ? 1.3 : 1;
 
 // One sphere per technology, with slight scale variation for visual interest
 const spheres = technologies.map((_, i) => ({
@@ -309,7 +309,7 @@ const TechStack = () => {
       <Canvas
         shadows
         gl={{ alpha: true, stencil: false, depth: false, antialias: false, powerPreference: "high-performance" }}
-        camera={{ position: [0, 0, isMobile ? 32 : 20], fov: isMobile ? 45 : 32.5, near: 1, far: 100 }}
+        camera={{ position: [0, 0, isMobile ? 28 : 20], fov: isMobile ? 38 : 32.5, near: 1, far: 100 }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
         className="tech-canvas"
       >
