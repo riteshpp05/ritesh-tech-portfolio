@@ -2,9 +2,9 @@ import "./styles/About.css";
 
 const About = () => {
   return (
-    <div className="about-section" id="about">
+    <section className="about-section" id="about" aria-label="About Ritesh Patil">
       <div className="about-me">
-        <h3 className="title">About Me</h3>
+        <h2 className="title">About Me</h2>
         <p className="para">
           Currently working as an AI Intern at Abhiyanta India Solutions. AI/ML Engineer & Generative AI Developer specializing in RAG
           Systems, Agentic AI, LangChain, LangGraph, Computer Vision, and
@@ -14,7 +14,7 @@ const About = () => {
           solutions.
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 

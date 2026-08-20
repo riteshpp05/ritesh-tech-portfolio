@@ -1,0 +1,40 @@
+# Ritesh Patil — AI/ML Engineer & Generative AI Developer
+
+> Personal portfolio website of Ritesh Patil, an AI/ML Engineer and Generative AI Developer based in Pune, India.
+
+## About Ritesh Patil
+
+Ritesh Patil is an AI/ML Engineer & Generative AI Developer currently working as an AI Intern at Abhiyanta India Solutions. He specializes in building production-ready RAG Systems, Agentic AI applications, and Computer Vision solutions deployed on cloud-native infrastructure.
+
+## Core Expertise
+
+- **Generative AI & RAG**: LangChain, LangGraph, Ollama, OpenAI, FAISS, Pinecone, Prompt Engineering
+- **Computer Vision & ML**: YOLO, TensorFlow, OpenCV, Roboflow, TensorFlow Lite
+- **Cloud & Deployment**: AWS (EC2, SageMaker), Docker, Kubernetes, SAP AI Core, SAP BTP, CI/CD
+- **Enterprise AI**: Microsoft Copilot Studio, Power Automate, Dataverse, M365 Integration
+
+## Notable Projects
+
+1. **Medical Chatbot** — RAG pipeline using LangChain, GPT-4, Pinecone, FAISS, deployed with Docker on AWS EC2
+2. **Retina Heart Disease Detection** — Computer Vision system using YOLO, TensorFlow, OpenCV for medical imaging
+3. **CEO Agentic Chatbot** — Enterprise automation using Microsoft Copilot Studio, Power Automate, Dataverse
+4. **Virtual Kiosk** — EdTech offline learning platform built with Angular, Node.js, Express.js
+5. **Industrial Object Detection** — Edge deployment system using YOLO, TensorFlow Lite, AWS SageMaker
+
+## Career
+
+- **AI Intern** at Abhiyanta India Solutions (Present) — SAP AI Core, SAP BTP, Microsoft Copilot Studio
+- **Machine Learning Engineer** at Automation Teknix (2025–26) — YOLO, AWS SageMaker, TFLite
+- **Software Engineer (Intern)** at Jnana Prabodhini (2025) — AngularJS, responsive UIs
+
+## Education
+
+- PG Diploma in AI & ML — MIT World Peace University (2024–2025)
+- B.Sc Computer Science — Abasaheb Garware College (2020–2023)
+
+## Links
+
+- Website: https://riteshpatil.com/
+- LinkedIn: https://www.linkedin.com/in/riteshpatil-32946b26b
+- GitHub: https://github.com/riteshpp05
+- Email: riteshpatil702811@gmail.com
