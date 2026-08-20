@@ -4,7 +4,7 @@
 
 ## About Ritesh Patil
 
-Ritesh Patil is an AI/ML Engineer & Generative AI Developer currently working as an AI Intern at Abhiyanta India Solutions. He specializes in building production-ready RAG Systems, Agentic AI applications, and Computer Vision solutions deployed on cloud-native infrastructure.
+Ritesh Patil is an AI/ML Engineer & Generative AI Developer currently working as an AI Engineer at Abhiyanta India Solutions. He specializes in building production-ready RAG Systems, Agentic AI applications, and Computer Vision solutions deployed on cloud-native infrastructure.
 
 ## Core Expertise
 
@@ -23,7 +23,7 @@ Ritesh Patil is an AI/ML Engineer & Generative AI Developer currently working as
 
 ## Career
 
-- **AI Intern** at Abhiyanta India Solutions (Present) — SAP AI Core, SAP BTP, Microsoft Copilot Studio
+- **AI Engineer** at Abhiyanta India Solutions (Present) — SAP AI Core, SAP BTP, Microsoft Copilot Studio
 - **Machine Learning Engineer** at Automation Teknix (2025–26) — YOLO, AWS SageMaker, TFLite
 - **Software Engineer (Intern)** at Jnana Prabodhini (2025) — AngularJS, responsive UIs
 
