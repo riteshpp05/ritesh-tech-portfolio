@@ -149,7 +149,7 @@ function createCanvasTexture(tech: TechDef): THREE.CanvasTexture {
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
 const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-const scaleMultiplier = isMobile ? 0.6 : 1;
+const scaleMultiplier = isMobile ? 1 : 1;
 
 // One sphere per technology, with slight scale variation for visual interest
 const spheres = technologies.map((_, i) => ({
