@@ -1,40 +1,64 @@
 # Ritesh Patil — AI/ML Engineer & Generative AI Developer
 
-> Personal portfolio website of Ritesh Patil, an AI/ML Engineer and Generative AI Developer based in Pune, India.
+> Official portfolio of Ritesh Patil, an AI/ML Engineer and Generative AI Developer based in Pune, Maharashtra, India.
 
-## About Ritesh Patil
+## Who is Ritesh Patil?
 
-Ritesh Patil is an AI/ML Engineer & Generative AI Developer currently working as an AI Engineer at Abhiyanta India Solutions. He specializes in building production-ready RAG Systems, Agentic AI applications, and Computer Vision solutions deployed on cloud-native infrastructure.
+Ritesh Patil is an AI/ML Engineer and Generative AI Developer from Pune, India, currently working as an AI Engineer at Abhiyanta India Solutions. He has 3+ years of hands-on experience building production-ready AI systems — including RAG pipelines, Agentic AI workflows, Computer Vision solutions, and Cloud-Native AI deployments. He bridges the gap between AI research and real-world enterprise applications.
 
 ## Core Expertise
 
-- **Generative AI & RAG**: LangChain, LangGraph, Ollama, OpenAI, FAISS, Pinecone, Prompt Engineering
-- **Computer Vision & ML**: YOLO, TensorFlow, OpenCV, Roboflow, TensorFlow Lite
-- **Cloud & Deployment**: AWS (EC2, SageMaker), Docker, Kubernetes, SAP AI Core, SAP BTP, CI/CD
-- **Enterprise AI**: Microsoft Copilot Studio, Power Automate, Dataverse, M365 Integration
+- **Generative AI & RAG Systems**: LangChain, LangGraph, Ollama, OpenAI GPT-4, FAISS, Pinecone, Prompt Engineering, RAG pipeline architecture
+- **Agentic AI**: Multi-agent orchestration, tool-calling agents, autonomous AI workflows, Microsoft Copilot Studio, Power Automate
+- **Computer Vision & ML**: YOLO (v8/v11), TensorFlow, OpenCV, Roboflow, TensorFlow Lite, medical imaging
+- **Cloud & MLOps**: AWS EC2, AWS SageMaker, Docker, Kubernetes, CI/CD, SAP AI Core, SAP BTP
+- **Enterprise AI Integration**: Microsoft Copilot Studio, Power Automate, Dataverse, M365 (Teams, Outlook, SharePoint)
+- **Languages & Frameworks**: Python, FastAPI, Angular, Node.js, Express.js
 
 ## Notable Projects
 
-1. **Medical Chatbot** — RAG pipeline using LangChain, GPT-4, Pinecone, FAISS, deployed with Docker on AWS EC2
-2. **Retina Heart Disease Detection** — Computer Vision system using YOLO, TensorFlow, OpenCV for medical imaging
-3. **CEO Agentic Chatbot** — Enterprise automation using Microsoft Copilot Studio, Power Automate, Dataverse
-4. **Virtual Kiosk** — EdTech offline learning platform built with Angular, Node.js, Express.js
-5. **Industrial Object Detection** — Edge deployment system using YOLO, TensorFlow Lite, AWS SageMaker
+### 1. Medical Chatbot — RAG + LangChain + AWS + Docker
+End-to-end Medical Chatbot using a RAG pipeline. Built with LangChain, OpenAI GPT-4, Pinecone, and FAISS for vector retrieval. Deployed using Docker containers on AWS EC2 with CI/CD pipelines. Enables natural language Q&A over large medical knowledge bases with accurate, cited responses.
 
-## Career
+### 2. Retina Heart Disease Detection — Computer Vision & Medical Imaging
+Computer Vision system for automated medical image analysis. Uses YOLO and TensorFlow to detect retinal and cardiac disease markers from scan images. Built with OpenCV and Roboflow for data processing and annotation.
 
-- **AI Engineer** at Abhiyanta India Solutions (Present) — SAP AI Core, SAP BTP, Microsoft Copilot Studio
-- **Machine Learning Engineer** at Automation Teknix (2025–26) — YOLO, AWS SageMaker, TFLite
-- **Software Engineer (Intern)** at Jnana Prabodhini (2025) — AngularJS, responsive UIs
+### 3. CEO Agentic Chatbot — Enterprise Agentic AI
+Enterprise-grade Agentic AI assistant built for executive decision support. Developed on Microsoft Copilot Studio with Power Automate orchestration, integrating with Microsoft Teams, Outlook, SharePoint, and Dataverse. Automates complex cross-departmental AI workflows.
+
+### 4. Virtual Kiosk — EdTech Offline Learning Platform
+Offline-first educational platform serving rural and low-connectivity areas. Built with Angular, Node.js, and Express.js with smart JSON routing. Supports both online and offline content delivery without internet dependency.
+
+### 5. Industrial Object Detection — Edge Computer Vision Deployment
+Real-time industrial quality control system using YOLO for object detection. Deployed on Android devices via TensorFlow Lite (edge inference) and managed via AWS SageMaker. Operates fully offline in factory environments.
+
+## Career History
+
+- **AI Engineer** — Abhiyanta India Solutions (Present, Pune, India)
+  Building enterprise AI solutions: SAP AI Core, SAP BTP, Microsoft Copilot Studio, RAG architectures, LLM integrations, M365 automation.
+
+- **Machine Learning Engineer** — Automation Teknix (2025–2026, Pune, India)
+  Built industrial object detection pipeline (YOLO → TFLite → AWS SageMaker → Android). Delivered end-to-end MLOps from training to edge deployment.
+
+- **Software Engineer Intern** — Jnana Prabodhini (2025, Pune, India)
+  Developed offline/online Virtual Kiosk platform with AngularJS, responsive UIs, and JSON-based routing for educational content delivery.
 
 ## Education
 
-- PG Diploma in AI & ML — MIT World Peace University (2024–2025)
-- B.Sc Computer Science — Abasaheb Garware College (2020–2023)
+- **PG Diploma in Artificial Intelligence & Machine Learning** — MIT World Peace University, Pune (2024–2025)
+- **B.Sc Computer Science** — Abasaheb Garware College, Pune (2020–2023)
 
-## Links
+## Availability
 
-- Website: https://riteshpatil.com/
-- LinkedIn: https://www.linkedin.com/in/riteshpatil-32946b26b
-- GitHub: https://github.com/riteshpp05
-- Email: riteshpatil702811@gmail.com
+Ritesh Patil is based in Pune, India and is open to:
+- Full-time AI/ML Engineer or Generative AI Developer roles (remote or Pune-based)
+- Enterprise AI consulting and freelance AI development projects
+- RAG system design, Agentic AI development, and Computer Vision engineering
+
+## Contact & Links
+
+- **Website**: https://riteshpatil.com/
+- **LinkedIn**: https://www.linkedin.com/in/riteshpatil-32946b26b
+- **GitHub**: https://github.com/riteshpp05
+- **Email**: riteshpatil702811@gmail.com
+- **Resume/CV**: https://riteshpatil.com/Ritesh_Patil.pdf
