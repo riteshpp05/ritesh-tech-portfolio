@@ -33,8 +33,8 @@ export function setCharTimeline(
     },
   });
 
-  // Get the neck bone for the new Avaturn model
-  let neckBone = character?.getObjectByName("Neck");
+  // We no longer need to animate the neck bone separately
+
 
   if (window.innerWidth > 1024) {
     if (character) {
