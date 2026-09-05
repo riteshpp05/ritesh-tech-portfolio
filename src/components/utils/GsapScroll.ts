@@ -91,8 +91,8 @@ export function setCharTimeline(
         .to(screenLight.material, { opacity: 1, duration: 0.8, delay: 4.5 }, 0)
         .fromTo(
           ".what-box-in",
-          { display: "none" },
-          { display: "flex", duration: 0.1, delay: 6 },
+          { visibility: "hidden", opacity: 0 },
+          { visibility: "visible", opacity: 1, duration: 0.1, delay: 6 },
           0
         )
         .fromTo(
