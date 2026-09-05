@@ -62,7 +62,8 @@ const SocialIcons = () => {
           <a
             href="https://github.com/riteshpp05"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            aria-label="Visit Ritesh Patil on GitHub"
           >
             <FaGithub />
           </a>
@@ -71,7 +72,8 @@ const SocialIcons = () => {
           <a
             href="https://www.linkedin.com/in/riteshpatil-32946b26b"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            aria-label="Connect with Ritesh Patil on LinkedIn"
           >
             <FaLinkedinIn />
           </a>
@@ -80,7 +82,8 @@ const SocialIcons = () => {
           <a
             href="mailto:riteshpatil702811@gmail.com"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            aria-label="Email Ritesh Patil"
           >
             <MdEmail />
           </a>
@@ -89,7 +92,8 @@ const SocialIcons = () => {
           <a
             href="tel:+917028111146"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            aria-label="Call Ritesh Patil"
           >
             <MdPhone />
           </a>
@@ -99,7 +103,8 @@ const SocialIcons = () => {
         className="resume-button"
         href="/Ritesh_Patil.pdf"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
+        aria-label="Download resume of Ritesh Patil"
       >
         <HoverLinks text="RESUME" />
         <span>

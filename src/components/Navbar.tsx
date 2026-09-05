@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable" style={{ display: 'flex', alignItems: 'center' }}>
+        <a href="/" className="navbar-title" data-cursor="disable" style={{ display: 'flex', alignItems: 'center' }}>
           <img src="/logo.png" alt="Ritesh Patil Logo" style={{ height: '40px', width: 'auto', objectFit: 'contain' }} />
         </a>
         <a
@@ -29,7 +29,7 @@ const Navbar = () => {
           className="navbar-connect"
           data-cursor="disable"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           linkedin.com/in/riteshpatil
         </a>

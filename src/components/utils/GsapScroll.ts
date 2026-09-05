@@ -127,7 +127,7 @@ export function setCharTimeline(
           end: "bottom top",
         },
       });
-      tM2.to(".what-box-in", { display: "flex", duration: 0.1, delay: 0 }, 0);
+      tM2.to(".what-box-in", { visibility: "visible", opacity: 1, duration: 0.1, delay: 0 }, 0);
     }
   }
 }

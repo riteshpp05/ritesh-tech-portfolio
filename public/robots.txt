@@ -44,3 +44,7 @@ Allow: /
 
 # Sitemap
 Sitemap: https://riteshpatil.com/sitemap.xml
+
+# LLMs.txt for AI Search Engines
+# https://llmstxt.org/
+LLMSTXT: https://riteshpatil.com/llms.txt

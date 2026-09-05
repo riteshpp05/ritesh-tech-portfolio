@@ -1,6 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 @import "lenis/dist/lenis.css";
 
+/* Skip-to-content link for accessibility SEO */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 10000;
+}
+.skip-to-content:focus {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: auto;
+  height: auto;
+  padding: 12px 24px;
+  background: #0a0a0a;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  z-index: 10000;
+}
+
 :root {
   font-family: "Geist", sans-serif;
 

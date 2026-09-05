@@ -26,6 +26,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
 
   return (
     <div className="container-main">
+      <a href="#about" className="skip-to-content" aria-label="Skip to main content">Skip to content</a>
       <Cursor />
       <Navbar />
       <SocialIcons />
