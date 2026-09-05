@@ -63,8 +63,8 @@ const Scene = () => {
           let character = gltf.scene;
           setChar(character);
           scene.add(character);
-          headBone = character.getObjectByName("spine006") || null;
-          screenLight = character.getObjectByName("screenlight") || null;
+          headBone = character.getObjectByName("Head") || null;
+          screenLight = null; // new Avaturn model has no screenlight mesh
           progress.loaded().then(() => {
             setTimeout(() => {
               light.turnOnLights();
@@ -143,7 +143,9 @@ const Scene = () => {
             interpolation.y,
             THREE.MathUtils.lerp
           );
-          light.setPointLight(screenLight);
+          if (screenLight) {
+            light.setPointLight(screenLight);
+          }
         }
         if (mixer) {
           mixer.update(delta);
