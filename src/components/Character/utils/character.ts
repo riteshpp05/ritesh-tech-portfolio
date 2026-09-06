@@ -15,14 +15,12 @@ const setCharacter = (
   const loadCharacter = () => {
     return new Promise<GLTF | null>((resolve, reject) => {
       loader.load(
-        "/models/model.glb",
+        "/perfect_model.glb",
         async (gltf) => {
           const character = gltf.scene;
           await renderer.compileAsync(character, camera, scene);
 
-          // The Avaturn model is human-scale (~1.7 units tall).
-          // Camera is at y:13.1, z:24.7 with FOV 14.5 — we need the character
-          // to be roughly centered in frame with head visible.
+          // Full-body Avaturn models use scale 7 to fit the camera
           character.scale.set(7, 7, 7);
           character.position.set(0, 1, 0);
 
