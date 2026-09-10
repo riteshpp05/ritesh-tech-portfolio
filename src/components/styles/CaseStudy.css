@@ -1,0 +1,664 @@
+.case-study-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: #eae5ec;
+  user-select: auto;
+}
+
+.case-study-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.case-study-content {
+  max-width: 900px;
+}
+
+.case-study-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 0;
+  font-size: 14px;
+  color: #888;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.case-study-back:hover {
+  color: var(--accentColor);
+}
+
+.case-study-hero {
+  padding: 80px 0 40px;
+}
+
+.case-study-hero h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  letter-spacing: -0.5px;
+}
+
+.case-study-hero-subtitle {
+  font-size: 20px;
+  color: #9ca3af;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+.case-study-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.case-study-meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.case-study-meta-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #6b7280;
+  margin-bottom: 4px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.case-study-meta-value {
+  font-size: 15px;
+  color: #d1d5db;
+}
+
+.case-study-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.case-study-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  font-size: 14px;
+  color: #d1d5db;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.case-study-action-btn:hover {
+  border-color: var(--accentColor);
+  color: var(--accentColor);
+}
+
+.case-study-action-btn.primary {
+  background: var(--accentColor);
+  color: #030712;
+  border-color: var(--accentColor);
+}
+
+.case-study-action-btn.primary:hover {
+  opacity: 0.9;
+  color: #030712;
+}
+
+.case-study-hero-visual {
+  margin: 40px 0 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.case-study-hero-visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.case-study-hero-placeholder {
+  background: #0a0f1d;
+  padding: 60px 40px;
+  text-align: center;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+.case-study-hero-placeholder span {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  color: #6b7280;
+}
+
+.case-study-section {
+  margin-bottom: 64px;
+  scroll-margin-top: 100px;
+}
+
+.case-study-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.case-study-section-number {
+  font-size: 14px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  color: var(--accentColor);
+  font-weight: 500;
+  min-width: 24px;
+}
+
+.case-study-section-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.case-study-content p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #c9cdd3;
+  margin: 0 0 16px;
+  font-weight: 300;
+}
+
+.case-study-content strong {
+  color: #eae5ec;
+  font-weight: 500;
+}
+
+.case-study-goals {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.case-study-goals li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #c9cdd3;
+}
+
+.case-study-goals li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accentColor);
+}
+
+.case-study-toc {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+}
+
+.case-study-toc-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #6b7280;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.case-study-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.case-study-toc-item {
+  margin-bottom: 0;
+}
+
+.case-study-toc-link {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 13px;
+  color: #6b7280;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  padding-left: 16px;
+  transition: all 0.2s;
+}
+
+.case-study-toc-link:hover {
+  color: #d1d5db;
+}
+
+.case-study-toc-link.active {
+  color: var(--accentColor);
+  border-left-color: var(--accentColor);
+}
+
+.case-study-toc-number {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 11px;
+  min-width: 20px;
+}
+
+.case-study-toc-mobile {
+  display: none;
+  margin-bottom: 40px;
+}
+
+.case-study-toc-toggle {
+  width: 100%;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #d1d5db;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.case-study-toc-mobile-list {
+  list-style: none;
+  padding: 16px 0;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+
+.case-study-subsection {
+  margin-bottom: 40px;
+}
+
+.case-study-subsection h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: #eae5ec;
+}
+
+.case-study-code-block {
+  margin: 24px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.case-study-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #161b22;
+  font-size: 12px;
+  color: #8b949e;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.case-study-code-label {
+  font-size: 11px;
+  color: #6b7280;
+  font-style: italic;
+  font-family: 'Geist', sans-serif;
+}
+
+.case-study-code-content {
+  background: #0d1117;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.case-study-code-content pre {
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #e6edf3;
+  white-space: pre;
+  tab-size: 2;
+}
+
+.case-study-code-explanation {
+  padding: 14px 16px;
+  background: rgba(6, 182, 212, 0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 14px;
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+.case-study-architecture {
+  margin: 32px 0;
+}
+
+.case-study-arch-flow {
+  margin-bottom: 32px;
+}
+
+.case-study-arch-flow-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #6b7280;
+  margin-bottom: 16px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.case-study-arch-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.case-study-arch-node {
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  font-size: 14px;
+  color: #d1d5db;
+  font-weight: 400;
+}
+
+.case-study-arch-arrow {
+  color: var(--accentColor);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.case-study-decisions {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.case-study-decision {
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  border-left: 3px solid var(--accentColor);
+}
+
+.case-study-decision-q {
+  font-size: 16px;
+  font-weight: 500;
+  color: #eae5ec;
+  margin: 0 0 8px;
+}
+
+.case-study-decision-a {
+  font-size: 15px;
+  color: #9ca3af;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.case-study-challenges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.case-study-challenge-card {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+}
+
+.case-study-challenge-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.case-study-challenge-label.challenge {
+  color: #f87171;
+}
+
+.case-study-challenge-label.solution {
+  color: #34d399;
+}
+
+.case-study-challenge-text {
+  font-size: 15px;
+  color: #d1d5db;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.case-study-solution-text {
+  font-size: 15px;
+  color: #d1d5db;
+  line-height: 1.6;
+  margin: 16px 0 0 0;
+}
+
+.case-study-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+}
+
+.case-study-flow-step {
+  padding: 10px 18px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 6px;
+  font-size: 13px;
+  color: #d1d5db;
+  font-weight: 400;
+}
+
+.case-study-flow-arrow {
+  color: var(--accentColor);
+  font-size: 16px;
+  user-select: none;
+}
+
+.case-study-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.case-study-tech-category-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #6b7280;
+  margin-bottom: 12px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.case-study-tech-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.case-study-tech-tag {
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  font-size: 13px;
+  color: #c9cdd3;
+}
+
+.case-study-learnings {
+  padding: 24px 28px;
+  background: rgba(6, 182, 212, 0.04);
+  border-left: 3px solid var(--accentColor);
+  border-radius: 0 8px 8px 0;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #c9cdd3;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.case-study-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 40px;
+}
+
+.case-study-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.case-study-nav-link:hover {
+  color: var(--accentColor);
+}
+
+.case-study-nav-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #6b7280;
+}
+
+.case-study-nav-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.case-study-nav-link.next {
+  text-align: right;
+}
+
+.case-study-cta {
+  text-align: center;
+  padding: 60px 0 80px;
+}
+
+.case-study-cta p {
+  font-size: 20px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.case-study-cta-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.case-study-fade-in {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.case-study-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+  .case-study-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .case-study-toc {
+    display: none;
+  }
+  
+  .case-study-toc-mobile {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .case-study-hero h1 {
+    font-size: 32px;
+  }
+  
+  .case-study-section-title {
+    font-size: 22px;
+  }
+  
+  .case-study-challenges {
+    grid-template-columns: 1fr;
+  }
+  
+  .case-study-meta {
+    gap: 20px;
+  }
+  
+  .case-study-section {
+    margin-bottom: 48px;
+  }
+  
+  .case-study-hero {
+    padding: 40px 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-hero h1 {
+    font-size: 26px;
+  }
+  
+  .case-study-code-content pre {
+    font-size: 12px;
+  }
+  
+  .case-study-layout {
+    padding: 0 16px;
+  }
+  
+  .case-study-actions {
+    flex-direction: column;
+  }
+  
+  .case-study-action-btn {
+    justify-content: center;
+  }
+}

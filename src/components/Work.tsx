@@ -1,43 +1,51 @@
 import { useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 const projects = [
   {
-    title: "Medical Chatbot",
-    category: "RAG + LangChain + AWS + Docker",
-    tools: "Python, LangChain, GPT-4, Pinecone, FAISS, Docker, AWS EC2, CI/CD",
-    image: "/images/medical_chatbot.png",
-    link: "",
+    title: "Master Data Repository & Governance Platform",
+    category: "Enterprise Data Management · SAP BTP",
+    tools: "SAP CAP, Node.js, CDS, SAP HANA Cloud, XSUAA, SAP Build Process Automation, OData V4",
+    image: "/images/sap_ai_core.png",
+    slug: "mdr",
   },
   {
-    title: "Retina Heart Disease",
-    category: "Computer Vision & Medical Imaging",
-    tools: "YOLO, TensorFlow, OpenCV, Roboflow, Python",
-    image: "/images/retina_detection.png",
-    link: "",
-  },
-  {
-    title: "CEO Agentic Chatbot",
-    category: "Agentic AI & Enterprise Automation",
-    tools: "Microsoft Copilot Studio, Power Automate, Dataverse, Teams, Outlook",
+    title: "CEO-Tower",
+    category: "Generative AI & Financial Intelligence",
+    tools: "React, TypeScript, Python, FastAPI, Llama.cpp, RAG, Supabase, Zoho Books APIs",
     image: "/images/ceo_chatbot.png",
-    link: "",
+    slug: "ceo-tower",
   },
   {
-    title: "Virtual Kiosk",
-    category: "EdTech & Offline Learning Platform",
+    title: "Industrial Object Detection & Quality Inspection",
+    category: "Computer Vision & Edge Deployment",
+    tools: "YOLO, AWS SageMaker, TensorFlow Lite, OpenCV, Python, Android",
+    image: "/images/industrial_detection.png",
+    slug: "industrial-object-detection",
+  },
+  {
+    title: "Multimodal RAG Chatbot",
+    category: "Document Intelligence & Conversational AI",
+    tools: "Ollama, Llama 2 7B, Nomic Embeddings, FAISS, LangGraph, SQLite, OCR",
+    image: "/images/rag_chatbot.png",
+    slug: "multimodal-rag",
+  },
+  {
+    title: "Medical Knowledge RAG Chatbot",
+    category: "Healthcare AI · RAG + LangChain + AWS",
+    tools: "GPT-4, LangChain, Sentence Transformers, Pinecone, AWS, Docker",
+    image: "/images/medical_chatbot.png",
+    slug: "medical-chatbot",
+  },
+  {
+    title: "Virtual Kiosk — Offline Learning Platform",
+    category: "EdTech & Offline Computing",
     tools: "Angular, Node.js, Express.js, pkg, JSON Routing",
     image: "/images/virtual_kiosk.png",
-    link: "https://lnkd.in/dqASa_6E",
-  },
-  {
-    title: "Industrial Object Detection",
-    category: "Computer Vision & Edge Deployment",
-    tools: "YOLO, TensorFlow Lite, AWS SageMaker, Android",
-    image: "/images/industrial_detection.png",
-    link: "",
+    slug: "virtual-kiosk",
   },
 ];
 
@@ -99,13 +107,20 @@ const Work = () => {
                           <span className="tools-label">Tools & Features</span>
                           <p>{project.tools}</p>
                         </div>
+                        <Link
+                          to={`/projects/${project.slug}`}
+                          className="carousel-case-study-link"
+                          data-cursor="disable"
+                        >
+                          Read Case Study →
+                        </Link>
                       </div>
                     </div>
                     <div className="carousel-image-wrapper">
                       <WorkImage
                         image={project.image}
                         alt={project.title}
-                        link={project.link}
+                        slug={project.slug}
                       />
                     </div>
                   </div>

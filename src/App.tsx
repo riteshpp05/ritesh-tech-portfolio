@@ -1,8 +1,10 @@
 import { lazy, Suspense, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 const CharacterModel = lazy(() => import("./components/Character"));
 const MainContainer = lazy(() => import("./components/MainContainer"));
+const ProjectCaseStudy = lazy(() => import("./components/casestudy/ProjectCaseStudy"));
 import { LoadingProvider } from "./context/LoadingProvider";
 import { LenisProvider } from "./components/utils/lenisProvider";
 
@@ -22,17 +24,47 @@ const App = () => {
   }, []);
 
   return (
-    <LenisProvider>
-      <LoadingProvider>
-        <Suspense>
-          <MainContainer>
-            <Suspense>
-              <CharacterModel />
-            </Suspense>
-          </MainContainer>
-        </Suspense>
-      </LoadingProvider>
-    </LenisProvider>
+    <Routes>
+      {/* 3D Homepage */}
+      <Route
+        path="/"
+        element={
+          <LenisProvider>
+            <LoadingProvider>
+              <Suspense>
+                <MainContainer>
+                  <Suspense>
+                    <CharacterModel />
+                  </Suspense>
+                </MainContainer>
+              </Suspense>
+            </LoadingProvider>
+          </LenisProvider>
+        }
+      />
+
+      {/* Project Case Study Pages - NO 3D canvas */}
+      <Route
+        path="/projects/:slug"
+        element={
+          <Suspense fallback={
+            <div style={{
+              minHeight: '100vh',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: '#030712',
+              color: '#6b7280',
+              fontFamily: '"Geist", sans-serif',
+            }}>
+              Loading...
+            </div>
+          }>
+            <ProjectCaseStudy />
+          </Suspense>
+        }
+      />
+    </Routes>
   );
 };
 

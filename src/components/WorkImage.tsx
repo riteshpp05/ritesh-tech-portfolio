@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { MdArrowOutward } from "react-icons/md";
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
   alt?: string;
   video?: string;
   link?: string;
+  slug?: string;
 }
 
 const WorkImage = (props: Props) => {
@@ -21,11 +23,12 @@ const WorkImage = (props: Props) => {
     }
   };
 
-  const hasLink = props.link && props.link.length > 0;
+  const hasExternalLink = props.link && props.link.length > 0;
+  const hasSlug = props.slug && props.slug.length > 0;
 
   const content = (
     <>
-      {hasLink && (
+      {(hasExternalLink || hasSlug) && (
         <div className="work-link">
           <MdArrowOutward />
         </div>
@@ -35,9 +38,27 @@ const WorkImage = (props: Props) => {
     </>
   );
 
-  return (
-    <div className="work-image">
-      {hasLink ? (
+  // Internal link (project case study)
+  if (hasSlug) {
+    return (
+      <div className="work-image">
+        <Link
+          className="work-image-in"
+          to={`/projects/${props.slug}`}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={() => setIsVideo(false)}
+          data-cursor={"disable"}
+        >
+          {content}
+        </Link>
+      </div>
+    );
+  }
+
+  // External link
+  if (hasExternalLink) {
+    return (
+      <div className="work-image">
         <a
           className="work-image-in"
           href={props.link}
@@ -49,16 +70,20 @@ const WorkImage = (props: Props) => {
         >
           {content}
         </a>
-      ) : (
-        <div
-          className="work-image-in"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={() => setIsVideo(false)}
-          data-cursor={"disable"}
-        >
-          {content}
-        </div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="work-image">
+      <div
+        className="work-image-in"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={() => setIsVideo(false)}
+        data-cursor={"disable"}
+      >
+        {content}
+      </div>
     </div>
   );
 };

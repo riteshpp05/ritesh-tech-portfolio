@@ -114,6 +114,27 @@
   font-size: 15px;
 }
 
+.carousel-case-study-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #d1d5db;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+}
+
+.carousel-case-study-link:hover {
+  border-color: var(--accentColor);
+  color: var(--accentColor);
+  background: rgba(6, 182, 212, 0.06);
+}
+
 .carousel-image-wrapper {
   flex: 1;
   display: flex;

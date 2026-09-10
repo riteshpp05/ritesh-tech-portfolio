@@ -17,20 +17,23 @@ Ritesh Patil is an AI/ML Engineer and Generative AI Developer from Pune, India, 
 
 ## Notable Projects
 
-### 1. Medical Chatbot — RAG + LangChain + AWS + Docker
-End-to-end Medical Chatbot using a RAG pipeline. Built with LangChain, OpenAI GPT-4, Pinecone, and FAISS for vector retrieval. Deployed using Docker containers on AWS EC2 with CI/CD pipelines. Enables natural language Q&A over large medical knowledge bases with accurate, cited responses.
+### 1. Master Data Repository & Governance Platform — Enterprise Data Management & SAP BTP
+Enterprise master-data governance platform engineered on SAP BTP for centralized data management, validation, approval, and downstream S/4HANA syndication. Built with SAP CAP, Node.js, CDS, SAP HANA Cloud, XSUAA, and SAP Build Process Automation. Features a metadata-driven architecture handling dynamic validation and multi-algorithm duplicate detection (Levenshtein, Dice, Soundex).
 
-### 2. Retina Heart Disease Detection — Computer Vision & Medical Imaging
-Computer Vision system for automated medical image analysis. Uses YOLO and TensorFlow to detect retinal and cardiac disease markers from scan images. Built with OpenCV and Roboflow for data processing and annotation.
+### 2. CEO-Tower — Generative AI & Financial Intelligence
+Enterprise Generative AI and Financial Intelligence Platform. Designed for executive-level decision support integrating financial data from Zoho Books APIs. Built with React, TypeScript, Python, FastAPI, Llama.cpp, and RAG. Features local LLM inference for data privacy, conversational memory via Supabase, and real-time token streaming.
 
-### 3. CEO Agentic Chatbot — Enterprise Agentic AI
-Enterprise-grade Agentic AI assistant built for executive decision support. Developed on Microsoft Copilot Studio with Power Automate orchestration, integrating with Microsoft Teams, Outlook, SharePoint, and Dataverse. Automates complex cross-departmental AI workflows.
+### 3. Industrial Object Detection & Quality Inspection — Computer Vision & Edge Deployment
+Real-time computer vision system for automated industrial defect detection and offline inspection. Trained models using YOLO on AWS SageMaker, converted to TensorFlow Lite, and deployed to Android edge devices for real-time inference without internet connectivity.
 
-### 4. Virtual Kiosk — EdTech Offline Learning Platform
-Offline-first educational platform serving rural and low-connectivity areas. Built with Angular, Node.js, and Express.js with smart JSON routing. Supports both online and offline content delivery without internet dependency.
+### 4. Multimodal RAG Chatbot — Document Intelligence & Conversational AI
+A document and image-aware retrieval-augmented generation system with conversational memory. Built with Ollama, Llama 2 7B, Nomic Embeddings, FAISS, and LangGraph. Processes both text PDFs and image-based documents using OCR, maintaining multi-turn context with SQLite.
 
-### 5. Industrial Object Detection — Edge Computer Vision Deployment
-Real-time industrial quality control system using YOLO for object detection. Deployed on Android devices via TensorFlow Lite (edge inference) and managed via AWS SageMaker. Operates fully offline in factory environments.
+### 5. Medical Knowledge RAG Chatbot — Healthcare AI
+A retrieval-augmented medical question-answering system grounded in a large medical knowledge base. Built with GPT-4, LangChain, Sentence Transformers, and Pinecone. Deployed using Docker containers on AWS EC2. Provides source citations to eliminate medical hallucination.
+
+### 6. Virtual Kiosk — EdTech Offline Learning Platform
+Offline-first educational platform serving rural and low-connectivity areas. Built with Angular, Node.js, and Express.js and packaged as a standalone executable via pkg. Features JSON-based routing for configurable learning paths without internet dependency.
 
 ## Career History
 
