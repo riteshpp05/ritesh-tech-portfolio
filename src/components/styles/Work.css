@@ -127,6 +127,10 @@
   text-decoration: none;
   transition: all 0.25s ease;
   letter-spacing: 0.3px;
+  /* Button reset */
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .carousel-case-study-link:hover {
@@ -238,7 +242,8 @@
   color: inherit;
 }
 
-.work-image a:hover .work-link {
+.work-image a:hover .work-link,
+.work-image button:hover .work-link {
   opacity: 1;
 }
 

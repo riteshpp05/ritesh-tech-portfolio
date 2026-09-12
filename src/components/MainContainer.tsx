@@ -1,4 +1,4 @@
-import { lazy, PropsWithChildren, Suspense, useEffect } from "react";
+import { lazy, PropsWithChildren, Suspense, useEffect, useState, useCallback } from "react";
 import About from "./About";
 import Career from "./Career";
 import Contact from "./Contact";
@@ -9,10 +9,21 @@ import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
 import setSplitText from "./utils/splitText";
+import ProjectViewer from "./ProjectViewer";
 
 const TechStack = lazy(() => import("./TechStack"));
 
 const MainContainer = ({ children }: PropsWithChildren) => {
+  const [activeProjectSlug, setActiveProjectSlug] = useState<string | null>(null);
+
+  const openProject = useCallback((slug: string) => {
+    setActiveProjectSlug(slug);
+  }, []);
+
+  const closeProject = useCallback(() => {
+    setActiveProjectSlug(null);
+  }, []);
+
   useEffect(() => {
     const resizeHandler = () => {
       setSplitText();
@@ -40,13 +51,20 @@ const MainContainer = ({ children }: PropsWithChildren) => {
           <About />
           <WhatIDo />
           <Career />
-          <Work />
+          <Work onOpenProject={openProject} />
           <Suspense fallback={<div>Loading....</div>}>
             <TechStack />
           </Suspense>
           <Contact />
         </div>
       </main>
+
+      {/* Project Case Study Modal — rendered over everything */}
+      <ProjectViewer
+        slug={activeProjectSlug}
+        onClose={closeProject}
+        onNavigate={openProject}
+      />
     </div>
   );
 };

@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { MdArrowOutward } from "react-icons/md";
 
 interface Props {
   image: string;
   alt?: string;
   video?: string;
-  link?: string;
-  slug?: string;
+  link?: string;       // external link (kept for backwards compat)
+  onOpen?: () => void; // opens the in-page project viewer
 }
 
 const WorkImage = (props: Props) => {
   const [isVideo, setIsVideo] = useState(false);
   const [video, setVideo] = useState("");
+
   const handleMouseEnter = async () => {
     if (props.video) {
       setIsVideo(true);
@@ -24,11 +24,11 @@ const WorkImage = (props: Props) => {
   };
 
   const hasExternalLink = props.link && props.link.length > 0;
-  const hasSlug = props.slug && props.slug.length > 0;
+  const hasOnOpen = !!props.onOpen;
 
   const content = (
     <>
-      {(hasExternalLink || hasSlug) && (
+      {(hasExternalLink || hasOnOpen) && (
         <div className="work-link">
           <MdArrowOutward />
         </div>
@@ -38,24 +38,26 @@ const WorkImage = (props: Props) => {
     </>
   );
 
-  // Internal link (project case study)
-  if (hasSlug) {
+  // In-page project viewer (preferred path)
+  if (hasOnOpen) {
     return (
       <div className="work-image">
-        <Link
+        <button
           className="work-image-in"
-          to={`/projects/${props.slug}`}
+          onClick={props.onOpen}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={() => setIsVideo(false)}
-          data-cursor={"disable"}
+          data-cursor="disable"
+          aria-label={`Open project: ${props.alt ?? "project"}`}
+          style={{ border: 'none', background: 'transparent', padding: 0, cursor: 'pointer', display: 'block', width: '100%' }}
         >
           {content}
-        </Link>
+        </button>
       </div>
     );
   }
 
-  // External link
+  // External link (fallback)
   if (hasExternalLink) {
     return (
       <div className="work-image">
@@ -66,7 +68,7 @@ const WorkImage = (props: Props) => {
           onMouseLeave={() => setIsVideo(false)}
           target="_blank"
           rel="noopener noreferrer"
-          data-cursor={"disable"}
+          data-cursor="disable"
         >
           {content}
         </a>
@@ -80,7 +82,7 @@ const WorkImage = (props: Props) => {
         className="work-image-in"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsVideo(false)}
-        data-cursor={"disable"}
+        data-cursor="disable"
       >
         {content}
       </div>

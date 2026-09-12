@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
@@ -49,7 +48,11 @@ const projects = [
   },
 ];
 
-const Work = () => {
+interface Props {
+  onOpenProject: (slug: string) => void;
+}
+
+const Work = ({ onOpenProject }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -104,23 +107,24 @@ const Work = () => {
                           {project.category}
                         </p>
                         <div className="carousel-tools">
-                          <span className="tools-label">Tools & Features</span>
+                          <span className="tools-label">Tools &amp; Features</span>
                           <p>{project.tools}</p>
                         </div>
-                        <Link
-                          to={`/projects/${project.slug}`}
+                        <button
                           className="carousel-case-study-link"
+                          onClick={() => onOpenProject(project.slug)}
                           data-cursor="disable"
+                          aria-label={`Read case study: ${project.title}`}
                         >
                           Read Case Study →
-                        </Link>
+                        </button>
                       </div>
                     </div>
                     <div className="carousel-image-wrapper">
                       <WorkImage
                         image={project.image}
                         alt={project.title}
-                        slug={project.slug}
+                        onOpen={() => onOpenProject(project.slug)}
                       />
                     </div>
                   </div>
