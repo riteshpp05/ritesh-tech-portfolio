@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import HoverLinks from "./HoverLinks";
+import { scrollToLenis } from "./utils/lenisProvider";
 import "./styles/Navbar.css";
 
 const Navbar = () => {
@@ -8,38 +8,31 @@ const Navbar = () => {
   const navigate = useNavigate();
   const isProjectPage = location.pathname.startsWith('/projects/');
 
-  useEffect(() => {
-    if (isProjectPage) return; // Don't attach scroll listeners on project pages
-
-    let links = document.querySelectorAll(".header ul a");
-    links.forEach((elem) => {
-      let element = elem as HTMLAnchorElement;
-      element.addEventListener("click", (e) => {
-        const targetId = element.getAttribute("href")?.substring(1);
-        const target = document.getElementById(targetId || "");
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      });
-    });
-  }, [isProjectPage]);
-
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    e.preventDefault();
     if (isProjectPage) {
-      e.preventDefault();
       navigate('/' + hash);
+    } else {
+      // Use Lenis smooth scroll for seamless interpolated transitions
+      scrollToLenis(hash, { offset: -20, duration: 1.3 });
     }
   };
 
   return (
     <>
       <div className="header">
-        <a href="/" className="navbar-title" data-cursor="disable" style={{ display: 'flex', alignItems: 'center' }}
+        <a
+          href="/"
+          className="navbar-title"
+          data-cursor="disable"
+          style={{ display: 'flex', alignItems: 'center' }}
           onClick={(e) => {
             if (isProjectPage) {
               e.preventDefault();
               navigate('/');
+            } else {
+              e.preventDefault();
+              scrollToLenis(0, { duration: 1.2 });
             }
           }}
         >

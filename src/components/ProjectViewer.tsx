@@ -3,7 +3,6 @@ import {
   useRef,
   useState,
   useCallback,
-  type RefObject,
 } from 'react';
 import { projects } from '../data/projectData';
 import { projectArchitectureTrees } from '../data/architectureTrees';
@@ -70,15 +69,11 @@ const TOC_SECTIONS = [
 
 const TocDesktop = ({
   active,
-  scrollRef,
+  onSelect,
 }: {
   active: string;
-  scrollRef: RefObject<HTMLDivElement | null>;
+  onSelect: (id: string) => void;
 }) => {
-  const handleClick = (id: string) => {
-    const el = scrollRef.current?.querySelector(`#${id}`) as HTMLElement | null;
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
   return (
     <nav className="pv-toc-rail" aria-label="Table of contents" data-lenis-prevent="true">
       <div className="pv-toc-title">Contents</div>
@@ -87,7 +82,7 @@ const TocDesktop = ({
           <li key={s.id} className="pv-toc-item">
             <button
               className={`pv-toc-btn${active === s.id ? ' pv-toc-active' : ''}`}
-              onClick={() => handleClick(s.id)}
+              onClick={() => onSelect(s.id)}
               aria-current={active === s.id ? 'true' : undefined}
             >
               <span className="pv-toc-num">{String(i + 1).padStart(2, '0')}</span>
@@ -102,17 +97,12 @@ const TocDesktop = ({
 
 const TocMobile = ({
   active,
-  scrollRef,
+  onSelect,
 }: {
   active: string;
-  scrollRef: RefObject<HTMLDivElement | null>;
+  onSelect: (id: string) => void;
 }) => {
   const [open, setOpen] = useState(false);
-  const handleClick = (id: string) => {
-    const el = scrollRef.current?.querySelector(`#${id}`) as HTMLElement | null;
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setOpen(false);
-  };
   const activeLabel = TOC_SECTIONS.find(s => s.id === active)?.label ?? 'Contents';
   return (
     <div className="pv-toc-mobile" data-lenis-prevent="true">
@@ -130,7 +120,10 @@ const TocMobile = ({
             <li key={s.id}>
               <button
                 className={`pv-toc-mobile-btn${active === s.id ? ' pv-toc-active' : ''}`}
-                onClick={() => handleClick(s.id)}
+                onClick={() => {
+                  onSelect(s.id);
+                  setOpen(false);
+                }}
               >
                 <span className="pv-toc-num">{String(i + 1).padStart(2, '0')}</span>
                 {s.label}
@@ -160,7 +153,6 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const [activeSection, setActiveSection] = useState('overview');
   const [isClosing, setIsClosing] = useState(false);
 
@@ -187,34 +179,63 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0, behavior: 'instant' });
     setActiveSection('overview');
-    sectionRefs.current.clear();
   }, [slug]);
 
-  // ── IntersectionObserver for active ToC tracking ──────────────────────────
-  useEffect(() => {
-    const root = scrollRef.current;
-    if (!root) return;
+  const isScrollingToRef = useRef(false);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const observers: IntersectionObserver[] = [];
+  // ── Scroll spy: syncs active ToC section as the content side moves ─────────
+  const handleScroll = useCallback(() => {
+    if (isScrollingToRef.current) return;
 
-    sectionRefs.current.forEach((el, id) => {
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
-        { root, rootMargin: '-60px 0px -60% 0px', threshold: 0 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
+    const container = scrollRef.current;
+    if (!container) return;
 
-    return () => observers.forEach(o => o.disconnect());
-  }, [slug]);
+    // Bottom edge detection: if scrolled to the end, activate the last section
+    if (container.scrollHeight - container.scrollTop - container.clientHeight <= 60) {
+      setActiveSection(TOC_SECTIONS[TOC_SECTIONS.length - 1].id);
+      return;
+    }
 
-  // ── setRef helper ─────────────────────────────────────────────────────────
-  const setRef = (id: string) => (el: HTMLElement | null) => {
-    if (el) sectionRefs.current.set(id, el);
-  };
+    const containerRect = container.getBoundingClientRect();
+    const triggerLine = containerRect.top + 160;
+
+    let current = TOC_SECTIONS[0].id;
+    for (const section of TOC_SECTIONS) {
+      const el = container.querySelector(`#${section.id}`) as HTMLElement | null;
+      if (el) {
+        if (el.getBoundingClientRect().top <= triggerLine) {
+          current = section.id;
+        }
+      }
+    }
+    setActiveSection(current);
+  }, []);
+
+  // ── Smoothly scroll content side to selected section ──────────────────────
+  const handleSelectSection = useCallback((id: string) => {
+    const container = scrollRef.current;
+    const el = container?.querySelector(`#${id}`) as HTMLElement | null;
+    if (container && el) {
+      isScrollingToRef.current = true;
+      setActiveSection(id);
+
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingToRef.current = false;
+      }, 700);
+
+      const targetScroll =
+        el.getBoundingClientRect().top -
+        container.getBoundingClientRect().top +
+        container.scrollTop - 20;
+
+      container.scrollTo({
+        top: Math.max(0, targetScroll),
+        behavior: 'smooth',
+      });
+    }
+  }, []);
 
   // ── Backdrop click ────────────────────────────────────────────────────────
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -262,6 +283,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
         <div
           className="pv-scroll"
           ref={scrollRef}
+          onScroll={handleScroll}
           data-lenis-prevent="true"
           tabIndex={0}
         >
@@ -288,10 +310,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
             <div className="pv-hero-actions">
               <button
                 className="pv-btn pv-btn-primary"
-                onClick={() => {
-                  const el = scrollRef.current?.querySelector('#architecture') as HTMLElement | null;
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
+                onClick={() => handleSelectSection('architecture')}
               >
                 View Architecture Tree ↓
               </button>
@@ -328,17 +347,17 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
           </div>
 
           {/* ── MOBILE TOC ── */}
-          <TocMobile active={activeSection} scrollRef={scrollRef} />
+          <TocMobile active={activeSection} onSelect={handleSelectSection} />
 
           {/* ── BODY: Left ToC Rail + Right Content ── */}
           <div className="pv-body" data-lenis-prevent="true">
-            <TocDesktop active={activeSection} scrollRef={scrollRef} />
+            <TocDesktop active={activeSection} onSelect={handleSelectSection} />
 
             {/* ── 8 STREAMLINED CONTENT SECTIONS ── */}
             <div className="pv-content" data-lenis-prevent="true">
 
               {/* SECTION 1: Overview */}
-              <div className="pv-section" id="overview" ref={setRef('overview')}>
+              <div className="pv-section" id="overview">
                 <div className="pv-section-header">
                   <span className="pv-section-num">01</span>
                   <h2 className="pv-section-title">Project Overview</h2>
@@ -359,7 +378,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
               </div>
 
               {/* SECTION 2: Why This Project? (Problem → Solution → Value) */}
-              <div className="pv-section" id="why" ref={setRef('why')}>
+              <div className="pv-section" id="why">
                 <div className="pv-section-header">
                   <span className="pv-section-num">02</span>
                   <h2 className="pv-section-title">Why This Project?</h2>
@@ -397,7 +416,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
               </div>
 
               {/* SECTION 3: System Architecture (Tree Diagram) */}
-              <div className="pv-section" id="architecture" ref={setRef('architecture')}>
+              <div className="pv-section" id="architecture">
                 <div className="pv-section-header">
                   <span className="pv-section-num">03</span>
                   <h2 className="pv-section-title">System Architecture</h2>
@@ -416,7 +435,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
               </div>
 
               {/* SECTION 4: End-to-End Workflow */}
-              <div className="pv-section" id="workflow" ref={setRef('workflow')}>
+              <div className="pv-section" id="workflow">
                 <div className="pv-section-header">
                   <span className="pv-section-num">04</span>
                   <h2 className="pv-section-title">End-to-End Workflow</h2>
@@ -438,7 +457,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
               </div>
 
               {/* SECTION 5: Tech Stack & Key Decisions */}
-              <div className="pv-section" id="tech-decisions" ref={setRef('tech-decisions')}>
+              <div className="pv-section" id="tech-decisions">
                 <div className="pv-section-header">
                   <span className="pv-section-num">05</span>
                   <h2 className="pv-section-title">Technology Stack &amp; Key Decisions</h2>
@@ -476,7 +495,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
               </div>
 
               {/* SECTION 6: Technical Implementation */}
-              <div className="pv-section" id="implementation" ref={setRef('implementation')}>
+              <div className="pv-section" id="implementation">
                 <div className="pv-section-header">
                   <span className="pv-section-num">06</span>
                   <h2 className="pv-section-title">Technical Implementation</h2>
@@ -500,7 +519,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
               </div>
 
               {/* SECTION 7: Challenges & Solutions */}
-              <div className="pv-section" id="challenges" ref={setRef('challenges')}>
+              <div className="pv-section" id="challenges">
                 <div className="pv-section-header">
                   <span className="pv-section-num">07</span>
                   <h2 className="pv-section-title">Key Challenges &amp; Solutions</h2>
@@ -522,7 +541,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
               </div>
 
               {/* SECTION 8: Outcomes & Learnings */}
-              <div className="pv-section" id="outcomes" ref={setRef('outcomes')}>
+              <div className="pv-section" id="outcomes">
                 <div className="pv-section-header">
                   <span className="pv-section-num">08</span>
                   <h2 className="pv-section-title">Outcomes &amp; Learnings</h2>
