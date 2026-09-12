@@ -15,7 +15,7 @@ const setCharacter = (
   const loadCharacter = () => {
     return new Promise<GLTF | null>((resolve, reject) => {
       loader.load(
-        "/perfect_model.glb",
+        "/Final.glb",
         async (gltf) => {
           const character = gltf.scene;
           await renderer.compileAsync(character, camera, scene);
