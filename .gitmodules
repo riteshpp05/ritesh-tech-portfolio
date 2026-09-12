@@ -1,0 +1,3 @@
+[submodule ".agents/plugins/lenis/vendor/lenis"]
+	path = .agents/plugins/lenis/vendor/lenis
+	url = https://github.com/darkroomengineering/lenis.git

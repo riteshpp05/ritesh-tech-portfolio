@@ -1,0 +1,40 @@
+name: Antigravity Lenis Plugin Action
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.agents/**'
+      - 'src/**'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-antigravity-plugin:
+    name: Validate Antigravity Plugin & Lenis Integration
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Verify TypeScript & Build
+        run: npm run build
+
+      - name: Verify Antigravity Plugin Structure
+        run: |
+          test -f .agents/plugins/lenis/plugin.json || (echo "plugin.json missing" && exit 1)
+          test -f .agents/plugins/lenis/rules/AGENTS.md || (echo "rules/AGENTS.md missing" && exit 1)
+          test -f .agents/plugins/lenis/skills/lenis/SKILL.md || (echo "skills/lenis/SKILL.md missing" && exit 1)
+          echo "Antigravity Lenis plugin structure validated successfully."
