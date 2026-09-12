@@ -22,7 +22,7 @@ const setCharacter = (
 
           // Full-body Avaturn models use scale 7 to fit the camera
           character.scale.set(7, 7, 7);
-          character.position.set(0, -1, 0);
+          character.position.set(0, 1, 0);
 
           character.traverse((child: any) => {
             if (child.isMesh) {
