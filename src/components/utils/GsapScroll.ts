@@ -91,6 +91,49 @@ export function setCharTimeline(
     }
   } else {
     if (character) {
+      // Mobile Logic - mirroring desktop but keeping character centered
+      tl1
+        .fromTo(character.rotation, { y: 0 }, { y: 0.1, duration: 1 }, 0)
+        .to(camera.position, { z: 28 }, 0)
+        .fromTo(".character-model", { x: "-50%" }, { x: "-50%", duration: 1 }, 0)
+        .to(".landing-container", { opacity: 0, duration: 0.4 }, 0)
+        .to(".landing-container", { y: "40%", duration: 0.8 }, 0)
+        .fromTo(".about-me", { y: "-50%" }, { y: "0%" }, 0);
+
+      tl2
+        .to(
+          camera.position,
+          { z: 35, y: 13, duration: 6, delay: 2, ease: "power3.inOut" },
+          0
+        )
+        .to(".about-section", { y: "30%", duration: 6 }, 0)
+        .to(".about-section", { opacity: 0, delay: 3, duration: 2 }, 0)
+        .fromTo(
+          ".character-model",
+          { pointerEvents: "inherit" },
+          { pointerEvents: "none", x: "-50%", delay: 2, duration: 5 },
+          0
+        )
+        .to(character.rotation, { y: 0.15, x: 0, delay: 3, duration: 3 }, 0);
+
+      tl2
+        .fromTo(
+          ".character-rim",
+          { opacity: 1, scaleX: 1.4 },
+          { opacity: 0, scale: 0, y: "-70%", duration: 5, delay: 2 },
+          0.3
+        );
+
+      tl3
+        .fromTo(
+          ".character-model",
+          { y: "0%" },
+          { y: "-100%", duration: 4, ease: "none", delay: 1 },
+          0
+        )
+        .fromTo(".whatIDO", { y: 0 }, { y: "15%", duration: 2 }, 0)
+        .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
+
       const tM2 = gsap.timeline({
         scrollTrigger: {
           trigger: ".what-box-in",
