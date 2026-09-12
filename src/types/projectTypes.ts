@@ -43,6 +43,13 @@ export interface TechCategory {
   items: string[];
 }
 
+export interface ArchitectureTreeNode {
+  name: string;
+  badge?: string;
+  description?: string;
+  children?: ArchitectureTreeNode[];
+}
+
 export interface Project {
   id: number;
   slug: string;
@@ -63,6 +70,7 @@ export interface Project {
 
   architectureFlows: ArchitectureFlow[];
   architectureDescription?: string;
+  architectureTree?: ArchitectureTreeNode;
 
   technicalSections: TechnicalSection[];
   engineeringDecisions: EngineeringDecision[];

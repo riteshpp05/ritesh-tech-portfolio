@@ -5,6 +5,20 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+let activeLenis: Lenis | null = null;
+
+export const stopLenis = () => {
+  if (activeLenis) {
+    activeLenis.stop();
+  }
+};
+
+export const startLenis = () => {
+  if (activeLenis) {
+    activeLenis.start();
+  }
+};
+
 export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -19,6 +33,7 @@ export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
       touchMultiplier: 2,
     });
     lenisRef.current = lenis;
+    activeLenis = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -29,6 +44,7 @@ export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      activeLenis = null;
       lenis.destroy();
       gsap.ticker.remove((time) => lenis.raf(time * 1000));
     };
