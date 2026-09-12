@@ -39,7 +39,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     <div className="container-main">
       <a href="#about" className="skip-to-content" aria-label="Skip to main content">Skip to content</a>
       <Cursor />
-      <Navbar />
+      <Navbar onOpenProject={openProject} />
       <SocialIcons />
       {/* Persist children (WebGL) across resize to prevent unmounting */}
       <div className="canvas-wrapper">

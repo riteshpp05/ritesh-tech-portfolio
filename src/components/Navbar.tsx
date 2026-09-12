@@ -3,7 +3,11 @@ import HoverLinks from "./HoverLinks";
 import { scrollToLenis } from "./utils/lenisProvider";
 import "./styles/Navbar.css";
 
-const Navbar = () => {
+interface NavbarProps {
+  onOpenProject?: (slug: string) => void;
+}
+
+const Navbar = ({ onOpenProject }: NavbarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const isProjectPage = location.pathname.startsWith('/projects/');
@@ -15,6 +19,17 @@ const Navbar = () => {
     } else {
       // Use Lenis smooth scroll for seamless interpolated transitions
       scrollToLenis(hash, { offset: -20, duration: 1.3 });
+    }
+  };
+
+  const handleCaseStudiesClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (isProjectPage) {
+      navigate('/projects/mdr');
+    } else if (onOpenProject) {
+      onOpenProject('mdr');
+    } else {
+      scrollToLenis('#work', { offset: -20, duration: 1.3 });
     }
   };
 
@@ -59,8 +74,13 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <a data-href="#contact" href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>
-              <HoverLinks text="CONTACT" />
+            <a
+              data-href="#case-studies"
+              href="#case-studies"
+              onClick={handleCaseStudiesClick}
+              aria-label="View Project Case Studies & System Design"
+            >
+              <HoverLinks text="CASE STUDIES" />
             </a>
           </li>
         </ul>
