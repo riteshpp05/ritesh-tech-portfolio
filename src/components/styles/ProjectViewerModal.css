@@ -153,9 +153,11 @@
   overflow-x: hidden;
   flex: 1 1 0;
   min-height: 0; /* CRITICAL: Allows flex item to shrink and scroll */
-  scroll-behavior: smooth;
+  /* No scroll-behavior: smooth — handleSelectSection uses programmatic smooth scroll.
+     Having both causes double-smoothing jitter inside the modal. */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  will-change: scroll-position;
 }
 
 .pv-scroll::-webkit-scrollbar {
@@ -496,72 +498,233 @@
   margin: 0 0 14px;
 }
 
-/* ── Section 2: Why This Project? (Problem → Solution → Value Cards) ── */
-.pv-why-grid {
+/* ── Section 1: Project Snapshot — compact 2x2 grid ── */
+.pv-snapshot-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
   margin: 20px 0;
 }
 
-.pv-why-card {
-  padding: 22px;
-  border-radius: 10px;
+.pv-snapshot-card {
+  padding: 18px 20px;
+  border-radius: 8px;
   border: 1px solid #e2e8f0;
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  gap: 8px;
 }
 
-.pv-why-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-}
-
-.pv-why-card.problem {
-  border-top: 3px solid #ef4444;
-  background: #fefefe;
-}
-
-.pv-why-card.solution {
-  border-top: 3px solid #3b82f6;
-  background: #fefefe;
-}
-
-.pv-why-card.value {
-  border-top: 3px solid #10b981;
-  background: #fefefe;
-}
-
-.pv-why-badge {
+.pv-snapshot-label {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  margin-bottom: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: "JetBrains Mono", monospace;
+  width: fit-content;
+}
+
+.pv-snapshot-label.problem {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.pv-snapshot-label.solution {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+.pv-snapshot-label.contribution {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #059669;
+}
+
+.pv-snapshot-label.outcome {
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
+  color: #7c3aed;
+}
+
+.pv-snapshot-text {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #334155;
+  margin: 0;
+}
+
+/* ── Section 2: Why This Project — simple bullet layout ── */
+.pv-section-lead {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #334155;
+  margin: 0 0 16px;
+}
+
+.pv-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.pv-bullet-list li {
+  padding-left: 20px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #475569;
+}
+
+.pv-bullet-list li::before {
+  content: "·";
+  position: absolute;
+  left: 6px;
+  color: #1e40af;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+/* ── Section 3: Architecture (unchanged — uses ArchitectureTree component) ── */
+
+/* ── Section 4: Workflow (unchanged) ── */
+
+/* ── Section 5: Technology Stack (unchanged, uses existing pv-tech-* classes) ── */
+
+/* ── Section 6: My Contribution ── */
+.pv-contribution-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pv-contribution-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #334155;
+  padding: 10px 14px;
+  border-radius: 7px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+}
+
+.pv-contribution-bullet {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e40af;
+  flex-shrink: 0;
+  margin-top: 2px;
   font-family: "JetBrains Mono", monospace;
 }
 
-.pv-why-card.problem .pv-why-badge { color: #dc2626; }
-.pv-why-card.solution .pv-why-badge { color: #2563eb; }
-.pv-why-card.value .pv-why-badge { color: #059669; }
+/* Expandable technical details */
+.pv-tech-details {
+  margin-top: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
 
-.pv-why-card h4 {
-  font-size: 16px;
+.pv-tech-details-summary {
+  padding: 12px 18px;
+  background: #f8fafc;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Geist", sans-serif;
+}
+
+.pv-tech-details-summary::-webkit-details-marker { display: none; }
+
+.pv-tech-details-summary::before {
+  content: "▸";
+  font-size: 11px;
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+}
+
+details[open] .pv-tech-details-summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] .pv-tech-details-summary {
+  border-bottom-color: #e2e8f0;
+}
+
+.pv-tech-details-body {
+  padding: 20px 20px 4px;
+}
+
+.pv-tech-detail-item {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.pv-tech-detail-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.pv-tech-detail-title {
+  font-size: 14px;
   font-weight: 700;
   color: #0f172a;
   margin: 0 0 8px;
 }
 
-.pv-why-card p {
-  font-size: 14px;
-  line-height: 1.65;
+.pv-tech-detail-text {
+  font-size: 13.5px;
+  line-height: 1.7;
   color: #475569;
-  margin: 0;
+  margin: 0 0 8px;
+}
+
+/* ── Section 7: Challenges (unchanged — uses existing pv-challenges-* classes) ── */
+
+/* ── Section 8: Results & Next Steps ── */
+.pv-results-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.pv-results-card {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.pv-results-heading {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 14px;
 }
 
 /* ── Section 3: Hierarchical Tree Architecture Diagram ── */
@@ -1314,15 +1477,16 @@
     padding: 32px 32px 28px;
   }
 
-  .pv-why-grid {
-    grid-template-columns: 1fr;
+  /* New sections — stack to 1 col on tablet */
+  .pv-snapshot-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .pv-challenges-grid {
     grid-template-columns: 1fr;
   }
 
-  .pv-outcomes-wrapper {
+  .pv-results-wrapper {
     grid-template-columns: 1fr;
   }
 }
@@ -1402,6 +1566,19 @@
     margin-left: 6px;
     padding-left: 10px;
   }
+
+  /* New sections — full-width on mobile */
+  .pv-snapshot-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pv-results-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .pv-contribution-list li {
+    font-size: 13.5px;
+  }
 }
 
 /* Small mobile (max-width: 480px) */
@@ -1412,5 +1589,10 @@
 
   .pv-code-content pre {
     font-size: 12px;
+  }
+
+  .pv-snapshot-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }

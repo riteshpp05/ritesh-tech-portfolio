@@ -11,61 +11,20 @@ import { ArchitectureTree } from './casestudy/ArchitectureTree';
 import { stopLenis, startLenis } from './utils/lenisProvider';
 import './styles/ProjectViewerModal.css';
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
-
-/** Code block with copy */
-const CodeBlock = ({
-  language,
-  label,
-  code,
-  explanation,
-}: {
-  language: string;
-  label: string;
-  code: string;
-  explanation: string;
-}) => {
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch { /* ignore */ }
-  };
-  return (
-    <div className="pv-code-block" data-lenis-prevent="true">
-      <div className="pv-code-header">
-        <div>
-          <span>{language}</span>
-          {label && <span className="pv-code-label"> — {label}</span>}
-        </div>
-        <button className="pv-code-copy" onClick={copy}>
-          {copied ? '✓ Copied' : 'Copy'}
-        </button>
-      </div>
-      <div className="pv-code-content">
-        <pre><code>{code}</code></pre>
-      </div>
-      {explanation && (
-        <div className="pv-code-explanation">{explanation}</div>
-      )}
-    </div>
-  );
-};
-
-// ─── 8 Streamlined Table of Contents Sections ────────────────────────────────
+// ─── 8 Concise Architecture-First Sections ────────────────────────────────────
 
 const TOC_SECTIONS = [
-  { id: 'overview',       label: 'Project Overview'         },
-  { id: 'why',            label: 'Why This Project?'        },
-  { id: 'architecture',   label: 'System Architecture'      },
-  { id: 'workflow',       label: 'End-to-End Workflow'      },
-  { id: 'tech-decisions', label: 'Tech Stack & Decisions'   },
-  { id: 'implementation', label: 'Technical Implementation' },
-  { id: 'challenges',     label: 'Challenges & Solutions'   },
-  { id: 'outcomes',       label: 'Outcomes & Learnings'     },
+  { id: 'snapshot',       label: 'Project Snapshot'       },
+  { id: 'why',            label: 'Why This Project?'      },
+  { id: 'architecture',   label: 'System Architecture'    },
+  { id: 'workflow',       label: 'End-to-End Workflow'    },
+  { id: 'tech',           label: 'Technology Stack'       },
+  { id: 'contribution',   label: 'My Contribution'        },
+  { id: 'challenges',     label: 'Key Challenges'         },
+  { id: 'results',        label: 'Results & Next Steps'   },
 ];
+
+// ─── Desktop ToC Rail ────────────────────────────────────────────────────────
 
 const TocDesktop = ({
   active,
@@ -73,27 +32,27 @@ const TocDesktop = ({
 }: {
   active: string;
   onSelect: (id: string) => void;
-}) => {
-  return (
-    <nav className="pv-toc-rail" aria-label="Table of contents" data-lenis-prevent="true">
-      <div className="pv-toc-title">Contents</div>
-      <ul className="pv-toc-list">
-        {TOC_SECTIONS.map((s, i) => (
-          <li key={s.id} className="pv-toc-item">
-            <button
-              className={`pv-toc-btn${active === s.id ? ' pv-toc-active' : ''}`}
-              onClick={() => onSelect(s.id)}
-              aria-current={active === s.id ? 'true' : undefined}
-            >
-              <span className="pv-toc-num">{String(i + 1).padStart(2, '0')}</span>
-              {s.label}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-};
+}) => (
+  <nav className="pv-toc-rail" aria-label="Table of contents" data-lenis-prevent="true">
+    <div className="pv-toc-title">Contents</div>
+    <ul className="pv-toc-list">
+      {TOC_SECTIONS.map((s, i) => (
+        <li key={s.id} className="pv-toc-item">
+          <button
+            className={`pv-toc-btn${active === s.id ? ' pv-toc-active' : ''}`}
+            onClick={() => onSelect(s.id)}
+            aria-current={active === s.id ? 'true' : undefined}
+          >
+            <span className="pv-toc-num">{String(i + 1).padStart(2, '0')}</span>
+            {s.label}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </nav>
+);
+
+// ─── Mobile ToC Dropdown ─────────────────────────────────────────────────────
 
 const TocMobile = ({
   active,
@@ -120,10 +79,7 @@ const TocMobile = ({
             <li key={s.id}>
               <button
                 className={`pv-toc-mobile-btn${active === s.id ? ' pv-toc-active' : ''}`}
-                onClick={() => {
-                  onSelect(s.id);
-                  setOpen(false);
-                }}
+                onClick={() => { onSelect(s.id); setOpen(false); }}
               >
                 <span className="pv-toc-num">{String(i + 1).padStart(2, '0')}</span>
                 {s.label}
@@ -153,7 +109,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const [activeSection, setActiveSection] = useState('overview');
+  const [activeSection, setActiveSection] = useState('snapshot');
   const [isClosing, setIsClosing] = useState(false);
 
   // Architecture tree resolution
@@ -165,7 +121,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
     setTimeout(() => onClose(), 220);
   }, [onClose]);
 
-  // ── Escape key & focus ────────────────────────────────────────────────────
+  // ── Escape key & focus ─────────────────────────────────────────────────
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') handleClose();
@@ -175,44 +131,42 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [handleClose]);
 
-  // ── Scroll-to-top when project switches ──────────────────────────────────
+  // ── Scroll-to-top when project switches ─────────────────────────────
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0, behavior: 'instant' });
-    setActiveSection('overview');
+    setActiveSection('snapshot');
   }, [slug]);
 
   const isScrollingToRef = useRef(false);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // ── Scroll spy: syncs active ToC section as the content side moves ─────────
+  // ── Scroll spy ────────────────────────────────────────────────────────
   const handleScroll = useCallback(() => {
     if (isScrollingToRef.current) return;
 
     const container = scrollRef.current;
     if (!container) return;
 
-    // Bottom edge detection: if scrolled to the end, activate the last section
+    // If scrolled to very bottom, activate last section
     if (container.scrollHeight - container.scrollTop - container.clientHeight <= 60) {
       setActiveSection(TOC_SECTIONS[TOC_SECTIONS.length - 1].id);
       return;
     }
 
     const containerRect = container.getBoundingClientRect();
-    const triggerLine = containerRect.top + 160;
+    const triggerLine = containerRect.top + 140;
 
     let current = TOC_SECTIONS[0].id;
     for (const section of TOC_SECTIONS) {
       const el = container.querySelector(`#${section.id}`) as HTMLElement | null;
-      if (el) {
-        if (el.getBoundingClientRect().top <= triggerLine) {
-          current = section.id;
-        }
+      if (el && el.getBoundingClientRect().top <= triggerLine) {
+        current = section.id;
       }
     }
     setActiveSection(current);
   }, []);
 
-  // ── Smoothly scroll content side to selected section ──────────────────────
+  // ── Programmatic smooth scroll to section ────────────────────────────
   const handleSelectSection = useCallback((id: string) => {
     const container = scrollRef.current;
     const el = container?.querySelector(`#${id}`) as HTMLElement | null;
@@ -228,7 +182,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
       const targetScroll =
         el.getBoundingClientRect().top -
         container.getBoundingClientRect().top +
-        container.scrollTop - 20;
+        container.scrollTop - 24;
 
       container.scrollTo({
         top: Math.max(0, targetScroll),
@@ -237,7 +191,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
     }
   }, []);
 
-  // ── Backdrop click ────────────────────────────────────────────────────────
+  // ── Backdrop click ────────────────────────────────────────────────────
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
       handleClose();
@@ -312,7 +266,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
                 className="pv-btn pv-btn-primary"
                 onClick={() => handleSelectSection('architecture')}
               >
-                View Architecture Tree ↓
+                View Architecture ↓
               </button>
               {project.github && (
                 <a
@@ -321,7 +275,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  GitHub Source ↗
+                  GitHub ↗
                 </a>
               )}
               {project.liveDemo && (
@@ -335,15 +289,6 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
                 </a>
               )}
             </div>
-            {project.heroImage && (
-              <div className="pv-hero-image">
-                <img
-                  src={project.heroImage}
-                  alt={`${project.title} — project screenshot`}
-                  loading="lazy"
-                />
-              </div>
-            )}
           </div>
 
           {/* ── MOBILE TOC ── */}
@@ -353,69 +298,49 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
           <div className="pv-body" data-lenis-prevent="true">
             <TocDesktop active={activeSection} onSelect={handleSelectSection} />
 
-            {/* ── 8 STREAMLINED CONTENT SECTIONS ── */}
             <div className="pv-content" data-lenis-prevent="true">
 
-              {/* SECTION 1: Overview */}
-              <div className="pv-section" id="overview">
+              {/* ── SECTION 1: Project Snapshot ── */}
+              <div className="pv-section" id="snapshot">
                 <div className="pv-section-header">
                   <span className="pv-section-num">01</span>
-                  <h2 className="pv-section-title">Project Overview</h2>
+                  <h2 className="pv-section-title">Project Snapshot</h2>
                 </div>
-                {project.overview.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-                <div style={{ marginTop: '14px' }}>
-                  <p style={{ fontWeight: 600, color: '#0f172a', marginBottom: '8px' }}>
-                    Key Engineering Contributions:
-                  </p>
-                  <ul className="pv-list">
-                    {project.myRole.slice(0, 4).map((roleItem, i) => (
-                      <li key={i}>{roleItem}</li>
-                    ))}
-                  </ul>
+                <div className="pv-snapshot-grid">
+                  <div className="pv-snapshot-card">
+                    <span className="pv-snapshot-label problem">Problem</span>
+                    <p className="pv-snapshot-text">{project.problem[0]}</p>
+                  </div>
+                  <div className="pv-snapshot-card">
+                    <span className="pv-snapshot-label solution">Solution</span>
+                    <p className="pv-snapshot-text">{project.overview[0]}</p>
+                  </div>
+                  <div className="pv-snapshot-card">
+                    <span className="pv-snapshot-label contribution">My Contribution</span>
+                    <p className="pv-snapshot-text">{project.myRole[0]}</p>
+                  </div>
+                  <div className="pv-snapshot-card">
+                    <span className="pv-snapshot-label outcome">Outcome</span>
+                    <p className="pv-snapshot-text">{project.outcome[0]}</p>
+                  </div>
                 </div>
               </div>
 
-              {/* SECTION 2: Why This Project? (Problem → Solution → Value) */}
+              {/* ── SECTION 2: Why This Project? ── */}
               <div className="pv-section" id="why">
                 <div className="pv-section-header">
                   <span className="pv-section-num">02</span>
                   <h2 className="pv-section-title">Why This Project?</h2>
                 </div>
-                <div className="pv-why-grid">
-                  {/* Problem Card */}
-                  <div className="pv-why-card problem">
-                    <span className="pv-why-badge">🔴 The Problem</span>
-                    <h4>Core Pain Point</h4>
-                    <p>{project.problem[0]}</p>
-                  </div>
-
-                  {/* Solution Card */}
-                  <div className="pv-why-card solution">
-                    <span className="pv-why-badge">🔵 The Solution</span>
-                    <h4>Engineered Architecture</h4>
-                    <p>
-                      {project.overview[1] ??
-                        project.overview[0] ??
-                        'A dedicated architecture engineered to resolve fragmented data flow and provide reliable execution.'}
-                    </p>
-                  </div>
-
-                  {/* Value Card */}
-                  <div className="pv-why-card value">
-                    <span className="pv-why-badge">🟢 Tangible Value</span>
-                    <h4>Primary Impact</h4>
-                    <p>
-                      {project.outcome[0] ??
-                        project.goals[0] ??
-                        'Delivered automated, reliable, and auditable operations.'}
-                    </p>
-                  </div>
-                </div>
+                <p className="pv-section-lead">{project.overview[1] ?? project.overview[0]}</p>
+                <ul className="pv-bullet-list">
+                  {project.goals.map((g, i) => (
+                    <li key={i}>{g}</li>
+                  ))}
+                </ul>
               </div>
 
-              {/* SECTION 3: System Architecture (Tree Diagram) */}
+              {/* ── SECTION 3: System Architecture ── */}
               <div className="pv-section" id="architecture">
                 <div className="pv-section-header">
                   <span className="pv-section-num">03</span>
@@ -426,7 +351,7 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
                     tree={archTree}
                     description={
                       project.architectureDescription ??
-                      'Clean hierarchical architecture breakdown demonstrating component isolation, data ingestion flow, business logic services, and downstream persistence.'
+                      'Hierarchical breakdown of system components, layers, and their relationships.'
                     }
                   />
                 ) : (
@@ -434,17 +359,17 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
                 )}
               </div>
 
-              {/* SECTION 4: End-to-End Workflow */}
+              {/* ── SECTION 4: End-to-End Workflow ── */}
               <div className="pv-section" id="workflow">
                 <div className="pv-section-header">
                   <span className="pv-section-num">04</span>
                   <h2 className="pv-section-title">End-to-End Workflow</h2>
                 </div>
-                <p>Sequential pipeline mapping user input through processing, execution, and persistence:</p>
+                <p className="pv-section-lead">How the system processes input from start to output:</p>
                 <div className="pv-workflow-pipeline">
                   {project.endToEndFlow.map((step, i) => (
                     <div key={i} className="pv-workflow-step-card">
-                      <div className="pv-workflow-step-num">0{i + 1}</div>
+                      <div className="pv-workflow-step-num">{String(i + 1).padStart(2, '0')}</div>
                       <div className="pv-workflow-step-content">
                         <span className="pv-workflow-step-name">{step.label}</span>
                         {step.description && (
@@ -456,83 +381,111 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
                 </div>
               </div>
 
-              {/* SECTION 5: Tech Stack & Key Decisions */}
-              <div className="pv-section" id="tech-decisions">
+              {/* ── SECTION 5: Technology Stack ── */}
+              <div className="pv-section" id="tech">
                 <div className="pv-section-header">
                   <span className="pv-section-num">05</span>
-                  <h2 className="pv-section-title">Technology Stack &amp; Key Decisions</h2>
+                  <h2 className="pv-section-title">Technology Stack</h2>
                 </div>
-                <div className="pv-tech-stack-container">
-                  <div className="pv-tech-categories">
-                    {project.techStack.map((cat, i) => (
-                      <div key={i} className="pv-tech-category-card">
-                        <div className="pv-tech-category-title">{cat.category}</div>
-                        <div className="pv-tech-items">
-                          {cat.items.map((item, j) => (
-                            <span key={j} className="pv-tech-tag">{item}</span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {project.engineeringDecisions.length > 0 && (
-                    <div className="pv-decisions-wrapper">
-                      <div className="pv-decisions-title">
-                        <span>Architecture Decision Rationale</span>
-                      </div>
-                      <div className="pv-decisions-grid">
-                        {project.engineeringDecisions.map((d, i) => (
-                          <div key={i} className="pv-decision">
-                            <p className="pv-decision-q">{d.question}</p>
-                            <p className="pv-decision-a">{d.answer}</p>
-                          </div>
+                <div className="pv-tech-categories">
+                  {project.techStack.map((cat, i) => (
+                    <div key={i} className="pv-tech-category-card">
+                      <div className="pv-tech-category-title">{cat.category}</div>
+                      <div className="pv-tech-items">
+                        {cat.items.map((item, j) => (
+                          <span key={j} className="pv-tech-tag">{item}</span>
                         ))}
                       </div>
                     </div>
-                  )}
+                  ))}
                 </div>
+
+                {/* Architecture Decision Rationale — compact table */}
+                {project.engineeringDecisions.length > 0 && (
+                  <div className="pv-decisions-wrapper">
+                    <div className="pv-decisions-title">Key Architecture Decisions</div>
+                    <div className="pv-decisions-grid">
+                      {project.engineeringDecisions.map((d, i) => (
+                        <div key={i} className="pv-decision">
+                          <p className="pv-decision-q">{d.question}</p>
+                          <p className="pv-decision-a">{d.answer}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* SECTION 6: Technical Implementation */}
-              <div className="pv-section" id="implementation">
+              {/* ── SECTION 6: My Contribution ── */}
+              <div className="pv-section" id="contribution">
                 <div className="pv-section-header">
                   <span className="pv-section-num">06</span>
-                  <h2 className="pv-section-title">Technical Implementation</h2>
+                  <h2 className="pv-section-title">My Contribution</h2>
                 </div>
-                {project.technicalSections.map((section, i) => (
-                  <div key={i} className="pv-subsection">
-                    <h3 className="pv-subsection-title">{section.title}</h3>
-                    {section.content.map((p, j) => (
-                      <p key={j}>{p}</p>
-                    ))}
-                    {section.codeExample && (
-                      <CodeBlock
-                        language={section.codeExample.language}
-                        label={section.codeExample.label}
-                        code={section.codeExample.code}
-                        explanation={section.codeExample.explanation}
-                      />
-                    )}
-                  </div>
-                ))}
+                <p className="pv-section-lead">What I personally designed, built, and implemented:</p>
+                <ul className="pv-contribution-list">
+                  {project.myRole.map((item, i) => (
+                    <li key={i}>
+                      <span className="pv-contribution-bullet">→</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* If there are technical sections, show compact subsections */}
+                {project.technicalSections.length > 0 && (
+                  <details className="pv-tech-details">
+                    <summary className="pv-tech-details-summary">
+                      Technical Implementation Details
+                    </summary>
+                    <div className="pv-tech-details-body">
+                      {project.technicalSections.map((section, i) => (
+                        <div key={i} className="pv-tech-detail-item">
+                          <h4 className="pv-tech-detail-title">{section.title}</h4>
+                          {section.content.map((p, j) => (
+                            <p key={j} className="pv-tech-detail-text">{p}</p>
+                          ))}
+                          {section.codeExample && (
+                            <div className="pv-code-block" data-lenis-prevent="true">
+                              <div className="pv-code-header">
+                                <div>
+                                  <span>{section.codeExample.language}</span>
+                                  {section.codeExample.label && (
+                                    <span className="pv-code-label"> — {section.codeExample.label}</span>
+                                  )}
+                                </div>
+                                <CopyButton code={section.codeExample.code} />
+                              </div>
+                              <div className="pv-code-content">
+                                <pre><code>{section.codeExample.code}</code></pre>
+                              </div>
+                              {section.codeExample.explanation && (
+                                <div className="pv-code-explanation">{section.codeExample.explanation}</div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </details>
+                )}
               </div>
 
-              {/* SECTION 7: Challenges & Solutions */}
+              {/* ── SECTION 7: Key Challenges ── */}
               <div className="pv-section" id="challenges">
                 <div className="pv-section-header">
                   <span className="pv-section-num">07</span>
-                  <h2 className="pv-section-title">Key Challenges &amp; Solutions</h2>
+                  <h2 className="pv-section-title">Key Engineering Challenges</h2>
                 </div>
                 <div className="pv-challenges-grid">
                   {project.challenges.map((c, i) => (
                     <div key={i} className="pv-challenge-card">
                       <div className="pv-challenge-block">
-                        <span className="pv-challenge-label challenge">Engineering Challenge</span>
+                        <span className="pv-challenge-label challenge">Challenge</span>
                         <p className="pv-challenge-text">{c.challenge}</p>
                       </div>
                       <div className="pv-challenge-block">
-                        <span className="pv-challenge-label solution">Implemented Solution</span>
+                        <span className="pv-challenge-label solution">Solution</span>
                         <p className="pv-challenge-text">{c.solution}</p>
                       </div>
                     </div>
@@ -540,24 +493,23 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
                 </div>
               </div>
 
-              {/* SECTION 8: Outcomes & Learnings */}
-              <div className="pv-section" id="outcomes">
+              {/* ── SECTION 8: Results & Next Steps ── */}
+              <div className="pv-section" id="results">
                 <div className="pv-section-header">
                   <span className="pv-section-num">08</span>
-                  <h2 className="pv-section-title">Outcomes &amp; Learnings</h2>
+                  <h2 className="pv-section-title">Results & Next Steps</h2>
                 </div>
-                <div className="pv-outcomes-wrapper">
-                  <div className="pv-outcomes-card">
-                    <h4 className="pv-outcomes-title">Delivered Results</h4>
+                <div className="pv-results-wrapper">
+                  <div className="pv-results-card">
+                    <h4 className="pv-results-heading">Delivered</h4>
                     <ul className="pv-list">
                       {project.outcome.map((o, i) => (
                         <li key={i}>{o}</li>
                       ))}
                     </ul>
                   </div>
-
                   <div className="pv-learnings-card">
-                    <h4 className="pv-learnings-title">Engineering Takeaways</h4>
+                    <h4 className="pv-learnings-title">Engineering Takeaway</h4>
                     {project.learnings.map((l, i) => (
                       <p key={i} className="pv-learnings-text">{l}</p>
                     ))}
@@ -604,6 +556,24 @@ const ProjectViewerModal = ({ slug, onClose, onNavigate }: Props) => {
   );
 };
 
+// ─── Copy button (lightweight inline helper) ─────────────────────────────────
+
+const CopyButton = ({ code }: { code: string }) => {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* ignore */ }
+  };
+  return (
+    <button className="pv-code-copy" onClick={copy}>
+      {copied ? '✓ Copied' : 'Copy'}
+    </button>
+  );
+};
+
 // ─── Exported wrapper with background scroll lock & Lenis pause ──────────────
 
 interface ProjectViewerProps {
@@ -624,7 +594,7 @@ const ProjectViewer = ({ slug, onClose, onNavigate }: ProjectViewerProps) => {
     // 2. Pause Lenis smooth scroll while popup is open
     stopLenis();
 
-    // 3. Lock document body cleanly
+    // 3. Lock document body cleanly (prevents background page from jumping)
     document.body.style.position = 'fixed';
     document.body.style.top = `-${savedScrollY.current}px`;
     document.body.style.width = '100%';
