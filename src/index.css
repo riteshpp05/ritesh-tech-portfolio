@@ -203,10 +203,19 @@ section,
     z-index: 1;
   }
   .techstack {
-    height: auto;
-    min-height: 500px;
-    margin-top: 80px;
-    margin-bottom: 0px;
+    height: 80dvh;
+    min-height: 560px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .techstack h2 {
+    top: 24px;
+    font-size: 32px;
+    letter-spacing: 2px;
+    z-index: 5;
+    pointer-events: none;
   }
   .canvas-wrapper {
     position: absolute;
@@ -214,16 +223,30 @@ section,
     z-index: -1;
   }
   .tech-canvas {
-    min-height: 400px;
-    max-height: 500px;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
   }
 }
+
 @media screen and (max-width: 480px) {
-  .techstack h2 {
-    font-size: 24px;
-    top: 60px;
-  }
   .techstack {
-    min-height: 350px;
+    height: 75dvh;
+    min-height: 500px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .techstack h2 {
+    font-size: 26px;
+    top: 18px;
+    letter-spacing: 2px;
+  }
+  .tech-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
   }
 }
+

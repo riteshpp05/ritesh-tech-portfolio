@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useRef, useMemo, useState, useEffect } from "react";
+import { useRef, useMemo, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import { EffectComposer, N8AO } from "@react-three/postprocessing";
@@ -7,7 +7,6 @@ import {
   BallCollider,
   Physics,
   RigidBody,
-  CylinderCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
 
@@ -20,7 +19,7 @@ interface TechDef {
   primary: string; // gradient start
   secondary: string; // gradient end
   text: string; // label colour
-  imageSrc?: string; // optional local PNG (overrides canvas texture)
+  imageSrc?: string; // optional local SVG/PNG
 }
 
 const technologies: TechDef[] = [
@@ -63,7 +62,7 @@ const technologies: TechDef[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Canvas texture generator — creates a high-res branded sphere texture
+// Helpers
 // ---------------------------------------------------------------------------
 function lightenHex(hex: string, amount: number): string {
   const n = parseInt(hex.replace("#", ""), 16);
@@ -73,71 +72,104 @@ function lightenHex(hex: string, amount: number): string {
   return `rgb(${r},${g},${b})`;
 }
 
+// ---------------------------------------------------------------------------
+// Canvas texture generator — 2:1 spherical map with FRONT and BACK badges
+// ---------------------------------------------------------------------------
 function createCanvasTexture(tech: TechDef): THREE.CanvasTexture {
-  const S = 512;
+  const W = 1024;
+  const H = 512;
   const canvas = document.createElement("canvas");
-  canvas.width = S;
-  canvas.height = S;
+  canvas.width = W;
+  canvas.height = H;
   const ctx = canvas.getContext("2d")!;
 
-  // --- radial gradient background ---
-  const grad = ctx.createRadialGradient(S * 0.42, S * 0.38, S * 0.04, S / 2, S / 2, S * 0.52);
-  grad.addColorStop(0, lightenHex(tech.primary, 40));
-  grad.addColorStop(0.55, tech.primary);
-  grad.addColorStop(1, tech.secondary);
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, S, S);
+  const renderBackground = () => {
+    // Fill full width with gradient
+    const grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, tech.secondary);
+    grad.addColorStop(0.25, tech.primary);
+    grad.addColorStop(0.5, lightenHex(tech.primary, 30));
+    grad.addColorStop(0.75, tech.primary);
+    grad.addColorStop(1, tech.secondary);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+  };
 
-  // --- subtle decorative ring ---
-  ctx.save();
-  ctx.strokeStyle = `${tech.text}22`;
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(S / 2, S / 2, S * 0.36, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
+  const renderBadgeAt = (centerX: number, centerY: number, imgElement?: HTMLImageElement) => {
+    // Subtle decorative ring
+    ctx.save();
+    ctx.strokeStyle = `${tech.text}28`;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, H * 0.32, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    if (imgElement && imgElement.complete && (imgElement.naturalWidth || imgElement.width)) {
+      const rawW = imgElement.naturalWidth || imgElement.width || 512;
+      const rawH = imgElement.naturalHeight || imgElement.height || 512;
+      const aspect = rawH > 0 ? rawW / rawH : 1;
+      const validAspect = isFinite(aspect) && aspect > 0 ? aspect : 1;
+
+      const maxDim = H * 0.44;
+      let drawW = maxDim;
+      let drawH = maxDim;
+      if (validAspect > 1) {
+        drawW = maxDim;
+        drawH = maxDim / validAspect;
+      } else {
+        drawH = maxDim;
+        drawW = maxDim * validAspect;
+      }
+      ctx.drawImage(imgElement, centerX - drawW / 2, centerY - drawH / 2, drawW, drawH);
+    } else {
+      // Text fallback
+      const lines = tech.label.split("\n");
+      const maxChars = Math.max(...lines.map((l) => l.length));
+      let fontSize = Math.min(H / (maxChars * 0.65), H / (lines.length * 2.2));
+      fontSize = Math.min(fontSize, 90);
+      fontSize = Math.max(fontSize, 32);
+
+      ctx.font = `700 ${fontSize}px "Geist","Inter","Segoe UI",system-ui,sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = tech.text;
+
+      const lineHeight = fontSize * 1.15;
+      const startY = centerY - ((lines.length - 1) * lineHeight) / 2;
+      lines.forEach((line, i) => ctx.fillText(line, centerX, startY + i * lineHeight));
+    }
+  };
+
+  const drawAll = (imgElement?: HTMLImageElement) => {
+    renderBackground();
+    // In Three.js SphereGeometry equirectangular UV:
+    // U = 0.25 is FRONT face (facing +Z)
+    // U = 0.75 is BACK face (facing -Z)
+    renderBadgeAt(W * 0.25, H / 2, imgElement);
+    renderBadgeAt(W * 0.75, H / 2, imgElement);
+  };
+
+  // 1. Draw fallback text immediately so the sphere is NEVER blank on screen
+  drawAll();
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.needsUpdate = true;
 
+  // 2. If image provided, load and redraw both sides
   if (tech.imageSrc) {
     const img = new Image();
+    img.crossOrigin = "anonymous";
     img.src = tech.imageSrc;
     img.onload = () => {
-      const imgAspect = img.width / img.height;
-      let drawW, drawH;
-      const maxDim = S * 0.55; 
-      if (imgAspect > 1) {
-        drawW = maxDim;
-        drawH = maxDim / imgAspect;
-      } else {
-        drawH = maxDim;
-        drawW = maxDim * imgAspect;
-      }
-      const x = (S - drawW) / 2;
-      const y = (S - drawH) / 2;
-      
-      ctx.drawImage(img, x, y, drawW, drawH);
+      drawAll(img);
       tex.needsUpdate = true;
     };
-  } else {
-    // text label fallback
-    const lines = tech.label.split("\n");
-    const maxChars = Math.max(...lines.map((l) => l.length));
-    let fontSize = Math.min(S / (maxChars * 0.55), S / (lines.length * 2.2));
-    fontSize = Math.min(fontSize, 120);
-    fontSize = Math.max(fontSize, 36);
-
-    ctx.font = `700 ${fontSize}px "Geist","Inter","Segoe UI",system-ui,sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillStyle = tech.text;
-
-    const lineHeight = fontSize * 1.15;
-    const startY = S / 2 - ((lines.length - 1) * lineHeight) / 2;
-    lines.forEach((line, i) => ctx.fillText(line, S / 2, startY + i * lineHeight));
-    tex.needsUpdate = true;
+    img.onerror = () => {
+      // Text fallback is already drawn
+      console.warn("Using text fallback for:", tech.name);
+    };
   }
 
   return tex;
@@ -148,10 +180,9 @@ function createCanvasTexture(tech: TechDef): THREE.CanvasTexture {
 // ---------------------------------------------------------------------------
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
-const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-const scaleMultiplier = isMobile ? 1.3 : 1;
+const isMobileScreen = typeof window !== "undefined" && window.innerWidth < 768;
+const scaleMultiplier = isMobileScreen ? 1.2 : 1;
 
-// One sphere per technology, with slight scale variation for visual interest
 const spheres = technologies.map((_, i) => ({
   scale: [0.75, 0.85, 0.95, 1, 0.8][i % 5] * scaleMultiplier,
 }));
@@ -160,88 +191,119 @@ const spheres = technologies.map((_, i) => ({
 // SphereGeo – a single physics-driven sphere
 // ---------------------------------------------------------------------------
 type SphereProps = {
-  vec?: THREE.Vector3;
   scale: number;
   r?: typeof THREE.MathUtils.randFloatSpread;
   material: THREE.MeshPhysicalMaterial;
   isActive: boolean;
+  isMobile: boolean;
 };
 
 function SphereGeo({
-  vec = new THREE.Vector3(),
   scale,
   r = THREE.MathUtils.randFloatSpread,
   material,
   isActive,
+  isMobile,
 }: SphereProps) {
   const api = useRef<RapierRigidBody | null>(null);
+  const initialYRot = useMemo(() => Math.random() * Math.PI * 2, []);
+  // Random small spin direction
+  const spinSpeed = useMemo(() => (Math.random() > 0.5 ? 0.025 : -0.025), []);
 
   useFrame((_state, delta) => {
-    if (!isActive) return;
-    delta = Math.min(0.1, delta);
-    const impulse = vec
-      .copy(api.current!.translation())
-      .normalize()
-      .multiply(
-        new THREE.Vector3(
-          -50 * delta * scale,
-          -150 * delta * scale,
-          -50 * delta * scale
-        )
-      );
+    if (!isActive || !api.current) return;
+    delta = Math.min(0.05, delta);
 
-    api.current?.applyImpulse(impulse, true);
+    const trans = api.current.translation();
+    const factor = delta * scale;
+
+    // Gentle spring force towards (0, 0, 0)
+    // On mobile, balanced X and Y so spheres form a tight cluster in center
+    const kX = isMobile ? 80 : 50;
+    const kY = isMobile ? 85 : 140;
+    const kZ = 60;
+
+    const impulse = new THREE.Vector3(
+      -trans.x * kX * factor,
+      -trans.y * kY * factor,
+      -trans.z * kZ * factor
+    );
+
+    api.current.applyImpulse(impulse, true);
+
+    // Gentle ambient spin around Y axis so logos continuously reveal themselves
+    api.current.applyTorqueImpulse(new THREE.Vector3(0, spinSpeed * factor, 0), true);
   });
 
   return (
     <RigidBody
-      linearDamping={0.75}
-      angularDamping={0.15}
+      linearDamping={0.85}
+      angularDamping={0.35}
       friction={0.2}
-      position={[r(20), r(20) - 25, r(20) - 10]}
+      position={[r(10), r(8), r(8)]}
+      rotation={[0, initialYRot, 0]}
       ref={api}
       colliders={false}
+      enabledRotations={[false, true, false]}
     >
       <BallCollider args={[scale]} />
-      <CylinderCollider
-        rotation={[Math.PI / 2, 0, 0]}
-        position={[0, 0, 1.2 * scale]}
-        args={[0.15 * scale, 0.275 * scale]}
-      />
       <mesh
         castShadow
         receiveShadow
         scale={scale}
         geometry={sphereGeometry}
         material={material}
-        rotation={[0.3, 1, 1]}
+        rotation={[0, 0, 0]}
       />
     </RigidBody>
   );
 }
 
 // ---------------------------------------------------------------------------
-// Pointer – invisible kinematic body that follows the mouse
+// Pointer – interactive kinematic body that follows touch/cursor
 // ---------------------------------------------------------------------------
 type PointerProps = {
-  vec?: THREE.Vector3;
   isActive: boolean;
+  isMobile: boolean;
 };
 
-function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
+function Pointer({ isActive, isMobile }: PointerProps) {
   const ref = useRef<RapierRigidBody>(null);
+  const vec = useRef(new THREE.Vector3());
+  const isInteracting = useRef(false);
+
+  useEffect(() => {
+    const onTouchStart = () => { isInteracting.current = true; };
+    const onTouchEnd = () => { isInteracting.current = false; };
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, []);
 
   useFrame(({ pointer, viewport }) => {
-    if (!isActive) return;
-    const targetVec = vec.lerp(
-      new THREE.Vector3(
-        (pointer.x * viewport.width) / 2,
-        (pointer.y * viewport.height) / 2,
-        0
-      ),
-      0.2
-    );
-    ref.current?.setNextKinematicTranslation(targetVec);
+    if (!isActive || !ref.current) return;
+
+    // On mobile: only push if actively touching
+    // On desktop: follow mouse cursor
+    const active = !isMobile || isInteracting.current;
+
+    if (active && (pointer.x !== 0 || pointer.y !== 0 || isInteracting.current)) {
+      const targetVec = vec.current.lerp(
+        new THREE.Vector3(
+          (pointer.x * viewport.width) / 2,
+          (pointer.y * viewport.height) / 2,
+          0
+        ),
+        0.25
+      );
+      ref.current.setNextKinematicTranslation(targetVec);
+    } else {
+      // Park collider far away so spheres cluster cleanly in center
+      ref.current.setNextKinematicTranslation(new THREE.Vector3(100, 100, 100));
+    }
   });
 
   return (
@@ -259,17 +321,24 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 // ---------------------------------------------------------------------------
 // TechStack – main exported component
 // ---------------------------------------------------------------------------
-import { Suspense } from "react";
-
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
-        // Only run physics/rendering when the container is in the viewport
         setIsActive(entry.isIntersecting);
       },
       { threshold: 0.1 }
@@ -284,9 +353,6 @@ const TechStack = () => {
     };
   }, []);
 
-  // Build one material per technology.
-  // For techs with a local imageSrc we try to load it; we always have a
-  // canvas-generated fallback ready so the sphere never shows blank.
   const materials = useMemo(() => {
     return technologies.map((tech) => {
       const canvasTex = createCanvasTexture(tech);
@@ -295,43 +361,55 @@ const TechStack = () => {
         emissive: "#ffffff",
         emissiveMap: canvasTex,
         emissiveIntensity: 0.35,
-        metalness: 0.5,
-        roughness: 0.9,
-        clearcoat: 0.15,
+        metalness: 0.45,
+        roughness: 0.85,
+        clearcoat: 0.2,
       });
     });
   }, []);
 
   return (
     <div className="techstack" ref={containerRef}>
-      <h2> My Techstack</h2>
+      <h2>My Techstack</h2>
 
       <Canvas
         shadows
-        gl={{ alpha: true, stencil: false, depth: false, antialias: false, powerPreference: "high-performance" }}
-        camera={{ position: [0, 0, isMobile ? 28 : 20], fov: isMobile ? 38 : 32.5, near: 1, far: 100 }}
+        gl={{
+          alpha: true,
+          stencil: false,
+          depth: false,
+          antialias: false,
+          powerPreference: "high-performance",
+        }}
+        camera={{
+          position: [0, 0, isMobile ? 21 : 20],
+          fov: isMobile ? 48 : 32.5,
+          near: 1,
+          far: 100,
+        }}
         onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
         className="tech-canvas"
       >
         <Suspense fallback={null}>
-          <ambientLight intensity={1} />
+          <ambientLight intensity={1.2} />
           <spotLight
             position={[20, 20, 25]}
             penumbra={1}
-            angle={0.2}
+            angle={0.25}
             color="white"
             castShadow
             shadow-mapSize={[512, 512]}
           />
           <directionalLight position={[0, 5, -4]} intensity={2} />
           <Physics gravity={[0, 0, 0]}>
-            <Pointer isActive={isActive} />
+            <Pointer isActive={isActive} isMobile={isMobile} />
             {spheres.map((props, i) => (
               <SphereGeo
                 key={i}
                 {...props}
                 material={materials[i]}
                 isActive={isActive}
+                isMobile={isMobile}
               />
             ))}
           </Physics>
