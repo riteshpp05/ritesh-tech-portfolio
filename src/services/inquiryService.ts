@@ -11,32 +11,52 @@ export interface InquiryPayload {
 export interface InquiryResult {
   success: boolean;
   message: string;
+  whatsappUrl: string;
+}
+
+export const WHATSAPP_PHONE_NUMBER = "917028111146";
+
+/**
+ * Builds a structured, human-readable WhatsApp message from form fields.
+ */
+export function formatWhatsAppMessage(payload: InquiryPayload): string {
+  const parts = [
+    `*New Project Inquiry — Ritesh Patil Freelance*`,
+    ``,
+    `*Name:* ${payload.name}`,
+    `*Email:* ${payload.email}`,
+    payload.company ? `*Company:* ${payload.company}` : null,
+    payload.serviceType ? `*Service:* ${payload.serviceType}` : null,
+    payload.budget ? `*Budget:* ${payload.budget}` : null,
+    payload.timeline ? `*Timeline:* ${payload.timeline}` : null,
+    ``,
+    `*Project Overview:*`,
+    payload.description,
+  ].filter((item): item is string => item !== null);
+
+  return parts.join("\n");
 }
 
 /**
- * Submit a project inquiry.
- *
- * Currently logs to console and returns a success state.
- * To connect to a real email service (Resend, EmailJS, Formspree, etc.),
- * replace the implementation below — the UI does not need to change.
- *
- * Example wiring for Formspree:
- *   const res = await fetch('https://formspree.io/f/<YOUR_ID>', {
- *     method: 'POST',
- *     headers: { 'Content-Type': 'application/json' },
- *     body: JSON.stringify(payload),
- *   });
- *   return { success: res.ok, message: res.ok ? 'Sent!' : 'Failed.' };
+ * Returns a universal WhatsApp redirect link prefilled with the encoded inquiry.
+ */
+export function getWhatsAppUrl(payload: InquiryPayload): string {
+  const text = formatWhatsAppMessage(payload);
+  return `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+/**
+ * Processes the inquiry and returns the redirection URL.
  */
 export async function submitInquiry(payload: InquiryPayload): Promise<InquiryResult> {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 1200));
+  // Small micro-delay for smooth UI feedback
+  await new Promise((resolve) => setTimeout(resolve, 350));
 
-  // Log for development inspection
-  console.log('[Inquiry Form] Submitted:', payload);
+  const whatsappUrl = getWhatsAppUrl(payload);
 
   return {
     success: true,
-    message: 'Your inquiry has been received. I\'ll be in touch within 24 hours.',
+    message: "Inquiry generated successfully.",
+    whatsappUrl,
   };
 }

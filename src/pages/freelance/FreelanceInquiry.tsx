@@ -48,6 +48,7 @@ const FreelanceInquiry = () => {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState<string>("");
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   /* Scroll reveal */
@@ -103,12 +104,15 @@ const FreelanceInquiry = () => {
     try {
       const result = await submitInquiry(form);
       if (result.success) {
+        setWhatsappUrl(result.whatsappUrl);
         setIsSuccess(true);
+        // Automatically open WhatsApp in a new tab
+        window.open(result.whatsappUrl, "_blank", "noopener,noreferrer");
       } else {
-        setSubmitError("Something went wrong. Please try again or email me directly.");
+        setSubmitError("Something went wrong. Please try again or message me directly.");
       }
     } catch {
-      setSubmitError("Unable to submit. Please email me directly at riteshpatil702811@gmail.com");
+      setSubmitError("Unable to redirect. Please message me directly on WhatsApp at +91 7028111146");
     } finally {
       setIsSubmitting(false);
     }
@@ -129,6 +133,16 @@ const FreelanceInquiry = () => {
             </p>
 
             <div className="fl-inquiry-contact-links">
+              <a
+                href="https://wa.me/917028111146?text=Hi%20Ritesh,%20I'd%20like%20to%20discuss%20a%20project."
+                className="fl-inquiry-contact-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat with Ritesh on WhatsApp"
+              >
+                <span className="fl-inquiry-contact-icon" aria-hidden="true">💬</span>
+                +91 7028111146 (WhatsApp)
+              </a>
               <a
                 href="mailto:riteshpatil702811@gmail.com"
                 className="fl-inquiry-contact-link"
@@ -157,11 +171,32 @@ const FreelanceInquiry = () => {
             {isSuccess ? (
               <div className="fl-form-success" role="alert">
                 <span className="fl-form-success-icon" aria-hidden="true">✓</span>
-                <h3>Inquiry received.</h3>
+                <h3>Project Details Ready</h3>
                 <p>
-                  Thanks for reaching out. I'll review your project details and
-                  get back to you within 24 hours.
+                  Your inquiry has been formatted and redirected to WhatsApp.
+                  If WhatsApp did not open automatically, click the button below to start our chat directly:
                 </p>
+                <div style={{ marginTop: "24px", display: "flex", flexDirection: "column", gap: "10px", alignItems: "center" }}>
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fl-btn-whatsapp"
+                  >
+                    Open in WhatsApp ↗
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSuccess(false);
+                      setWhatsappUrl("");
+                    }}
+                    className="fl-btn-secondary"
+                    style={{ fontSize: "12.5px", padding: "8px 18px" }}
+                  >
+                    Edit / Send Another Message
+                  </button>
+                </div>
               </div>
             ) : (
               <form
@@ -357,14 +392,14 @@ const FreelanceInquiry = () => {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="fl-form-submit"
+                  className="fl-form-submit fl-form-submit-whatsapp"
                   disabled={isSubmitting}
                   aria-disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    <span aria-live="polite">Sending…</span>
+                    <span aria-live="polite">Preparing WhatsApp message…</span>
                   ) : (
-                    "Start a Conversation →"
+                    "Send via WhatsApp ↗"
                   )}
                 </button>
               </form>
