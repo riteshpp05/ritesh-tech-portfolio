@@ -5,6 +5,7 @@ import "./App.css";
 const CharacterModel = lazy(() => import("./components/Character"));
 const MainContainer = lazy(() => import("./components/MainContainer"));
 const ProjectCaseStudy = lazy(() => import("./components/casestudy/ProjectCaseStudy"));
+const FreelancePage = lazy(() => import("./pages/FreelancePage"));
 import { LoadingProvider } from "./context/LoadingProvider";
 import { LenisProvider } from "./components/utils/lenisProvider";
 
@@ -62,6 +63,30 @@ const App = () => {
           }>
             <ProjectCaseStudy />
           </Suspense>
+        }
+      />
+
+      {/* Freelance Page — No 3D character, own lightweight canvas in hero */}
+      <Route
+        path="/freelance"
+        element={
+          <LenisProvider>
+            <Suspense fallback={
+              <div style={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#030712',
+                color: '#6b7280',
+                fontFamily: '"Geist", sans-serif',
+              }}>
+                Loading...
+              </div>
+            }>
+              <FreelancePage />
+            </Suspense>
+          </LenisProvider>
         }
       />
     </Routes>

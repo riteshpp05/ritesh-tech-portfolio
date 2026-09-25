@@ -11,10 +11,11 @@ const Navbar = ({ onOpenProject }: NavbarProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const isProjectPage = location.pathname.startsWith('/projects/');
+  const isFreelancePage = location.pathname === '/freelance';
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
     e.preventDefault();
-    if (isProjectPage) {
+    if (isProjectPage || isFreelancePage) {
       navigate('/' + hash);
     } else {
       // Use Lenis smooth scroll for seamless interpolated transitions
@@ -25,6 +26,8 @@ const Navbar = ({ onOpenProject }: NavbarProps) => {
   const handleCaseStudiesClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (isProjectPage) {
+      navigate('/projects/mdr');
+    } else if (isFreelancePage) {
       navigate('/projects/mdr');
     } else if (onOpenProject) {
       onOpenProject('mdr');
@@ -42,7 +45,7 @@ const Navbar = ({ onOpenProject }: NavbarProps) => {
           data-cursor="disable"
           style={{ display: 'flex', alignItems: 'center' }}
           onClick={(e) => {
-            if (isProjectPage) {
+            if (isProjectPage || isFreelancePage) {
               e.preventDefault();
               navigate('/');
             } else {
@@ -69,11 +72,6 @@ const Navbar = ({ onOpenProject }: NavbarProps) => {
             </a>
           </li>
           <li>
-            <a data-href="#work" href="#work" onClick={(e) => handleNavClick(e, '#work')}>
-              <HoverLinks text="WORK" />
-            </a>
-          </li>
-          <li>
             <a
               data-href="#case-studies"
               href="#case-studies"
@@ -81,6 +79,19 @@ const Navbar = ({ onOpenProject }: NavbarProps) => {
               aria-label="View Project Case Studies & System Design"
             >
               <HoverLinks text="CASE STUDIES" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="/freelance"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/freelance');
+              }}
+              aria-label="Freelance AI & Software Development"
+              style={isFreelancePage ? { color: 'var(--accent-cyan)' } : {}}
+            >
+              <HoverLinks text="FREELANCE" />
             </a>
           </li>
         </ul>
