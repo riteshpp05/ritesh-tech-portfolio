@@ -1,57 +1,47 @@
-import { useRef, useEffect } from "react";
+import { useReveal } from "../../hooks/useReveal";
 import { scrollToLenis } from "../../components/utils/lenisProvider";
 
 const MODELS = [
   {
-    title: "Project-Based",
-    description: "For clearly defined applications, websites, and automation projects with a defined scope and deliverables.",
-    note: "Most common for new web apps, AI tools, and automation systems.",
+    title: "Project-Based Build",
+    badge: "FIXED SCOPE",
+    color: "#FFE600",
+    description: "For clearly defined web applications, AI integrations, and automation systems with specific requirements and milestones.",
+    note: "✓ Milestone delivery · Defined timeline · Fixed deliverables",
   },
   {
     title: "MVP Development",
-    description: "For startups and founders who want to turn an idea into a working, testable product as efficiently as possible.",
-    note: "Focused on core functionality, speed, and learning from real users.",
+    badge: "FAST TURNAROUND",
+    color: "#B8FF00",
+    description: "For founders and early-stage teams aiming to bring a validated, working AI or web product to market within 2–4 weeks.",
+    note: "✓ Core features first · Rapid iteration · Full IP handoff",
   },
   {
-    title: "AI & Automation Consulting",
-    description: "For businesses that need help designing the right technical architecture and solution before committing to a build.",
-    note: "Ideal when you need to evaluate options first.",
+    title: "AI & System Consulting",
+    badge: "ARCHITECTURE AUDIT",
+    color: "#00F0FF",
+    description: "For companies that need expert guidance designing vector search topology, local LLM feasibility, or SAP/cloud architectures before building.",
+    note: "✓ Tech stack evaluation · Feasibility analysis · Architecture blueprint",
   },
   {
-    title: "Long-Term Engineering",
-    description: "For businesses that need ongoing development, feature additions, maintenance, or dedicated technical support.",
-    note: "Structured as a retainer or recurring engagement.",
+    title: "Dedicated Engineering",
+    badge: "RETAINER",
+    color: "#D8B4FE",
+    description: "For scaling businesses needing continuous feature development, pipeline optimizations, maintenance, and technical ownership.",
+    note: "✓ Guaranteed hours · Priority response · Ongoing roadmap execution",
   },
 ];
 
 const FreelanceEngagement = () => {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const pricingRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("fl-visible");
-        });
-      },
-      { threshold: 0.08 }
-    );
-    if (headerRef.current) observer.observe(headerRef.current);
-    if (pricingRef.current) observer.observe(pricingRef.current);
-    cardRefs.current.forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
+  const refs = useReveal(8, 0.08);
 
   return (
     <>
-      <div className="fl-reveal" ref={headerRef}>
-        <span className="fl-section-label">Engagement</span>
-        <h2 className="fl-section-heading">How we can work together.</h2>
+      <div className="fl-reveal" ref={(el) => (refs.current[6] = el)}>
+        <span className="fl-section-label">Engagement Models</span>
+        <h2 className="fl-section-heading">HOW WE CAN WORK TOGETHER.</h2>
         <p className="fl-section-sub">
-          Different projects need different working arrangements. Here are the
-          most common ways clients engage with me.
+          Flexible structures tailored to your technical timeline and project complexity. Every engagement starts with a straightforward scoping discussion.
         </p>
       </div>
 
@@ -60,33 +50,42 @@ const FreelanceEngagement = () => {
           <div
             key={model.title}
             className="fl-engagement-card fl-reveal"
-            ref={(el) => (cardRefs.current[i] = el)}
+            ref={(el) => (refs.current[i] = el)}
             style={{ transitionDelay: `${i * 70}ms` }}
             role="listitem"
           >
-            <h3 className="fl-engagement-title">{model.title}</h3>
-            <p className="fl-engagement-desc">{model.description}</p>
-            <p className="fl-engagement-note">{model.note}</p>
+            <div className="fl-engagement-top" style={{ backgroundColor: model.color }}>
+              <span className="fl-engagement-badge">{model.badge}</span>
+            </div>
+            <div className="fl-engagement-body">
+              <h3 className="fl-engagement-title">{model.title}</h3>
+              <p className="fl-engagement-desc">{model.description}</p>
+              <div className="fl-engagement-note-box">
+                <p className="fl-engagement-note">{model.note}</p>
+              </div>
+            </div>
           </div>
         ))}
       </div>
 
-      <div className="fl-engagement-pricing fl-reveal" ref={pricingRef}>
-        <p className="fl-engagement-pricing-text">
-          Pricing depends on scope, complexity, integrations, and ongoing
-          support. Every project starts with a conversation about what you need
-          to build.
-        </p>
+      <div className="fl-engagement-pricing fl-reveal" ref={(el) => (refs.current[7] = el)}>
+        <div className="fl-pricing-text-block">
+          <span className="fl-pricing-tag">TRANSPARENT PRICING</span>
+          <p className="fl-engagement-pricing-text">
+            Engagements are priced based on technical scope, complexity, and timeline requirements.
+            You receive clear deliverables, direct communication, and zero hidden markups.
+          </p>
+        </div>
         <a
           href="#inquiry"
           className="fl-btn-primary"
           onClick={(e) => {
             e.preventDefault();
-            scrollToLenis("#inquiry", { offset: -20, duration: 1.3 });
+            scrollToLenis("#inquiry", { offset: -24, duration: 1.2 });
           }}
           style={{ flexShrink: 0 }}
         >
-          Discuss Your Project ↗
+          DISCUSS YOUR PROJECT ↗
         </a>
       </div>
     </>

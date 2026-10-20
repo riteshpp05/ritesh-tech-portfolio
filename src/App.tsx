@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useParams } from "react-router-dom";
 import "./App.css";
 
 const CharacterModel = lazy(() => import("./components/Character"));
@@ -8,6 +8,11 @@ const ProjectCaseStudy = lazy(() => import("./components/casestudy/ProjectCaseSt
 const FreelancePage = lazy(() => import("./pages/FreelancePage"));
 import { LoadingProvider } from "./context/LoadingProvider";
 import { LenisProvider } from "./components/utils/lenisProvider";
+
+const CaseStudyRedirect = () => {
+  const { slug } = useParams<{ slug: string }>();
+  return <Navigate to={`/projects/${slug || 'mdr'}`} replace />;
+};
 
 const App = () => {
   // Dynamic viewport height for mobile Safari (avoids 100vh bug)
@@ -44,7 +49,7 @@ const App = () => {
         }
       />
 
-      {/* Project Case Study Pages - NO 3D canvas */}
+      {/* Project Case Study Pages - Canonical Route */}
       <Route
         path="/projects/:slug"
         element={
@@ -54,11 +59,14 @@ const App = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: '#030712',
-              color: '#6b7280',
+              background: '#FDFBF7',
+              color: '#121212',
               fontFamily: '"Geist", sans-serif',
+              fontWeight: 700,
+              fontSize: '18px',
+              letterSpacing: '1px',
             }}>
-              Loading...
+              LOADING CASE STUDY...
             </div>
           }>
             <ProjectCaseStudy />
@@ -66,7 +74,13 @@ const App = () => {
         }
       />
 
-      {/* Freelance Page — No 3D character, own lightweight canvas in hero */}
+      {/* Legacy / Alias Case Study Routes — Instant redirect to canonical */}
+      <Route path="/case-studies/:slug" element={<CaseStudyRedirect />} />
+      <Route path="/case-study/:slug" element={<CaseStudyRedirect />} />
+      <Route path="/case-studies" element={<Navigate to="/freelance#case-studies" replace />} />
+      <Route path="/freelancing" element={<Navigate to="/freelance" replace />} />
+
+      {/* Freelance Page */}
       <Route
         path="/freelance"
         element={
@@ -77,11 +91,14 @@ const App = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: '#030712',
-                color: '#6b7280',
+                background: '#FDFBF7',
+                color: '#121212',
                 fontFamily: '"Geist", sans-serif',
+                fontWeight: 700,
+                fontSize: '18px',
+                letterSpacing: '1px',
               }}>
-                Loading...
+                LOADING FREELANCE...
               </div>
             }>
               <FreelancePage />

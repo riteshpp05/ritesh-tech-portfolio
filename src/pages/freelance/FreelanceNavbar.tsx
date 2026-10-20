@@ -1,89 +1,102 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { scrollToLenis } from "../../components/utils/lenisProvider";
-import HoverLinks from "../../components/HoverLinks";
 
 const FreelanceNavbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isFreelance = location.pathname === "/freelance";
-  const isProjectPage = location.pathname.startsWith("/projects/");
 
-  const handlePortfolioNav = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
     e.preventDefault();
-    if (isProjectPage || isFreelance) {
-      navigate("/" + hash);
+    if (!isFreelance) {
+      navigate("/freelance" + hash);
     } else {
-      scrollToLenis(hash, { offset: -20, duration: 1.3 });
+      scrollToLenis(hash, { offset: -24, duration: 1.2 });
     }
   };
 
   return (
     <>
-      {/* Frosted glass background layer */}
-      <div className="fl-navbar-bg" aria-hidden="true" />
-
-      <nav className="fl-navbar" aria-label="Freelance page navigation">
-        {/* Logo */}
-        <a
-          href="/"
-          className="fl-navbar-logo"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/");
-          }}
-          aria-label="Go to portfolio homepage"
-        >
-          <img src="/logo.png" alt="Ritesh Patil" />
-        </a>
-
-        {/* Nav links — ABOUT and CASE STUDIES only (no WORK on freelance page) */}
-        <ul className="fl-navbar-links" role="list">
-          <li>
+      <header className="fl-navbar-wrapper" role="banner">
+        <nav className="fl-navbar" aria-label="Freelance navigation">
+          {/* Logo & Brand */}
+          <div className="fl-navbar-brand">
             <a
-              href="/#about"
-              onClick={(e) => handlePortfolioNav(e, "#about")}
-            >
-              <HoverLinks text="ABOUT" />
-            </a>
-          </li>
-          <li>
-            <a
-              href="/projects/mdr"
+              href="/"
+              className="fl-navbar-logo"
               onClick={(e) => {
                 e.preventDefault();
-                navigate("/projects/mdr");
+                navigate("/");
               }}
+              aria-label="Go to portfolio homepage"
             >
-              <HoverLinks text="CASE STUDIES" />
+              <img src="/logo.png" alt="Ritesh Patil Logo" />
+              <span className="fl-navbar-logo-text">RITESH PATIL</span>
             </a>
-          </li>
-          <li>
-            <a
-              href="/freelance"
-              className={isFreelance ? "fl-nav-active" : ""}
-              onClick={(e) => {
-                e.preventDefault();
-                if (!isFreelance) navigate("/freelance");
-                else scrollToLenis(0, { duration: 1.2 });
-              }}
-            >
-              <HoverLinks text="FREELANCE" />
-            </a>
-          </li>
-        </ul>
+            <span className="fl-nav-badge-pill">FREELANCE</span>
+          </div>
 
-        {/* Primary CTA */}
-        <a
-          href="#inquiry"
-          className="fl-navbar-cta"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToLenis("#inquiry", { offset: -20, duration: 1.3 });
-          }}
-        >
-          Start a Project ↗
-        </a>
-      </nav>
+          {/* Nav links */}
+          <ul className="fl-navbar-links" role="list">
+            <li>
+              <a
+                href="#services"
+                onClick={(e) => handleNavClick(e, "#services")}
+              >
+                SERVICES
+              </a>
+            </li>
+            <li>
+              <a
+                href="#case-studies"
+                onClick={(e) => handleNavClick(e, "#case-studies")}
+              >
+                CASE STUDIES
+              </a>
+            </li>
+            <li>
+              <a
+                href="#process"
+                onClick={(e) => handleNavClick(e, "#process")}
+              >
+                PROCESS
+              </a>
+            </li>
+            <li>
+              <a
+                href="#engagement"
+                onClick={(e) => handleNavClick(e, "#engagement")}
+              >
+                ENGAGEMENT
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/");
+                }}
+                className="fl-nav-portfolio-link"
+              >
+                3D PORTFOLIO ↗
+              </a>
+            </li>
+          </ul>
+
+          {/* Primary CTA */}
+          <a
+            href="#inquiry"
+            className="fl-navbar-cta"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToLenis("#inquiry", { offset: -24, duration: 1.2 });
+            }}
+          >
+            START A PROJECT ↗
+          </a>
+        </nav>
+      </header>
     </>
   );
 };

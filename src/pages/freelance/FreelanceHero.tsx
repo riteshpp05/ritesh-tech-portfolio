@@ -9,33 +9,39 @@ const FreelanceHero = () => {
           <div className="fl-hero-content">
             <div className="fl-hero-eyebrow" aria-label="Current status">
               <span className="fl-hero-eyebrow-dot" aria-hidden="true" />
-              <span className="fl-hero-eyebrow-text">Available for Select Contracts · Q2 2026</span>
+              <span className="fl-hero-eyebrow-text">AVAILABLE FOR SELECT CONTRACTS · 2026</span>
             </div>
 
             <h1 className="fl-hero-h1">
-              Engineering production AI systems & software that{" "}
-              <em>actually works.</em>
+              ENGINEERING PRODUCTION AI &amp; SOFTWARE THAT{" "}
+              <span className="fl-hero-marker">ACTUALLY WORKS.</span>
             </h1>
 
             <p className="fl-hero-sub">
               Hi, I'm Ritesh. I'm an independent AI/ML engineer based in Pune. I help
               startups, founders, and engineering teams build grounded RAG pipelines,
-              intelligent workflow automations, and full-stack web platforms from concept to
+              private local LLM systems, and high-performance web platforms from concept to
               production deployment.
             </p>
 
             <div className="fl-hero-highlights">
               <div className="fl-highlight-item">
                 <span className="fl-highlight-check" aria-hidden="true">✓</span>
-                <span><strong>Direct engineer access:</strong> No account managers or agency markups.</span>
+                <div>
+                  <strong>Direct engineer access:</strong> Direct collaboration with no account managers or agency overhead.
+                </div>
               </div>
               <div className="fl-highlight-item">
                 <span className="fl-highlight-check" aria-hidden="true">✓</span>
-                <span><strong>Enterprise data privacy:</strong> On-premise &amp; private VPC local LLM inference.</span>
+                <div>
+                  <strong>Enterprise data privacy:</strong> On-premise &amp; private VPC local LLM inference with zero data leakage.
+                </div>
               </div>
               <div className="fl-highlight-item">
                 <span className="fl-highlight-check" aria-hidden="true">✓</span>
-                <span><strong>Production-first delivery:</strong> CI/CD, Dockerized deployments, and full IP handoff.</span>
+                <div>
+                  <strong>Production-first delivery:</strong> CI/CD, Dockerized deployments, thorough testing, and full IP handoff.
+                </div>
               </div>
             </div>
 
@@ -45,20 +51,20 @@ const FreelanceHero = () => {
                 className="fl-btn-primary"
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToLenis("#inquiry", { offset: -20, duration: 1.3 });
+                  scrollToLenis("#inquiry", { offset: -24, duration: 1.2 });
                 }}
               >
-                Start a Project / Discuss Scope ↗
+                START A PROJECT / DISCUSS SCOPE ↗
               </a>
               <a
                 href="#case-studies"
                 className="fl-btn-secondary"
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToLenis("#case-studies", { offset: -20, duration: 1.2 });
+                  scrollToLenis("#case-studies", { offset: -24, duration: 1.2 });
                 }}
               >
-                See Case Studies ↓
+                EXPLORE CASE STUDIES ↓
               </a>
             </div>
           </div>
@@ -68,31 +74,31 @@ const FreelanceHero = () => {
             <div className="fl-hero-terminal">
               <div className="fl-terminal-header">
                 <div className="fl-terminal-dots">
-                  <span className="fl-dot-red" />
-                  <span className="fl-dot-yellow" />
-                  <span className="fl-dot-green" />
+                  <span className="fl-dot-black" />
+                  <span className="fl-dot-black" />
+                  <span className="fl-dot-black" />
                 </div>
                 <span className="fl-terminal-title">ritesh@workstation:~/engineering</span>
-                <span className="fl-terminal-badge">READY</span>
+                <span className="fl-terminal-badge">LIVE · READY</span>
               </div>
 
               <div className="fl-terminal-body">
                 <div className="fl-term-section">
-                  <p className="fl-term-muted"># Core Specializations</p>
+                  <p className="fl-term-muted"># CORE SPECIALIZATIONS</p>
                   <div className="fl-term-row">
-                    <span className="fl-term-tag">RAG &amp; Search</span>
+                    <span className="fl-term-tag rag">RAG &amp; SEARCH</span>
                     <span className="fl-term-desc">Hybrid vector search, chunking, rerankers, citation grounding</span>
                   </div>
                   <div className="fl-term-row">
-                    <span className="fl-term-tag">Local LLMs</span>
+                    <span className="fl-term-tag llm">LOCAL LLMS</span>
                     <span className="fl-term-desc">Llama.cpp, Ollama, private on-premise execution, zero data leakage</span>
                   </div>
                   <div className="fl-term-row">
-                    <span className="fl-term-tag">Automations</span>
-                    <span className="fl-term-desc">Enterprise API glue, webhook pipelines, SAP/Zoho integrations</span>
+                    <span className="fl-term-tag auto">AUTOMATION</span>
+                    <span className="fl-term-desc">Enterprise API pipelines, webhook orchestration, SAP/Zoho integrations</span>
                   </div>
                   <div className="fl-term-row">
-                    <span className="fl-term-tag">Full-Stack</span>
+                    <span className="fl-term-tag stack">FULL-STACK</span>
                     <span className="fl-term-desc">React, TypeScript, FastAPI, Python, PostgreSQL, Docker</span>
                   </div>
                 </div>
@@ -100,25 +106,25 @@ const FreelanceHero = () => {
                 <div className="fl-term-divider" />
 
                 <div className="fl-term-section">
-                  <p className="fl-term-muted"># Engagement Quick Facts</p>
+                  <p className="fl-term-muted"># ENGAGEMENT METRICS</p>
                   <div className="fl-term-stats">
                     <div className="fl-term-stat">
-                      <span className="fl-stat-label">Availability</span>
-                      <span className="fl-stat-val">1–2 Project Slots</span>
+                      <span className="fl-stat-label">AVAILABILITY</span>
+                      <span className="fl-stat-val">1–2 SLOTS</span>
                     </div>
                     <div className="fl-term-stat">
-                      <span className="fl-stat-label">Typical Turnaround</span>
-                      <span className="fl-stat-val">2–4 Weeks (MVP)</span>
+                      <span className="fl-stat-label">TURNAROUND</span>
+                      <span className="fl-stat-val">2–4 WEEKS</span>
                     </div>
                     <div className="fl-term-stat">
-                      <span className="fl-stat-label">Base Location</span>
-                      <span className="fl-stat-val">Pune, India (Remote)</span>
+                      <span className="fl-stat-label">LOCATION</span>
+                      <span className="fl-stat-val">PUNE (REMOTE)</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="fl-term-footer">
-                  <span className="fl-term-command">$ git status: working tree clean</span>
+                  <span className="fl-term-command">$ git status: working tree clean (ready to deploy)</span>
                 </div>
               </div>
             </div>

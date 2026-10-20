@@ -1,74 +1,79 @@
-import { useRef, useEffect } from "react";
+import { useReveal } from "../../hooks/useReveal";
 
 interface Service {
+  index: string;
   icon: string;
   title: string;
+  badge: string;
+  color: string;
   description: string;
   examples: string[];
 }
 
 const SERVICES: Service[] = [
   {
+    index: "01",
     icon: "⬡",
     title: "AI & Generative AI",
+    badge: "GENAI & RAG",
+    color: "#FFE600",
     description:
-      "Build intelligent applications using LLMs, RAG, AI agents, document intelligence, and enterprise AI architectures.",
-    examples: ["AI assistants", "RAG applications", "AI agents", "Document intelligence", "Enterprise copilots"],
+      "Grounded production AI systems using LLMs, hybrid RAG, LangChain/LangGraph, citation verification, and custom local models with zero data leakage.",
+    examples: ["Custom RAG Pipelines", "Private LLMs (Llama.cpp)", "Document Intelligence", "Agent Workflows", "Citation Grounding"],
   },
   {
+    index: "02",
     icon: "⟳",
     title: "Business Automation",
+    badge: "WORKFLOW ENGINE",
+    color: "#B8FF00",
     description:
-      "Automate repetitive business processes, approvals, notifications, data processing, and multi-step workflows.",
-    examples: ["Workflow automation", "API integrations", "Approval workflows", "Process automation", "Notifications"],
+      "Automate repetitive operational processes, multi-stage approval flows, webhook pipelines, notifications, and enterprise data synchronization.",
+    examples: ["Workflow Automation", "API Orchestration", "Approval Pipelines", "Event Webhooks", "Process Optimization"],
   },
   {
+    index: "03",
     icon: "◫",
     title: "Custom Web Applications",
+    badge: "FULL-STACK PLATFORM",
+    color: "#00F0FF",
     description:
-      "Design and develop production-ready websites, dashboards, portals, internal tools, and custom applications.",
-    examples: ["Business websites", "Dashboards", "Internal tools", "SaaS applications", "Custom portals"],
+      "Production-ready React, TypeScript, and FastAPI web platforms with modern design, state management, robust database architecture, and security.",
+    examples: ["Executive Dashboards", "Internal Tools", "SaaS MVPs", "Custom Client Portals", "REST/FastAPI Backends"],
   },
   {
+    index: "04",
     icon: "◈",
     title: "Data & Analytics",
+    badge: "ANALYTICS & BI",
+    color: "#FF6B00",
     description:
-      "Turn business data into actionable dashboards, insights, and predictive systems that inform decisions.",
-    examples: ["Data analysis", "BI dashboards", "Predictive models", "Reporting systems", "Data pipelines"],
+      "Convert fragmented business data into actionable dashboards, clean relational schemas, automated reporting pipelines, and predictive insights.",
+    examples: ["Relational Modeling", "Real-Time Metrics", "Automated Reporting", "Predictive Analytics", "Data Cleansing"],
   },
   {
+    index: "05",
     icon: "⌥",
     title: "System Integration",
+    badge: "ENTERPRISE CONNECT",
+    color: "#D8B4FE",
     description:
-      "Connect APIs, databases, enterprise systems, and AI services into reliable, maintainable business workflows.",
-    examples: ["REST APIs", "Database integrations", "Enterprise integrations", "AI integrations", "Cloud services"],
+      "Connect proprietary APIs, legacy databases, SAP BTP services, and external payment or CRM providers into cohesive, maintainable systems.",
+    examples: ["SAP BTP & S/4HANA", "Zoho Books APIs", "Payment Gateways", "OData & REST", "VPC & Edge Integrations"],
   },
 ];
 
 const FreelanceServices = () => {
-  const revealRefs = useRef<(HTMLElement | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("fl-visible");
-        });
-      },
-      { threshold: 0.1 }
-    );
-    revealRefs.current.forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
+  const refs = useReveal(8, 0.1);
 
   return (
     <>
-      <div className="fl-reveal" ref={(el) => (revealRefs.current[5] = el)}>
-        <span className="fl-section-label">Services</span>
-        <h2 className="fl-section-heading">What can I build for your business?</h2>
+      <div className="fl-reveal" ref={(el) => (refs.current[6] = el)}>
+        <span className="fl-section-label">Engineering Capabilities</span>
+        <h2 className="fl-section-heading">WHAT I BUILD FOR YOUR BUSINESS.</h2>
         <p className="fl-section-sub">
-          From AI infrastructure to polished web products — end-to-end engineering
-          grounded in your business goals.
+          Full-stack capabilities with specialized AI and systems engineering.
+          No speculative bloat — only clean, scalable architecture built around your core requirements.
         </p>
       </div>
 
@@ -77,17 +82,27 @@ const FreelanceServices = () => {
           <div
             key={service.title}
             className="fl-service-card fl-reveal"
-            ref={(el) => (revealRefs.current[i] = el)}
-            style={{ transitionDelay: `${i * 70}ms` }}
+            ref={(el) => (refs.current[i] = el)}
+            style={{ transitionDelay: `${i * 60}ms` }}
             role="listitem"
           >
-            <div className="fl-service-icon" aria-hidden="true">{service.icon}</div>
-            <h3 className="fl-service-title">{service.title}</h3>
-            <p className="fl-service-desc">{service.description}</p>
-            <div className="fl-service-examples">
-              {service.examples.map((ex) => (
-                <span key={ex} className="fl-service-tag">{ex}</span>
-              ))}
+            {/* Top header strip */}
+            <div className="fl-service-topbar" style={{ backgroundColor: service.color }}>
+              <span className="fl-service-index">#{service.index}</span>
+              <span className="fl-service-badge-pill">{service.badge}</span>
+            </div>
+
+            <div className="fl-service-content">
+              <div className="fl-service-header-row">
+                <div className="fl-service-icon" aria-hidden="true">{service.icon}</div>
+                <h3 className="fl-service-title">{service.title}</h3>
+              </div>
+              <p className="fl-service-desc">{service.description}</p>
+              <div className="fl-service-examples">
+                {service.examples.map((ex) => (
+                  <span key={ex} className="fl-service-tag">{ex}</span>
+                ))}
+              </div>
             </div>
           </div>
         ))}

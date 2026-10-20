@@ -36,7 +36,6 @@ export const typingBoneNames = [
   "RightHandIndex2",
   "RightHandIndex3",
   "LeftHandThumb2",
-  "LeftHandPinky3",
   "LeftArm",
   "RightArm",
   "RightHandThumb2",
@@ -45,7 +44,3 @@ export const typingBoneNames = [
   "LeftFoot",
   "RightFoot",
 ];
-
-// Note: Avaturn T-pose models don't have separate eyebrow bones
-// These are kept for API compatibility but won't match anything
-export const eyebrowBoneNames = ["LeftEye", "RightEye"];

@@ -1,43 +1,30 @@
-import { useRef, useEffect } from "react";
+import { useReveal } from "../../hooks/useReveal";
 import { useNavigate } from "react-router-dom";
 
 const FreelancePortfolioLink = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const refs = useReveal(1, 0.15);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("fl-visible");
-        });
-      },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section
       className="fl-portfolio-section"
       id="portfolio-link"
-      aria-label="Link to full portfolio"
+      aria-label="Link to full 3D portfolio"
     >
       <div className="fl-container">
-        <div className="fl-reveal" ref={ref}>
-          <span className="fl-section-label">Full Portfolio</span>
-          <h2 className="fl-portfolio-heading">Want to know more about my work?</h2>
+        <div className="fl-portfolio-box fl-reveal" ref={(el) => (refs.current[0] = el)}>
+          <div className="fl-portfolio-tag-pill">INTERACTIVE 3D EXPERIENCE</div>
+          <h2 className="fl-portfolio-heading">CURIOUS ABOUT MY BROADER ENGINEERING PROFILE?</h2>
           <p className="fl-portfolio-sub">
-            Explore my complete technical portfolio, engineering background,
-            work experience, and full project case studies.
+            Explore my interactive 3D workstation, complete career trajectory, technical skill index,
+            and software journey across robotics, computer vision, and enterprise platforms.
           </p>
           <button
-            className="fl-btn-secondary"
+            className="fl-btn-primary"
             onClick={() => navigate("/")}
-            aria-label="View the full Ritesh Patil portfolio"
+            aria-label="View the full 3D Ritesh Patil portfolio"
           >
-            View Full Portfolio →
+            VIEW FULL 3D PORTFOLIO →
           </button>
         </div>
       </div>

@@ -8,10 +8,14 @@ const FreelanceFooter = () => {
     >
       <div className="fl-container">
         <div className="fl-footer-inner">
-          <p className="fl-footer-copy">
-            <MdCopyright style={{ verticalAlign: "middle" }} /> 2026 Ritesh Patil
-            &nbsp;·&nbsp; AI/ML Engineer &amp; Generative AI Developer
-          </p>
+          <div className="fl-footer-left">
+            <span className="fl-footer-badge">AVAILABLE FOR CONTRACTS</span>
+            <p className="fl-footer-copy">
+              <MdCopyright style={{ verticalAlign: "middle" }} /> 2026 RITESH PATIL
+              &nbsp;·&nbsp; AI/ML ENGINEER &amp; GENERATIVE AI DEVELOPER
+            </p>
+          </div>
+
           <nav className="fl-footer-links" aria-label="Footer navigation">
             <a
               href="https://github.com/riteshpp05"
@@ -20,7 +24,7 @@ const FreelanceFooter = () => {
               rel="noopener noreferrer"
               aria-label="Ritesh Patil on GitHub"
             >
-              GitHub <MdArrowOutward style={{ verticalAlign: "middle" }} />
+              GITHUB <MdArrowOutward style={{ verticalAlign: "middle" }} />
             </a>
             <a
               href="https://www.linkedin.com/in/riteshpatil-32946b26b"
@@ -29,14 +33,14 @@ const FreelanceFooter = () => {
               rel="noopener noreferrer"
               aria-label="Ritesh Patil on LinkedIn"
             >
-              LinkedIn <MdArrowOutward style={{ verticalAlign: "middle" }} />
+              LINKEDIN <MdArrowOutward style={{ verticalAlign: "middle" }} />
             </a>
             <a
               href="mailto:riteshpatil702811@gmail.com"
               className="fl-footer-link"
               aria-label="Email Ritesh Patil"
             >
-              Email <MdArrowOutward style={{ verticalAlign: "middle" }} />
+              EMAIL <MdArrowOutward style={{ verticalAlign: "middle" }} />
             </a>
           </nav>
         </div>

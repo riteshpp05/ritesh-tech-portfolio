@@ -1,57 +1,71 @@
-import { useRef, useEffect } from "react";
+import { useReveal } from "../../hooks/useReveal";
 
 const STEPS = [
-  { number: "01", title: "Discover", description: "Understand your business problem, goals, users, and technical requirements before writing a line of code." },
-  { number: "02", title: "Design", description: "Define the solution architecture, workflow, integrations, and a clear implementation plan." },
-  { number: "03", title: "Build", description: "Develop, integrate, and test the solution with production quality from day one." },
-  { number: "04", title: "Deploy", description: "Move the solution into a production-ready environment with proper CI/CD and infrastructure." },
-  { number: "05", title: "Improve", description: "Monitor, optimise, and extend the solution as your business grows and requirements evolve." },
+  {
+    number: "01",
+    title: "Discover & Scope",
+    color: "#FFE600",
+    description: "Understand your core business constraint, data privacy requirements, and technical criteria before writing a line of code.",
+  },
+  {
+    number: "02",
+    title: "Architecture Design",
+    color: "#B8FF00",
+    description: "Map schemas, API contracts, LLM inference topology, and a concrete milestone delivery plan with deterministic verification.",
+  },
+  {
+    number: "03",
+    title: "Production Build",
+    color: "#00F0FF",
+    description: "Develop, containerize, and test the solution with clean types, error boundaries, and defensive backend handling from day one.",
+  },
+  {
+    number: "04",
+    title: "CI/CD & Deploy",
+    color: "#FF6B00",
+    description: "Deploy onto your infrastructure or cloud environment (AWS, private VPC, Docker) with full documentation and IP transfer.",
+  },
+  {
+    number: "05",
+    title: "Support & Optimize",
+    color: "#D8B4FE",
+    description: "Monitor latency, optimize vector queries or database indexing, and iterate as client traffic and requirements scale.",
+  },
 ];
 
 const FreelanceProcess = () => {
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const headerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("fl-visible");
-        });
-      },
-      { threshold: 0.12 }
-    );
-    if (headerRef.current) observer.observe(headerRef.current);
-    stepRefs.current.forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
-  }, []);
+  const refs = useReveal(8, 0.12);
 
   return (
     <>
-      <div className="fl-reveal" ref={headerRef}>
-        <span className="fl-section-label">Process</span>
-        <h2 className="fl-section-heading">From idea to production.</h2>
+      <div className="fl-reveal" ref={(el) => (refs.current[7] = el)}>
+        <span className="fl-section-label">Engineering Process</span>
+        <h2 className="fl-section-heading">FROM INITIAL CONCEPT TO RUNNING SYSTEM.</h2>
         <p className="fl-section-sub">
-          A structured engineering process that keeps projects predictable,
-          communication clear, and delivery on track.
+          A predictable, transparent workflow designed for speed without sacrificing engineering rigor, code quality, or testing.
         </p>
       </div>
 
       <div className="fl-process-grid" role="list">
-        <div className="fl-process-connector" aria-hidden="true" />
         {STEPS.map((step, i) => (
           <div
             key={step.number}
-            className="fl-process-step"
-            ref={(el) => (stepRefs.current[i] = el)}
-            style={{ transitionDelay: `${i * 100}ms` }}
+            className="fl-process-step fl-reveal"
+            ref={(el) => (refs.current[i] = el)}
+            style={{ transitionDelay: `${i * 90}ms` }}
             role="listitem"
           >
-            <div className="fl-process-node" aria-label={`Step ${step.number}`}>
+            <div
+              className="fl-process-node"
+              style={{ backgroundColor: step.color }}
+              aria-label={`Step ${step.number}`}
+            >
               {step.number}
             </div>
-            <h3 className="fl-process-title">{step.title}</h3>
-            <p className="fl-process-desc">{step.description}</p>
+            <div className="fl-process-card">
+              <h3 className="fl-process-title">{step.title}</h3>
+              <p className="fl-process-desc">{step.description}</p>
+            </div>
           </div>
         ))}
       </div>

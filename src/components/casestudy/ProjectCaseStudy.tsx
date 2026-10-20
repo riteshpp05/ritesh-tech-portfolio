@@ -4,7 +4,6 @@ import { projects } from '../../data/projectData';
 import type { Project } from '../../types/projectTypes';
 import ProjectHero from './ProjectHero';
 import TableOfContents from './TableOfContents';
-import SectionHeading from './SectionHeading';
 import ArchitectureSection from './ArchitectureSection';
 import TechnicalDeepDive from './TechnicalDeepDive';
 import EngineeringDecisions from './EngineeringDecisions';
@@ -13,6 +12,14 @@ import FlowDiagram from './FlowDiagram';
 import TechStackSection from './TechStackSection';
 import ProjectNavigation from './ProjectNavigation';
 import '../styles/CaseStudy.css';
+
+/** Inline replacement for the deleted SectionHeading component. */
+const SectionHeading = ({ number, title }: { number: string; title: string }) => (
+  <div className="case-study-section-header">
+    <span className="case-study-section-number">{number}</span>
+    <h2 className="case-study-section-title">{title}</h2>
+  </div>
+);
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -136,10 +143,21 @@ const ProjectCaseStudy = () => {
   return (
     <div className="case-study-page">
       <div className="case-study-wrapper">
-        {/* Back Navigation */}
-        <Link to="/" className="case-study-back">
-          ← Back to Portfolio
-        </Link>
+        {/* Topbar Breadcrumbs */}
+        <div className="case-study-topbar">
+          <div className="case-study-breadcrumbs">
+            <Link to="/freelance#case-studies" className="case-study-back-btn">
+              ← BACK TO FREELANCE
+            </Link>
+            <Link to="/" className="case-study-home-btn">
+              PORTFOLIO HOME ↗
+            </Link>
+          </div>
+          <div className="case-study-topbar-meta">
+            <span className="case-study-badge">CANONICAL CASE STUDY</span>
+            <span className="case-study-id-badge">{project.slug.toUpperCase()}</span>
+          </div>
+        </div>
 
         {/* Hero */}
         <ProjectHero project={project} />
@@ -304,11 +322,14 @@ const ProjectCaseStudy = () => {
 
             {/* CTA */}
             <div className="case-study-cta case-study-fade-in">
-              <p>Interested in the implementation?</p>
+              <p>WANT AN AI SYSTEM OR FULL-STACK ARCHITECTURE BUILT FOR YOUR PRODUCT?</p>
               <div className="case-study-cta-links">
+                <Link to="/freelance#inquiry" className="case-study-action-btn primary">
+                  START A PROJECT WITH RITESH ↗
+                </Link>
                 {project.github && (
                   <a href={project.github} target="_blank" rel="noopener noreferrer" className="case-study-action-btn">
-                    GitHub
+                    GITHUB SOURCE ↗
                   </a>
                 )}
                 <a
@@ -317,10 +338,10 @@ const ProjectCaseStudy = () => {
                   rel="noopener noreferrer"
                   className="case-study-action-btn"
                 >
-                  LinkedIn
+                  LINKEDIN ↗
                 </a>
-                <Link to="/" className="case-study-action-btn">
-                  Back to Portfolio
+                <Link to="/freelance#case-studies" className="case-study-action-btn">
+                  ← BACK TO CASE STUDIES
                 </Link>
               </div>
             </div>

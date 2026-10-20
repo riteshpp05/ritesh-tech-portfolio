@@ -1,4 +1,5 @@
-import { lazy, PropsWithChildren, Suspense, useEffect, useState, useCallback } from "react";
+import { lazy, PropsWithChildren, Suspense, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import About from "./About";
 import Career from "./Career";
 import Contact from "./Contact";
@@ -9,20 +10,15 @@ import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
 import setSplitText from "./utils/splitText";
-import ProjectViewer from "./ProjectViewer";
 
 const TechStack = lazy(() => import("./TechStack"));
 
 const MainContainer = ({ children }: PropsWithChildren) => {
-  const [activeProjectSlug, setActiveProjectSlug] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const openProject = useCallback((slug: string) => {
-    setActiveProjectSlug(slug);
-  }, []);
-
-  const closeProject = useCallback(() => {
-    setActiveProjectSlug(null);
-  }, []);
+    navigate(`/projects/${slug}`);
+  }, [navigate]);
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -58,13 +54,6 @@ const MainContainer = ({ children }: PropsWithChildren) => {
           <Contact />
         </div>
       </main>
-
-      {/* Project Case Study Modal — rendered over everything */}
-      <ProjectViewer
-        slug={activeProjectSlug}
-        onClose={closeProject}
-        onNavigate={openProject}
-      />
     </div>
   );
 };

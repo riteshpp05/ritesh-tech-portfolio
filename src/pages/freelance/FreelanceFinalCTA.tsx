@@ -1,21 +1,8 @@
-import { useRef, useEffect } from "react";
+import { useReveal } from "../../hooks/useReveal";
 import { scrollToLenis } from "../../components/utils/lenisProvider";
 
 const FreelanceFinalCTA = () => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("fl-visible");
-        });
-      },
-      { threshold: 0.15 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  const refs = useReveal(1, 0.15);
 
   return (
     <section
@@ -24,12 +11,13 @@ const FreelanceFinalCTA = () => {
       aria-label="Final call to action"
     >
       <div className="fl-container">
-        <div className="fl-final-box fl-reveal" ref={ref}>
+        <div className="fl-final-box fl-reveal" ref={(el) => (refs.current[0] = el)}>
+          <div className="fl-final-badge">READY TO EXECUTE</div>
           <h2 className="fl-final-heading">
-            Have an idea, a repetitive process, or a business problem you'd like to solve?
+            HAVE AN AI WORKFLOW, CUSTOM PLATFORM, OR AUTOMATION BOTTLENECK?
           </h2>
           <p className="fl-final-sub">
-            Let's turn it into a practical, production-ready solution.
+            Let's turn your concept into reliable, test-driven, production-ready software.
           </p>
           <div className="fl-final-ctas">
             <a
@@ -37,16 +25,16 @@ const FreelanceFinalCTA = () => {
               className="fl-btn-primary"
               onClick={(e) => {
                 e.preventDefault();
-                scrollToLenis("#inquiry", { offset: -20, duration: 1.3 });
+                scrollToLenis("#inquiry", { offset: -24, duration: 1.2 });
               }}
             >
-              Start a Project ↗
+              START A PROJECT ↗
             </a>
             <a
               href="mailto:riteshpatil702811@gmail.com"
               className="fl-btn-secondary"
             >
-              Email Directly ↗
+              EMAIL DIRECTLY ↗
             </a>
           </div>
         </div>

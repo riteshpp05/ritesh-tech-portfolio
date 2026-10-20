@@ -1,313 +1,640 @@
+/* ============================================================
+   PROJECT CASE STUDY — PRODUCTION NEO-BRUTALISM DESIGN SYSTEM
+   Warm cream canvas, solid black ink borders, hard offset shadows,
+   punchy neon accents, and expressive editorial typography.
+   Scoped exclusively under .case-study-page.
+   ============================================================ */
+
 .case-study-page {
+  --cs-bg:          #FDFBF7;    /* Warm cream canvas */
+  --cs-bg-alt:      #F5F2EA;    /* Paper cream */
+  --cs-card-bg:     #FFFFFF;    /* Paper white */
+  --cs-ink:         #121212;    /* Obsidian black */
+  --cs-ink-muted:   #383838;    /* High-contrast body */
+  --cs-ink-subtle:  #64748B;    /* Secondary */
+
+  --cs-border:      3px solid #121212;
+  --cs-border-sm:   2px solid #121212;
+  --cs-border-thick: 4px solid #121212;
+
+  --cs-shadow-sm:   3px 3px 0px #121212;
+  --cs-shadow-md:   5px 5px 0px #121212;
+  --cs-shadow-lg:   7px 7px 0px #121212;
+  --cs-shadow-xl:   9px 9px 0px #121212;
+
+  --cs-yellow:      #FFE600;
+  --cs-lime:        #B8FF00;
+  --cs-cyan:        #00F0FF;
+  --cs-orange:      #FF6B00;
+  --cs-purple:      #D8B4FE;
+  --cs-pink:        #FF70A6;
+
   min-height: 100vh;
-  background: var(--bg-primary);
-  color: #eae5ec;
+  background-color: var(--cs-bg);
+  color: var(--cs-ink);
+  font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   user-select: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.case-study-layout {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 60px;
-  max-width: 1200px;
+.case-study-wrapper {
+  max-width: 1220px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 32px 24px 100px;
 }
 
-.case-study-content {
-  max-width: 900px;
+/* ── Topbar Breadcrumbs ─────────────────────────────────────── */
+.case-study-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: var(--cs-border);
 }
 
-.case-study-back {
+.case-study-breadcrumbs {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 20px 0;
-  font-size: 14px;
-  color: #888;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.case-study-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background-color: var(--cs-yellow);
+  color: var(--cs-ink);
+  font-size: 12.5px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
   text-decoration: none;
-  transition: color 0.2s;
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.case-study-back:hover {
-  color: var(--accentColor);
+.case-study-back-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--cs-shadow-md);
+  background-color: #FFF04D;
 }
 
+.case-study-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background-color: var(--cs-card-bg);
+  color: var(--cs-ink);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.case-study-home-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--cs-shadow-md);
+  background-color: var(--cs-bg-alt);
+}
+
+.case-study-topbar-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.case-study-badge {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background-color: var(--cs-lime);
+  color: var(--cs-ink);
+  padding: 4px 10px;
+  border: var(--cs-border-sm);
+  box-shadow: 2px 2px 0px #121212;
+}
+
+.case-study-id-badge {
+  font-size: 11px;
+  font-family: monospace;
+  font-weight: 900;
+  background-color: var(--cs-ink);
+  color: #FFFFFF;
+  padding: 4px 10px;
+  border: var(--cs-border-sm);
+}
+
+/* ── Hero Section ───────────────────────────────────────────── */
 .case-study-hero {
-  padding: 80px 0 40px;
+  padding: 24px 0 48px;
 }
 
 .case-study-hero h1 {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.15;
+  font-size: clamp(32px, 4.2vw, 54px);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
   margin: 0 0 16px;
-  letter-spacing: -0.5px;
+  color: var(--cs-ink);
+  text-transform: uppercase;
 }
 
 .case-study-hero-subtitle {
-  font-size: 20px;
-  color: #9ca3af;
-  font-weight: 400;
+  font-size: clamp(17px, 2vw, 21px);
+  color: var(--cs-ink-muted);
+  font-weight: 500;
   line-height: 1.6;
   margin: 0 0 32px;
+  max-width: 860px;
 }
 
+/* 4-Item Metadata Cards */
 .case-study-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
   margin-bottom: 32px;
 }
 
 .case-study-meta-item {
   display: flex;
   flex-direction: column;
+  padding: 16px;
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
 }
 
 .case-study-meta-label {
-  font-size: 11px;
-  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 900;
   letter-spacing: 1.5px;
-  color: #6b7280;
-  margin-bottom: 4px;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  text-transform: uppercase;
+  background-color: var(--cs-yellow);
+  color: var(--cs-ink);
+  padding: 2px 7px;
+  border: var(--cs-border-sm);
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 8px;
 }
 
 .case-study-meta-value {
-  font-size: 15px;
-  color: #d1d5db;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--cs-ink);
+  line-height: 1.45;
 }
 
+/* Action Buttons */
 .case-study-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 36px;
 }
 
 .case-study-action-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  font-size: 14px;
-  color: #d1d5db;
-  background: transparent;
-  cursor: pointer;
+  padding: 12px 22px;
+  background-color: var(--cs-card-bg);
+  color: var(--cs-ink);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
   text-decoration: none;
-  transition: all 0.2s;
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 .case-study-action-btn:hover {
-  border-color: var(--accentColor);
-  color: var(--accentColor);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--cs-shadow-md);
+  background-color: var(--cs-bg-alt);
+}
+
+.case-study-action-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #121212;
 }
 
 .case-study-action-btn.primary {
-  background: var(--accentColor);
-  color: #030712;
-  border-color: var(--accentColor);
+  background-color: var(--cs-yellow);
 }
 
 .case-study-action-btn.primary:hover {
-  opacity: 0.9;
-  color: #030712;
+  background-color: #FFF04D;
 }
 
+/* Hero Visual / Screenshot */
 .case-study-hero-visual {
-  margin: 40px 0 60px;
-  border-radius: 8px;
+  margin-top: 16px;
+  border: var(--cs-border-thick);
+  box-shadow: var(--cs-shadow-lg);
+  background-color: var(--cs-card-bg);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .case-study-hero-visual img {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
 }
 
 .case-study-hero-placeholder {
-  background: #0a0f1d;
-  padding: 60px 40px;
-  text-align: center;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-}
-
-.case-study-hero-placeholder span {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-  color: #6b7280;
-}
-
-.case-study-section {
-  margin-bottom: 64px;
-  scroll-margin-top: 100px;
-}
-
-.case-study-section-header {
+  padding: 64px 32px;
+  background-color: var(--cs-bg-alt);
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
 }
 
-.case-study-section-number {
-  font-size: 14px;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-  color: var(--accentColor);
-  font-weight: 500;
-  min-width: 24px;
+.case-study-placeholder-label {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background-color: var(--cs-cyan);
+  padding: 4px 12px;
+  border: var(--cs-border-sm);
 }
 
-.case-study-section-title {
-  font-size: 28px;
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: -0.3px;
+.case-study-placeholder-title {
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--cs-ink);
 }
 
-.case-study-content p {
-  font-size: 17px;
-  line-height: 1.75;
-  color: #c9cdd3;
-  margin: 0 0 16px;
-  font-weight: 300;
+/* ── Two-Column Layout ──────────────────────────────────────── */
+.case-study-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 24px;
 }
 
-.case-study-content strong {
-  color: #eae5ec;
-  font-weight: 500;
-}
-
-.case-study-goals {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.case-study-goals li {
-  padding: 8px 0;
-  padding-left: 24px;
-  position: relative;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #c9cdd3;
-}
-
-.case-study-goals li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 18px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accentColor);
-}
-
+/* ── Desktop Table of Contents ──────────────────────────────── */
 .case-study-toc {
   position: sticky;
-  top: 100px;
-  align-self: start;
+  top: 32px;
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-md);
+  padding: 20px;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
 }
 
 .case-study-toc-title {
   font-size: 11px;
-  text-transform: uppercase;
+  font-weight: 900;
   letter-spacing: 2px;
-  color: #6b7280;
-  margin-bottom: 20px;
-  font-weight: 500;
+  text-transform: uppercase;
+  background-color: var(--cs-yellow);
+  color: var(--cs-ink);
+  padding: 4px 10px;
+  border: var(--cs-border-sm);
+  display: inline-block;
+  margin-bottom: 16px;
 }
 
 .case-study-toc-list {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .case-study-toc-item {
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .case-study-toc-link {
+  width: 100%;
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 8px 0;
-  font-size: 13px;
-  color: #6b7280;
-  text-decoration: none;
-  border-left: 2px solid transparent;
-  padding-left: 16px;
-  transition: all 0.2s;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: transparent;
+  border: 2px solid transparent;
+  color: var(--cs-ink-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
 }
 
 .case-study-toc-link:hover {
-  color: #d1d5db;
+  background-color: var(--cs-bg-alt);
+  color: var(--cs-ink);
+  border-color: var(--cs-ink);
 }
 
 .case-study-toc-link.active {
-  color: var(--accentColor);
-  border-left-color: var(--accentColor);
+  background-color: var(--cs-yellow);
+  color: var(--cs-ink);
+  font-weight: 900;
+  border: var(--cs-border-sm);
+  box-shadow: 2px 2px 0px #121212;
 }
 
 .case-study-toc-number {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
   font-size: 11px;
-  min-width: 20px;
+  font-family: monospace;
+  font-weight: 900;
+  background-color: var(--cs-ink);
+  color: #FFFFFF;
+  padding: 2px 5px;
+  flex-shrink: 0;
 }
 
+.case-study-toc-link.active .case-study-toc-number {
+  background-color: var(--cs-ink);
+  color: var(--cs-yellow);
+}
+
+/* Mobile ToC */
 .case-study-toc-mobile {
   display: none;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 
 .case-study-toc-toggle {
   width: 100%;
-  padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  color: #d1d5db;
-  font-size: 14px;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 14px 18px;
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .case-study-toc-mobile-list {
-  list-style: none;
-  padding: 16px 0;
-  margin: 0;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border);
   border-top: none;
-  border-radius: 0 0 8px 8px;
+  box-shadow: var(--cs-shadow-sm);
+  padding: 14px;
 }
 
-.case-study-subsection {
-  margin-bottom: 40px;
+/* ── Content Sections ───────────────────────────────────────── */
+.case-study-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
-.case-study-subsection h4 {
-  font-size: 20px;
+.case-study-section {
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border-thick);
+  box-shadow: var(--cs-shadow-md);
+  padding: 36px 32px;
+}
+
+.case-study-section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  border-bottom: var(--cs-border);
+}
+
+.case-study-section-number {
+  font-size: 13px;
+  font-family: monospace;
+  font-weight: 900;
+  background-color: var(--cs-ink);
+  color: var(--cs-yellow);
+  padding: 4px 10px;
+  border: var(--cs-border-sm);
+}
+
+.case-study-section-title {
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--cs-ink);
+}
+
+.case-study-section p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--cs-ink-muted);
+  margin: 0 0 16px;
+  font-weight: 500;
+}
+
+.case-study-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Goals Checklist */
+.case-study-goals {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.case-study-goals li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: var(--cs-bg-alt);
+  border: var(--cs-border-sm);
+  font-size: 15px;
   font-weight: 600;
-  margin: 0 0 12px;
-  color: #eae5ec;
+  color: var(--cs-ink);
 }
 
+.case-study-goals li::before {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: var(--cs-lime);
+  color: var(--cs-ink);
+  font-weight: 900;
+  font-size: 12px;
+  border: var(--cs-border-sm);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Architecture Flows */
+.case-study-architecture {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.case-study-arch-flow {
+  background-color: var(--cs-bg-alt);
+  border: var(--cs-border);
+  padding: 20px;
+}
+
+.case-study-arch-flow-title {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background-color: var(--cs-yellow);
+  padding: 4px 10px;
+  border: var(--cs-border-sm);
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.case-study-arch-nodes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.case-study-arch-node {
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border-sm);
+  box-shadow: var(--cs-shadow-sm);
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--cs-ink);
+}
+
+.case-study-arch-arrow {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--cs-ink);
+}
+
+/* Architecture Tree Component */
+.pv-tree-item {
+  margin: 10px 0;
+}
+
+.pv-tree-node-card {
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border-sm);
+  box-shadow: var(--cs-shadow-sm);
+  padding: 12px 16px;
+}
+
+.pv-tree-node-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.pv-tree-toggle-btn {
+  background-color: var(--cs-yellow);
+  border: var(--cs-border-sm);
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.pv-tree-toggle-icon.open {
+  transform: rotate(90deg);
+}
+
+.pv-tree-leaf-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: var(--cs-ink);
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.pv-tree-node-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pv-tree-node-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--cs-ink);
+}
+
+.pv-tree-badge {
+  font-size: 10px;
+  font-weight: 900;
+  background-color: var(--cs-lime);
+  padding: 2px 6px;
+  border: var(--cs-border-sm);
+}
+
+.pv-tree-node-desc {
+  font-size: 13px;
+  color: var(--cs-ink-muted);
+  margin: 4px 0 0;
+}
+
+.pv-tree-children {
+  margin-left: 24px;
+  border-left: 2px dashed #121212;
+  padding-left: 16px;
+}
+
+/* Technical Deep Dive / Code Blocks */
 .case-study-code-block {
-  margin: 24px 0;
-  border-radius: 8px;
+  margin: 20px 0;
+  background-color: #18181B;
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-md);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .case-study-code-header {
@@ -315,197 +642,165 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-  background: #161b22;
+  background-color: #27272A;
+  border-bottom: 2px solid #3F3F46;
+  color: #E4E4E7;
   font-size: 12px;
-  color: #8b949e;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: monospace;
+  font-weight: 700;
 }
 
 .case-study-code-label {
-  font-size: 11px;
-  color: #6b7280;
-  font-style: italic;
-  font-family: 'Geist', sans-serif;
+  color: #A1A1AA;
 }
 
 .case-study-code-content {
-  background: #0d1117;
-  padding: 20px;
+  padding: 18px;
   overflow-x: auto;
 }
 
 .case-study-code-content pre {
   margin: 0;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: "JetBrains Mono", Consolas, Monaco, monospace;
   font-size: 13.5px;
   line-height: 1.6;
-  color: #e6edf3;
-  white-space: pre;
-  tab-size: 2;
+  color: #FAFAFA;
 }
 
 .case-study-code-explanation {
-  padding: 14px 16px;
-  background: rgba(6, 182, 212, 0.04);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 14px;
-  color: #9ca3af;
-  line-height: 1.6;
+  padding: 14px 18px;
+  background-color: #FDFBF7;
+  border-top: var(--cs-border-sm);
+  color: var(--cs-ink);
+  font-size: 13.5px;
+  line-height: 1.55;
+  font-weight: 600;
 }
 
-.case-study-architecture {
-  margin: 32px 0;
-}
-
-.case-study-arch-flow {
-  margin-bottom: 32px;
-}
-
-.case-study-arch-flow-title {
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #6b7280;
-  margin-bottom: 16px;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-}
-
-.case-study-arch-nodes {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-
-.case-study-arch-node {
-  padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  font-size: 14px;
-  color: #d1d5db;
-  font-weight: 400;
-}
-
-.case-study-arch-arrow {
-  color: var(--accentColor);
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  user-select: none;
-}
-
+/* Engineering Decisions */
 .case-study-decisions {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
+  margin-top: 16px;
 }
 
 .case-study-decision {
-  padding: 20px 24px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
-  border-left: 3px solid var(--accentColor);
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
 }
 
 .case-study-decision-q {
-  font-size: 16px;
-  font-weight: 500;
-  color: #eae5ec;
-  margin: 0 0 8px;
+  font-size: 14.5px;
+  font-weight: 900;
+  color: var(--cs-ink);
+  background-color: var(--cs-yellow);
+  padding: 12px 18px;
+  border-bottom: var(--cs-border-sm);
+  margin: 0;
 }
 
 .case-study-decision-a {
-  font-size: 15px;
-  color: #9ca3af;
-  margin: 0;
+  font-size: 14.5px;
+  color: var(--cs-ink-muted);
   line-height: 1.65;
+  padding: 16px 18px;
+  margin: 0;
 }
 
+/* Challenges & Solutions */
 .case-study-challenges {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
+  margin-top: 16px;
 }
 
 .case-study-challenge-card {
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
+  padding: 22px;
 }
 
 .case-study-challenge-label {
-  font-size: 11px;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  padding: 2px 8px;
+  border: var(--cs-border-sm);
   margin-bottom: 8px;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 }
 
 .case-study-challenge-label.challenge {
-  color: #f87171;
+  background-color: #FDA4AF;
+  color: var(--cs-ink);
 }
 
 .case-study-challenge-label.solution {
-  color: #34d399;
+  background-color: #86EFAC;
+  color: var(--cs-ink);
 }
 
 .case-study-challenge-text {
-  font-size: 15px;
-  color: #d1d5db;
+  font-size: 14.5px;
   line-height: 1.6;
+  color: var(--cs-ink-muted);
   margin: 0;
 }
 
-.case-study-solution-text {
-  font-size: 15px;
-  color: #d1d5db;
-  line-height: 1.6;
-  margin: 16px 0 0 0;
-}
-
+/* End to End Flow */
 .case-study-flow {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
+  margin-top: 16px;
 }
 
 .case-study-flow-step {
-  padding: 10px 18px;
-  background: rgba(6, 182, 212, 0.08);
-  border: 1px solid rgba(6, 182, 212, 0.2);
-  border-radius: 6px;
-  font-size: 13px;
-  color: #d1d5db;
-  font-weight: 400;
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border-sm);
+  box-shadow: var(--cs-shadow-sm);
+  padding: 10px 16px;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--cs-ink);
 }
 
 .case-study-flow-arrow {
-  color: var(--accentColor);
-  font-size: 16px;
-  user-select: none;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--cs-ink);
 }
 
+/* Tech Stack Section */
 .case-study-tech-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.case-study-tech-category {
+  background-color: var(--cs-bg-alt);
+  border: var(--cs-border);
+  padding: 18px;
 }
 
 .case-study-tech-category-title {
-  font-size: 13px;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 900;
   letter-spacing: 1.5px;
-  color: #6b7280;
-  margin-bottom: 12px;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  text-transform: uppercase;
+  background-color: var(--cs-card-bg);
+  padding: 3px 8px;
+  border: var(--cs-border-sm);
+  display: inline-block;
+  margin-bottom: 14px;
 }
 
 .case-study-tech-items {
@@ -515,85 +810,102 @@
 }
 
 .case-study-tech-tag {
-  padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  font-size: 13px;
-  color: #c9cdd3;
+  font-size: 12px;
+  font-weight: 800;
+  background-color: var(--cs-card-bg);
+  color: var(--cs-ink);
+  padding: 4px 10px;
+  border: var(--cs-border-sm);
 }
 
-.case-study-learnings {
-  padding: 24px 28px;
-  background: rgba(6, 182, 212, 0.04);
-  border-left: 3px solid var(--accentColor);
-  border-radius: 0 8px 8px 0;
-  font-size: 17px;
-  line-height: 1.75;
-  color: #c9cdd3;
-  font-style: italic;
-  font-weight: 300;
+/* Outcome & Learnings */
+.case-study-learnings p {
+  padding: 12px 16px;
+  background-color: var(--cs-bg-alt);
+  border: var(--cs-border-sm);
+  font-size: 14.5px;
+  color: var(--cs-ink);
+  font-weight: 600;
 }
 
-.case-study-nav {
+/* Bottom CTA */
+.case-study-cta {
+  background-color: var(--cs-yellow);
+  border: var(--cs-border-thick);
+  box-shadow: var(--cs-shadow-xl);
+  padding: 44px 36px;
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.case-study-cta p {
+  font-size: clamp(22px, 2.8vw, 32px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--cs-ink);
+  margin: 0 0 24px;
+  line-height: 1.15;
+}
+
+.case-study-cta-links {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+/* Project Navigation (Previous / Next) */
+.case-study-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   margin-top: 40px;
 }
 
 .case-study-nav-link {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  padding: 20px 24px;
+  background-color: var(--cs-card-bg);
+  border: var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
   text-decoration: none;
-  color: #9ca3af;
-  transition: color 0.2s;
+  color: var(--cs-ink);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 .case-study-nav-link:hover {
-  color: var(--accentColor);
-}
-
-.case-study-nav-label {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #6b7280;
-}
-
-.case-study-nav-title {
-  font-size: 16px;
-  font-weight: 500;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--cs-shadow-md);
+  background-color: var(--cs-bg-alt);
 }
 
 .case-study-nav-link.next {
   text-align: right;
+  align-items: flex-end;
 }
 
-.case-study-cta {
-  text-align: center;
-  padding: 60px 0 80px;
+.case-study-nav-label {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--cs-ink-subtle);
+  margin-bottom: 6px;
 }
 
-.case-study-cta p {
-  font-size: 20px;
-  color: #6b7280;
-  margin-bottom: 24px;
+.case-study-nav-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--cs-ink);
 }
 
-.case-study-cta-links {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
-
+/* Fade-in */
 .case-study-fade-in {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .case-study-fade-in.visible {
@@ -601,64 +913,52 @@
   transform: translateY(0);
 }
 
+/* Responsive */
 @media (max-width: 1024px) {
   .case-study-layout {
     grid-template-columns: 1fr;
   }
-  
+
   .case-study-toc {
     display: none;
   }
-  
+
   .case-study-toc-mobile {
     display: block;
+  }
+
+  .case-study-meta {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .case-study-hero h1 {
-    font-size: 32px;
+  .case-study-wrapper {
+    padding: 20px 16px 64px;
   }
-  
-  .case-study-section-title {
-    font-size: 22px;
-  }
-  
-  .case-study-challenges {
+
+  .case-study-meta {
     grid-template-columns: 1fr;
   }
-  
-  .case-study-meta {
-    gap: 20px;
-  }
-  
+
   .case-study-section {
-    margin-bottom: 48px;
+    padding: 24px 20px;
   }
-  
-  .case-study-hero {
-    padding: 40px 0 20px;
+
+  .case-study-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .case-study-nav-link.next {
+    text-align: left;
+    align-items: flex-start;
   }
 }
 
-@media (max-width: 480px) {
-  .case-study-hero h1 {
-    font-size: 26px;
-  }
-  
-  .case-study-code-content pre {
-    font-size: 12px;
-  }
-  
-  .case-study-layout {
-    padding: 0 16px;
-  }
-  
-  .case-study-actions {
-    flex-direction: column;
-  }
-  
-  .case-study-action-btn {
-    justify-content: center;
+@media (prefers-reduced-motion: reduce) {
+  .case-study-fade-in {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
