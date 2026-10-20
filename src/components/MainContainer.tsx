@@ -1,4 +1,4 @@
-import { lazy, PropsWithChildren, Suspense, useEffect, useCallback } from "react";
+import { lazy, PropsWithChildren, Suspense, useEffect, useCallback, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import About from "./About";
 import Career from "./Career";
@@ -12,6 +12,46 @@ import Work from "./Work";
 import setSplitText from "./utils/splitText";
 
 const TechStack = lazy(() => import("./TechStack"));
+
+/**
+ * Defers loading and mounting the heavy (2.5MB) 3D Physics TechStack until
+ * the user scrolls within 600px of the section, eliminating initial load contention.
+ */
+const LazyTechStack = () => {
+  const [inView, setInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (inView) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [inView]);
+
+  return (
+    <div ref={containerRef} style={{ minHeight: "var(--vh)" }}>
+      {inView ? (
+        <Suspense fallback={<div style={{ minHeight: "var(--vh)" }} />}>
+          <TechStack />
+        </Suspense>
+      ) : (
+        <div style={{ minHeight: "var(--vh)" }} />
+      )}
+    </div>
+  );
+};
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
@@ -48,9 +88,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
           <WhatIDo />
           <Career />
           <Work onOpenProject={openProject} />
-          <Suspense fallback={<div>Loading....</div>}>
-            <TechStack />
-          </Suspense>
+          <LazyTechStack />
           <Contact />
         </div>
       </main>
