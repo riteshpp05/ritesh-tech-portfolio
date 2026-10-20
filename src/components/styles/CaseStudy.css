@@ -185,8 +185,8 @@
   font-weight: 900;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  background-color: var(--cs-yellow);
-  color: var(--cs-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   padding: 2px 7px;
   border: var(--cs-border-sm);
   display: inline-block;
@@ -317,8 +317,8 @@
   font-weight: 900;
   letter-spacing: 2px;
   text-transform: uppercase;
-  background-color: var(--cs-yellow);
-  color: var(--cs-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   padding: 4px 10px;
   border: var(--cs-border-sm);
   display: inline-block;
@@ -441,10 +441,11 @@
   font-size: 13px;
   font-family: monospace;
   font-weight: 900;
-  background-color: var(--cs-ink);
-  color: var(--cs-yellow);
+  background-color: #09090B;
+  color: #FFFFFF;
   padding: 4px 10px;
   border: var(--cs-border-sm);
+  box-shadow: 2px 2px 0px #2563EB;
 }
 
 .case-study-section-title {
@@ -525,7 +526,8 @@
   font-weight: 900;
   letter-spacing: 1px;
   text-transform: uppercase;
-  background-color: var(--cs-yellow);
+  background-color: #09090B;
+  color: #FFFFFF;
   padding: 4px 10px;
   border: var(--cs-border-sm);
   display: inline-block;
@@ -574,7 +576,8 @@
 }
 
 .pv-tree-toggle-btn {
-  background-color: var(--cs-yellow);
+  background-color: #09090B;
+  color: #FFFFFF;
   border: var(--cs-border-sm);
   width: 24px;
   height: 24px;
@@ -698,8 +701,8 @@
 .case-study-decision-q {
   font-size: 14.5px;
   font-weight: 900;
-  color: var(--cs-ink);
-  background-color: var(--cs-yellow);
+  color: #FFFFFF !important;
+  background-color: #09090B;
   padding: 12px 18px;
   border-bottom: var(--cs-border-sm);
   margin: 0;
@@ -834,7 +837,8 @@
 
 /* Bottom CTA */
 .case-study-cta {
-  background-color: var(--cs-yellow);
+  background-color: #09090B;
+  color: #FFFFFF;
   border: var(--cs-border-thick);
   box-shadow: var(--cs-shadow-xl);
   padding: 44px 36px;
@@ -847,7 +851,7 @@
   font-weight: 900;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  color: var(--cs-ink);
+  color: #FFFFFF !important;
   margin: 0 0 24px;
   line-height: 1.15;
 }

@@ -24,11 +24,11 @@
   --fl-shadow-xl:   9px 9px 0px #121212;
 
   /* Neo-Brutalist Color Accents */
-  --fl-yellow:      #09090B;
+  --fl-yellow:      #F4F4F5;
   --fl-accent:      #2563EB;    /* Electric Yellow (Primary Energy) */
   --fl-lime:        #10B981;    /* Acid Lime (Status / Fresh) */
   --fl-cyan:        #2563EB;    /* Vivid Cyan */
-  --fl-orange:      #09090B;    /* Safety Orange */
+  --fl-orange:      #F4F4F5;    /* Safety Orange */
   --fl-purple:      #F4F4F5;    /* Bright Lilac */
   --fl-pink:        #F4F4F5;    /* Hot Bubblegum Pink */
 
@@ -113,8 +113,8 @@
   justify-content: center;
   gap: 8px;
   padding: 14px 28px;
-  background-color: var(--fl-yellow);
-  color: var(--fl-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   font-size: 13.5px;
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -249,25 +249,30 @@
   letter-spacing: 1px;
   color: var(--fl-ink);
   text-decoration: none;
-  padding: 4px 6px;
-  transition: background-color 0.15s ease, transform 0.15s ease;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .fl-navbar-links li a:hover {
-  background-color: var(--fl-yellow);
-  color: var(--fl-ink);
+  background-color: #F4F4F5;
+  color: #2563EB;
 }
 
 .fl-nav-portfolio-link {
   border: var(--fl-border-sm) !important;
-  background-color: var(--fl-cyan) !important;
+  background-color: #FFFFFF !important;
+  color: #09090B !important;
   padding: 4px 10px !important;
   box-shadow: 2px 2px 0px #121212 !important;
+  border-radius: 3px;
 }
 
 .fl-nav-portfolio-link:hover {
   transform: translate(-1px, -1px);
   box-shadow: 3px 3px 0px #121212 !important;
+  background-color: #09090B !important;
+  color: #FFFFFF !important;
 }
 
 .fl-navbar-cta {
@@ -439,7 +444,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px;
-  background-color: var(--fl-yellow);
+  background-color: #18181B;
   border-bottom: var(--fl-border);
 }
 
@@ -451,7 +456,7 @@
 .fl-dot-black {
   width: 10px;
   height: 10px;
-  background-color: var(--fl-ink);
+  background-color: #52525B;
   border-radius: 50%;
 }
 
@@ -459,17 +464,17 @@
   font-size: 11.5px;
   font-family: monospace;
   font-weight: 800;
-  color: var(--fl-ink);
+  color: #E2E8F0;
   letter-spacing: 0.5px;
 }
 
 .fl-terminal-badge {
   font-size: 10px;
   font-weight: 900;
-  background-color: var(--fl-lime);
+  background-color: #10B981;
   padding: 2px 6px;
   border: var(--fl-border-sm);
-  color: var(--fl-ink);
+  color: #09090B;
 }
 
 .fl-terminal-body {
@@ -907,8 +912,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  background-color: var(--fl-yellow);
-  color: var(--fl-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.5px;
@@ -1244,7 +1249,8 @@
 .fl-inquiry-contact-link:hover {
   transform: translate(-2px, -2px);
   box-shadow: var(--fl-shadow-md);
-  background-color: var(--fl-yellow);
+  background-color: #F4F4F5;
+  color: #2563EB;
 }
 
 .fl-inquiry-contact-icon {
@@ -1322,8 +1328,8 @@
 
 .fl-form-submit {
   padding: 16px 24px;
-  background-color: var(--fl-yellow);
-  color: var(--fl-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   font-size: 14.5px;
   font-weight: 900;
   letter-spacing: 1px;
@@ -1521,7 +1527,8 @@
 .fl-footer-link:hover {
   transform: translate(-1px, -1px);
   box-shadow: 3px 3px 0px #121212;
-  background-color: var(--fl-yellow);
+  background-color: #F4F4F5;
+  color: #2563EB;
 }
 
 /* ── Scroll Reveal System ───────────────────────────────────── */
