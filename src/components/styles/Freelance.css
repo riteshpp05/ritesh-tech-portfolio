@@ -7,11 +7,11 @@
 
 /* ── Scoped Theme Variables ────────────────────────────────── */
 .fl-page {
-  --fl-bg:          #FDFBF7;    /* Warm cream brutalist canvas */
-  --fl-bg-alt:      #F5F2EA;    /* Slightly deeper cream paper */
+  --fl-bg:          #FAFAFA;    /* Warm cream brutalist canvas */
+  --fl-bg-alt:      #F4F4F5;    /* Slightly deeper cream paper */
   --fl-card-bg:     #FFFFFF;    /* Pure paper white */
-  --fl-ink:         #121212;    /* Obsidian black ink */
-  --fl-ink-muted:   #404040;    /* High-contrast readable body */
+  --fl-ink:         #09090B;    /* Obsidian black ink */
+  --fl-ink-muted:   #52525B;    /* High-contrast readable body */
   --fl-ink-subtle:  #64748B;    /* Secondary meta */
 
   --fl-border:      3px solid #121212;
@@ -24,12 +24,13 @@
   --fl-shadow-xl:   9px 9px 0px #121212;
 
   /* Neo-Brutalist Color Accents */
-  --fl-yellow:      #FFE600;    /* Electric Yellow (Primary Energy) */
-  --fl-lime:        #B8FF00;    /* Acid Lime (Status / Fresh) */
-  --fl-cyan:        #00F0FF;    /* Vivid Cyan */
-  --fl-orange:      #FF6B00;    /* Safety Orange */
-  --fl-purple:      #D8B4FE;    /* Bright Lilac */
-  --fl-pink:        #FF70A6;    /* Hot Bubblegum Pink */
+  --fl-yellow:      #09090B;
+  --fl-accent:      #2563EB;    /* Electric Yellow (Primary Energy) */
+  --fl-lime:        #10B981;    /* Acid Lime (Status / Fresh) */
+  --fl-cyan:        #2563EB;    /* Vivid Cyan */
+  --fl-orange:      #09090B;    /* Safety Orange */
+  --fl-purple:      #F4F4F5;    /* Bright Lilac */
+  --fl-pink:        #F4F4F5;    /* Hot Bubblegum Pink */
 
   background-color: var(--fl-bg);
   color: var(--fl-ink);
@@ -77,12 +78,12 @@
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  background-color: var(--fl-yellow);
-  color: var(--fl-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   font-weight: 900;
   padding: 5px 12px;
   border: var(--fl-border-sm);
-  box-shadow: var(--fl-shadow-sm);
+  box-shadow: 2px 2px 0px #2563EB;
   margin-bottom: 20px;
 }
 
@@ -130,8 +131,8 @@
 .fl-btn-primary:hover {
   transform: translate(-2px, -2px);
   box-shadow: var(--fl-shadow-lg);
-  background-color: #FFF04D;
-  color: var(--fl-ink);
+  background-color: var(--fl-accent);
+  color: #FFFFFF;
 }
 
 .fl-btn-primary:active {
@@ -226,11 +227,11 @@
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 1.5px;
-  background-color: var(--fl-lime);
-  color: var(--fl-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   padding: 3px 8px;
   border: var(--fl-border-sm);
-  box-shadow: 2px 2px 0px #121212;
+  box-shadow: 2px 2px 0px #2563EB;
 }
 
 .fl-navbar-links {
@@ -274,24 +275,25 @@
   align-items: center;
   gap: 6px;
   padding: 9px 18px;
-  background-color: var(--fl-yellow);
-  color: var(--fl-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   border: var(--fl-border);
-  box-shadow: var(--fl-shadow-sm);
+  box-shadow: 2px 2px 0px #2563EB;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
   white-space: nowrap;
 }
 
 .fl-navbar-cta:hover {
   transform: translate(-2px, -2px);
-  box-shadow: var(--fl-shadow-md);
-  background-color: #FFF04D;
+  box-shadow: 3px 3px 0px #09090B;
+  background-color: var(--fl-accent);
+  color: #FFFFFF;
 }
 
 /* ── Hero Section ───────────────────────────────────────────── */
@@ -316,16 +318,17 @@
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  background-color: var(--fl-lime);
+  background-color: #09090B;
+  color: #FFFFFF;
   border: var(--fl-border-sm);
-  box-shadow: var(--fl-shadow-sm);
+  box-shadow: 2px 2px 0px #2563EB;
   margin-bottom: 24px;
 }
 
 .fl-hero-eyebrow-dot {
   width: 8px;
   height: 8px;
-  background-color: var(--fl-ink);
+  background-color: #10B981;
   border-radius: 50%;
   animation: fl-blink 1.8s infinite;
 }
@@ -337,10 +340,10 @@
 
 .fl-hero-eyebrow-text {
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--fl-ink);
+  color: #FFFFFF;
 }
 
 .fl-hero-h1 {
@@ -354,11 +357,11 @@
 }
 
 .fl-hero-marker {
-  background-color: var(--fl-yellow);
-  color: var(--fl-ink);
-  padding: 2px 8px;
+  background-color: #09090B;
+  color: #FFFFFF;
+  padding: 2px 10px;
   border: var(--fl-border-sm);
-  box-shadow: 3px 3px 0px #121212;
+  box-shadow: 3px 3px 0px #2563EB;
   display: inline-block;
   transform: rotate(-1deg);
 }
@@ -493,18 +496,20 @@
 .fl-term-tag {
   display: inline-block;
   align-self: flex-start;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 900;
   letter-spacing: 0.5px;
-  padding: 2px 8px;
-  border: var(--fl-border-sm);
-  color: var(--fl-ink);
+  padding: 3px 8px;
+  border: 1px solid #27272A;
+  background-color: #18181B;
+  color: #FFFFFF;
+  border-radius: 2px;
 }
 
-.fl-term-tag.rag { background-color: var(--fl-yellow); }
-.fl-term-tag.llm { background-color: var(--fl-lime); }
-.fl-term-tag.auto { background-color: var(--fl-cyan); }
-.fl-term-tag.stack { background-color: var(--fl-purple); }
+.fl-term-tag.rag { background-color: #18181B; color: #60A5FA; border-color: #2563EB; }
+.fl-term-tag.llm { background-color: #18181B; color: #34D399; border-color: #059669; }
+.fl-term-tag.auto { background-color: #18181B; color: #C084FC; border-color: #7C3AED; }
+.fl-term-tag.stack { background-color: #18181B; color: #F4F4F5; border-color: #52525B; }
 
 .fl-term-desc {
   font-size: 13px;
@@ -582,7 +587,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 16px;
+  padding: 10px 18px;
+  background-color: #09090B;
+  color: #FFFFFF;
   border-bottom: var(--fl-border);
 }
 
@@ -693,8 +700,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 24px;
+  background-color: #09090B;
+  color: #FFFFFF;
   border-bottom: var(--fl-border);
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .fl-case-topbar-left {
@@ -784,13 +793,13 @@
 }
 
 .fl-callout-badge.problem {
-  background-color: #FDA4AF;
-  color: var(--fl-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
 }
 
 .fl-callout-badge.solution {
-  background-color: #86EFAC;
-  color: var(--fl-ink);
+  background-color: #2563EB;
+  color: #FFFFFF;
 }
 
 .fl-callout-text {
@@ -915,7 +924,8 @@
 .fl-case-action-btn:hover {
   transform: translate(-2px, -2px);
   box-shadow: var(--fl-shadow-lg);
-  background-color: #FFF04D;
+  background-color: var(--fl-accent);
+  color: #FFFFFF;
 }
 
 .fl-case-action-btn:active {
@@ -951,9 +961,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 900;
-  color: var(--fl-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
 }
 
 .fl-process-card {
@@ -1011,9 +1022,10 @@
   font-size: 11px;
   font-weight: 900;
   font-family: monospace;
-  background-color: var(--fl-yellow);
-  padding: 2px 6px;
-  border: var(--fl-border-sm);
+  background-color: #09090B;
+  color: #FFFFFF;
+  padding: 2px 7px;
+  border-radius: 2px;
 }
 
 .fl-why-icon {
@@ -1054,7 +1066,9 @@
 }
 
 .fl-engagement-top {
-  padding: 8px 14px;
+  padding: 10px 18px;
+  background-color: #09090B;
+  color: #FFFFFF;
   border-bottom: var(--fl-border);
 }
 
@@ -1062,7 +1076,7 @@
   font-size: 10.5px;
   font-weight: 900;
   letter-spacing: 1px;
-  color: var(--fl-ink);
+  color: #FFFFFF;
 }
 
 .fl-engagement-body {
@@ -1118,9 +1132,10 @@
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 1px;
-  background-color: var(--fl-lime);
+  background-color: #09090B;
+  color: #FFFFFF;
   padding: 3px 8px;
-  border: var(--fl-border-sm);
+  border-radius: 2px;
   margin-bottom: 8px;
 }
 
@@ -1156,7 +1171,8 @@
   font-size: 10.5px;
   font-weight: 900;
   letter-spacing: 1.5px;
-  background-color: var(--fl-cyan);
+  background-color: #09090B;
+  color: #FFFFFF;
   padding: 4px 12px;
   border: var(--fl-border-sm);
   box-shadow: var(--fl-shadow-sm);
@@ -1323,7 +1339,8 @@
 .fl-form-submit:hover:not(:disabled) {
   transform: translate(-2px, -2px);
   box-shadow: var(--fl-shadow-lg);
-  background-color: #FFF04D;
+  background-color: var(--fl-accent);
+  color: #FFFFFF;
 }
 
 .fl-form-submit:active:not(:disabled) {
@@ -1392,7 +1409,8 @@
 }
 
 .fl-final-box {
-  background-color: var(--fl-yellow);
+  background-color: #09090B;
+  color: #FFFFFF;
   border: var(--fl-border-thick);
   box-shadow: var(--fl-shadow-xl);
   padding: 56px 48px;
@@ -1420,15 +1438,15 @@
   margin: 0 0 16px;
   text-transform: uppercase;
   max-width: 860px;
-  color: var(--fl-ink);
+  color: #FFFFFF;
 }
 
 .fl-final-sub {
   font-size: 18px;
-  color: var(--fl-ink);
-  font-weight: 600;
+  color: #A1A1AA;
+  font-weight: 500;
   margin: 0 0 36px;
-  max-width: 580px;
+  max-width: 640px;
 }
 
 .fl-final-ctas {
@@ -1465,9 +1483,10 @@
   font-size: 9.5px;
   font-weight: 900;
   letter-spacing: 1px;
-  background-color: var(--fl-lime);
-  padding: 2px 6px;
-  border: var(--fl-border-sm);
+  background-color: #09090B;
+  color: #FFFFFF;
+  padding: 3px 8px;
+  border-radius: 2px;
 }
 
 .fl-footer-copy {

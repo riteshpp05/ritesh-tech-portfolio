@@ -2,15 +2,6 @@ import { useReveal } from "../../hooks/useReveal";
 import { useNavigate } from "react-router-dom";
 import { projects } from "../../data/projectData";
 
-const ACCENT_COLORS = [
-  { bg: "#FFE600", text: "#121212" }, // Electric Yellow
-  { bg: "#B8FF00", text: "#121212" }, // Acid Lime
-  { bg: "#00F0FF", text: "#121212" }, // Cyan
-  { bg: "#FF6B00", text: "#FFFFFF" }, // Orange
-  { bg: "#D8B4FE", text: "#121212" }, // Lilac
-  { bg: "#FF70A6", text: "#121212" }, // Pink
-];
-
 const FreelanceCaseStudies = () => {
   const navigate = useNavigate();
   const refs = useReveal(12, 0.08);
@@ -28,7 +19,6 @@ const FreelanceCaseStudies = () => {
 
       <div className="fl-cases-list" role="list">
         {projects.map((project, i) => {
-          const accent = ACCENT_COLORS[i % ACCENT_COLORS.length];
           const problemText = project.problem?.[0] || project.overview?.[0] || "";
           const solutionText =
             project.challenges?.[0]?.solution ||
@@ -46,11 +36,8 @@ const FreelanceCaseStudies = () => {
               role="listitem"
               aria-label={project.title}
             >
-              {/* Top Accent Bar */}
-              <div
-                className="fl-case-topbar"
-                style={{ backgroundColor: accent.bg, color: accent.text }}
-              >
+              {/* Sleek Minimalist Topbar */}
+              <div className="fl-case-topbar">
                 <div className="fl-case-topbar-left">
                   <span className="fl-case-index-badge">CASE #{String(i + 1).padStart(2, "0")}</span>
                   <span className="fl-case-domain-tag">{project.domain}</span>
@@ -98,20 +85,29 @@ const FreelanceCaseStudies = () => {
                   </div>
                 </div>
 
-                {/* Right CTA Action Column */}
+                {/* Right Column: Actions & Outcomes */}
                 <div className="fl-case-action-col">
-                  <div className="fl-case-role-badge">
-                    <span className="fl-role-label">ROLE</span>
-                    <span className="fl-role-val">{project.role}</span>
-                  </div>
+                  {project.outcome && project.outcome.length > 0 && (
+                    <div className="fl-case-outcomes-box">
+                      <div className="fl-case-outcome-title">MEASURABLE IMPACT</div>
+                      <ul className="fl-case-outcome-list">
+                        {project.outcome.slice(0, 3).map((item, oIdx) => (
+                          <li key={oIdx} className="fl-case-outcome-item">
+                            <span className="fl-outcome-dot" aria-hidden="true">▸</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                   <button
-                    className="fl-case-action-btn"
+                    className="fl-btn-primary fl-case-view-btn"
                     onClick={() => navigate(`/projects/${project.slug}`)}
-                    aria-label={`Read full case study for ${project.title}`}
+                    aria-label={`View complete case study for ${project.title}`}
                   >
-                    <span>VIEW FULL CASE STUDY</span>
-                    <span className="fl-btn-arrow" aria-hidden="true">↗</span>
+                    <span>VIEW CASE STUDY</span>
+                    <span className="fl-btn-arrow" aria-hidden="true">→</span>
                   </button>
                 </div>
               </div>

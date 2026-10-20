@@ -5,7 +5,6 @@ interface Service {
   icon: string;
   title: string;
   badge: string;
-  color: string;
   description: string;
   examples: string[];
 }
@@ -16,19 +15,17 @@ const SERVICES: Service[] = [
     icon: "⬡",
     title: "AI & Generative AI",
     badge: "GENAI & RAG",
-    color: "#FFE600",
     description:
-      "Grounded production AI systems using LLMs, hybrid RAG, LangChain/LangGraph, citation verification, and custom local models with zero data leakage.",
-    examples: ["Custom RAG Pipelines", "Private LLMs (Llama.cpp)", "Document Intelligence", "Agent Workflows", "Citation Grounding"],
+      "Production-grade AI systems with private local LLMs, hybrid RAG retrieval, citation verification, and autonomous agent workflows with zero data leakage.",
+    examples: ["Custom RAG Pipelines", "Private LLMs (Llama.cpp)", "Document Intelligence", "Autonomous Agents", "Citation Grounding"],
   },
   {
     index: "02",
     icon: "⟳",
     title: "Business Automation",
     badge: "WORKFLOW ENGINE",
-    color: "#B8FF00",
     description:
-      "Automate repetitive operational processes, multi-stage approval flows, webhook pipelines, notifications, and enterprise data synchronization.",
+      "Automate manual business operations, multi-stage approval chains, asynchronous webhook pipelines, and real-time enterprise data synchronization.",
     examples: ["Workflow Automation", "API Orchestration", "Approval Pipelines", "Event Webhooks", "Process Optimization"],
   },
   {
@@ -36,30 +33,27 @@ const SERVICES: Service[] = [
     icon: "◫",
     title: "Custom Web Applications",
     badge: "FULL-STACK PLATFORM",
-    color: "#00F0FF",
     description:
-      "Production-ready React, TypeScript, and FastAPI web platforms with modern design, state management, robust database architecture, and security.",
-    examples: ["Executive Dashboards", "Internal Tools", "SaaS MVPs", "Custom Client Portals", "REST/FastAPI Backends"],
+      "High-performance React, TypeScript, and FastAPI applications architected for reliability, responsive UI performance, and secure cloud deployment.",
+    examples: ["Executive Dashboards", "Internal Tools", "SaaS MVPs", "Custom Client Portals", "FastAPI Backends"],
   },
   {
     index: "04",
     icon: "◈",
     title: "Data & Analytics",
     badge: "ANALYTICS & BI",
-    color: "#FF6B00",
     description:
-      "Convert fragmented business data into actionable dashboards, clean relational schemas, automated reporting pipelines, and predictive insights.",
-    examples: ["Relational Modeling", "Real-Time Metrics", "Automated Reporting", "Predictive Analytics", "Data Cleansing"],
+      "Transform fragmented operational data into clean relational schemas, automated analytical pipelines, and real-time executive reporting dashboards.",
+    examples: ["Relational Modeling", "Real-Time Telemetry", "Automated Reporting", "Predictive Analytics", "Data Hygiene"],
   },
   {
     index: "05",
     icon: "⌥",
     title: "System Integration",
     badge: "ENTERPRISE CONNECT",
-    color: "#D8B4FE",
     description:
-      "Connect proprietary APIs, legacy databases, SAP BTP services, and external payment or CRM providers into cohesive, maintainable systems.",
-    examples: ["SAP BTP & S/4HANA", "Zoho Books APIs", "Payment Gateways", "OData & REST", "VPC & Edge Integrations"],
+      "Bridge proprietary databases, SAP BTP services, payment gateways, and third-party SaaS APIs into cohesive, resilient software ecosystems.",
+    examples: ["SAP BTP & S/4HANA", "Zoho Books APIs", "Payment Gateways", "OData & REST", "VPC & Edge Relays"],
   },
 ];
 
@@ -73,7 +67,7 @@ const FreelanceServices = () => {
         <h2 className="fl-section-heading">WHAT I BUILD FOR YOUR BUSINESS.</h2>
         <p className="fl-section-sub">
           Full-stack capabilities with specialized AI and systems engineering.
-          No speculative bloat — only clean, scalable architecture built around your core requirements.
+          Zero speculative bloat — only clean, scalable software architected around your core business requirements.
         </p>
       </div>
 
@@ -86,8 +80,8 @@ const FreelanceServices = () => {
             style={{ transitionDelay: `${i * 60}ms` }}
             role="listitem"
           >
-            {/* Top header strip */}
-            <div className="fl-service-topbar" style={{ backgroundColor: service.color }}>
+            {/* Sleek Minimalist Topbar */}
+            <div className="fl-service-topbar">
               <span className="fl-service-index">#{service.index}</span>
               <span className="fl-service-badge-pill">{service.badge}</span>
             </div>

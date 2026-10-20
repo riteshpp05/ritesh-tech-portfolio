@@ -6,11 +6,11 @@
    ============================================================ */
 
 .case-study-page {
-  --cs-bg:          #FDFBF7;    /* Warm cream canvas */
-  --cs-bg-alt:      #F5F2EA;    /* Paper cream */
+  --cs-bg:          #FAFAFA;    /* Warm cream canvas */
+  --cs-bg-alt:      #F4F4F5;    /* Paper cream */
   --cs-card-bg:     #FFFFFF;    /* Paper white */
-  --cs-ink:         #121212;    /* Obsidian black */
-  --cs-ink-muted:   #383838;    /* High-contrast body */
+  --cs-ink:         #09090B;    /* Obsidian black */
+  --cs-ink-muted:   #52525B;    /* High-contrast body */
   --cs-ink-subtle:  #64748B;    /* Secondary */
 
   --cs-border:      3px solid #121212;
@@ -22,12 +22,13 @@
   --cs-shadow-lg:   7px 7px 0px #121212;
   --cs-shadow-xl:   9px 9px 0px #121212;
 
-  --cs-yellow:      #FFE600;
-  --cs-lime:        #B8FF00;
-  --cs-cyan:        #00F0FF;
-  --cs-orange:      #FF6B00;
-  --cs-purple:      #D8B4FE;
-  --cs-pink:        #FF70A6;
+  --cs-yellow:      #09090B;
+  --cs-accent:      #2563EB;
+  --cs-lime:        #10B981;
+  --cs-cyan:        #2563EB;
+  --cs-orange:      #09090B;
+  --cs-purple:      #F4F4F5;
+  --cs-pink:        #F4F4F5;
 
   min-height: 100vh;
   background-color: var(--cs-bg);
@@ -68,7 +69,7 @@
   align-items: center;
   gap: 6px;
   padding: 9px 18px;
-  background-color: var(--cs-yellow);
+  background-color: #FFFFFF;
   color: var(--cs-ink);
   font-size: 12.5px;
   font-weight: 900;
@@ -83,7 +84,8 @@
 .case-study-back-btn:hover {
   transform: translate(-2px, -2px);
   box-shadow: var(--cs-shadow-md);
-  background-color: #FFF04D;
+  background-color: #09090B;
+  color: #FFFFFF;
 }
 
 .case-study-home-btn {
@@ -120,11 +122,11 @@
   font-weight: 900;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  background-color: var(--cs-lime);
-  color: var(--cs-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
   padding: 4px 10px;
   border: var(--cs-border-sm);
-  box-shadow: 2px 2px 0px #121212;
+  box-shadow: 2px 2px 0px #2563EB;
 }
 
 .case-study-id-badge {
@@ -237,11 +239,13 @@
 }
 
 .case-study-action-btn.primary {
-  background-color: var(--cs-yellow);
+  background-color: #09090B;
+  color: #FFFFFF;
 }
 
 .case-study-action-btn.primary:hover {
-  background-color: #FFF04D;
+  background-color: var(--cs-accent);
+  color: #FFFFFF;
 }
 
 /* Hero Visual / Screenshot */
@@ -358,11 +362,11 @@
 }
 
 .case-study-toc-link.active {
-  background-color: var(--cs-yellow);
-  color: var(--cs-ink);
-  font-weight: 900;
+  background-color: #09090B;
+  color: #FFFFFF;
+  font-weight: 800;
   border: var(--cs-border-sm);
-  box-shadow: 2px 2px 0px #121212;
+  box-shadow: 2px 2px 0px #09090B;
 }
 
 .case-study-toc-number {
@@ -376,8 +380,8 @@
 }
 
 .case-study-toc-link.active .case-study-toc-number {
-  background-color: var(--cs-ink);
-  color: var(--cs-yellow);
+  background-color: #2563EB;
+  color: #FFFFFF;
 }
 
 /* Mobile ToC */
@@ -736,13 +740,13 @@
 }
 
 .case-study-challenge-label.challenge {
-  background-color: #FDA4AF;
-  color: var(--cs-ink);
+  background-color: #09090B;
+  color: #FFFFFF;
 }
 
 .case-study-challenge-label.solution {
-  background-color: #86EFAC;
-  color: var(--cs-ink);
+  background-color: #2563EB;
+  color: #FFFFFF;
 }
 
 .case-study-challenge-text {

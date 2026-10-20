@@ -5,29 +5,25 @@ const MODELS = [
   {
     title: "Project-Based Build",
     badge: "FIXED SCOPE",
-    color: "#FFE600",
-    description: "For clearly defined web applications, AI integrations, and automation systems with specific requirements and milestones.",
+    description: "For clearly defined web platforms, AI pipelines, and enterprise automation with explicit milestones and fixed deliverables.",
     note: "✓ Milestone delivery · Defined timeline · Fixed deliverables",
   },
   {
     title: "MVP Development",
     badge: "FAST TURNAROUND",
-    color: "#B8FF00",
     description: "For founders and early-stage teams aiming to bring a validated, working AI or web product to market within 2–4 weeks.",
     note: "✓ Core features first · Rapid iteration · Full IP handoff",
   },
   {
-    title: "AI & System Consulting",
+    title: "AI & Systems Consulting",
     badge: "ARCHITECTURE AUDIT",
-    color: "#00F0FF",
-    description: "For companies that need expert guidance designing vector search topology, local LLM feasibility, or SAP/cloud architectures before building.",
-    note: "✓ Tech stack evaluation · Feasibility analysis · Architecture blueprint",
+    description: "Expert advisory for vector search topologies, local LLM feasibility, and cloud or SAP BTP system design before building.",
+    note: "✓ Stack evaluation · Feasibility analysis · Architecture blueprint",
   },
   {
     title: "Dedicated Engineering",
     badge: "RETAINER",
-    color: "#D8B4FE",
-    description: "For scaling businesses needing continuous feature development, pipeline optimizations, maintenance, and technical ownership.",
+    description: "For established businesses needing continuous feature development, pipeline optimizations, maintenance, and technical ownership.",
     note: "✓ Guaranteed hours · Priority response · Ongoing roadmap execution",
   },
 ];
@@ -54,7 +50,7 @@ const FreelanceEngagement = () => {
             style={{ transitionDelay: `${i * 70}ms` }}
             role="listitem"
           >
-            <div className="fl-engagement-top" style={{ backgroundColor: model.color }}>
+            <div className="fl-engagement-top">
               <span className="fl-engagement-badge">{model.badge}</span>
             </div>
             <div className="fl-engagement-body">
